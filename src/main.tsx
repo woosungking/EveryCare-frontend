@@ -7,13 +7,20 @@ import BackLayout from './components/BackLayout';
 import LoginPage from './pages/login/LoginPage';
 import SignupPage from './pages/sign/SignupPage';
 import SiginupPage2 from './pages/sign/SignupPage2';
-import ScanOrDirectPage from './pages/scan/ScanOrDirectPage';
+import ScanOrDirectPage from './pages/register/ScanOrDirectPage';
+import DirectScanPage from './pages/register/DirectScanPage';
+import ScanConfirmPage from './pages/register/ScanConfirmPage';
+import DirectRegister from './components/register/DirectRegister';
+import DirectRegisterPage from './pages/register/DirectRegisterPage';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    {/* <SignupPage></SignupPage> */}
     {/* <LoginPage></LoginPage> */}
+    {/* <SignupPage></SignupPage> */}
     {/* <SiginupPage2></SiginupPage2> */}
-    <ScanOrDirectPage></ScanOrDirectPage>
+    {/* <ScanOrDirectPage></ScanOrDirectPage> */}
+    {/* <DirectScanPage></DirectScanPage> */}
+    {/* <ScanConfirmPage></ScanConfirmPage> */}
+    <DirectRegisterPage></DirectRegisterPage>
   </React.StrictMode>,
 );
