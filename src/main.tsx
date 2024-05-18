@@ -12,6 +12,8 @@ import DirectScanPage from './pages/register/DirectScanPage';
 import ScanConfirmPage from './pages/register/ScanConfirmPage';
 import DirectRegister from './components/register/DirectRegister';
 import DirectRegisterPage from './pages/register/DirectRegisterPage';
+import PillSearchPage from './pages/register/PillSearchPage';
+import PillRegister from './pages/register/PillRegister';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
@@ -21,6 +23,8 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     {/* <ScanOrDirectPage></ScanOrDirectPage> */}
     {/* <DirectScanPage></DirectScanPage> */}
     {/* <ScanConfirmPage></ScanConfirmPage> */}
-    <DirectRegisterPage></DirectRegisterPage>
+    {/* <DirectRegisterPage></DirectRegisterPage> */}
+    {/* <PillSearchPage></PillSearchPage> */}
+    <PillRegister></PillRegister>
   </React.StrictMode>,
 );
