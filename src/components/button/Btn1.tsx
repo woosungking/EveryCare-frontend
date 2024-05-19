@@ -3,7 +3,7 @@ import React from 'react';
 const btnStyle = {
   borderRadius: '25px',
   backgroundColor: '#E4EFFB',
-  minWidth: '90%',
+  width: '90%',
   minHeight: '7%',
   display: 'block',
   margin: 'auto',

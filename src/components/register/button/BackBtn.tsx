@@ -7,7 +7,7 @@ const BackBtn: React.FC = ({ text }) => {
         paddingLeft: '1rem',
         fontSize: '1.25rem',
         fontWeight: 'bold',
-        marginTop:"3%"
+        marginTop: '3%',
       }}
     >
       <button> &lt; </button>
