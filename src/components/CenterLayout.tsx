@@ -12,7 +12,7 @@ const CenterLayout: React.FC<{ style?: React.CSSProperties }> = ({
   };
   const mergedStyle = { ...style, ...CenterLayoutStyle };
   return (
-    <div className="h-screen bg-white relative" style={mergedStyle}>
+    <div className="h-screen bg-white" style={mergedStyle}>
       {/* <img
         src={MainLog}
         alt="MainLogo"
