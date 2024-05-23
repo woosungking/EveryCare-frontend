@@ -22,9 +22,9 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     {/* <SiginupPage2></SiginupPage2> */}
     {/* <ScanOrDirectPage></ScanOrDirectPage> */}
     {/* <DirectScanPage></DirectScanPage> */}
-    {/* <ScanConfirmPage></ScanConfirmPage> */}
+    <ScanConfirmPage></ScanConfirmPage>
     {/* <DirectRegisterPage></DirectRegisterPage> */}
     {/* <PillSearchPage></PillSearchPage> */}
-    <PillRegister></PillRegister>
+    {/* <PillRegister></PillRegister> */}
   </React.StrictMode>,
 );

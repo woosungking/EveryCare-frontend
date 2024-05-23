@@ -7,11 +7,12 @@ import Search from '../assets/navicon/Search.png';
 const NavBar: React.FC = () => {
   const NavStyle = {
     bottom: '0', // 화면 하단에 고정
-    width: '100%',
+    width: '453px',
     height: '4.25rem',
     borderTop: '1px solid #D9D9D9',
     borderRadiusTop: '15px',
-    backgroundColor:"white"
+    backgroundColor:"white",
+    
   };
 
   const NavContentStyle = {

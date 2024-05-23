@@ -9,13 +9,11 @@ import SmallLogo from '../../components/SmallLogo';
 const ScanOrDirectPage: React.FC = () => {
   return (
     <BackLayout>
-      <div className="relative">
         <CenterLayout>
           <SmallLogo></SmallLogo>
           <ScanOrDirec></ScanOrDirec>
         </CenterLayout>
         <NavBar></NavBar>
-      </div>
     </BackLayout>
   );
 };

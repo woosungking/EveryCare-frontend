@@ -10,16 +10,26 @@ import CalendarImg from '../../assets/calendar.png';
 
 import './CustomDatePicker.css';
 import InputBtn from '../button/Btn2';
+import AddPillModal from './AddPillModal';
 const ScanConfirm: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+
+  const handleOpenModal = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
   };
 
   const ExContainnerStyle = {
-    width: '100%',
-    height: '30rem',
+    width: '453px',
+    padding:"16px",
     marginTop: '3%',
     marginBottom: '50%',
     // backgroundColor: 'green',
@@ -40,9 +50,25 @@ const ScanConfirm: React.FC = () => {
     fontSize: '0.8rem',
     color: 'gray',
     fontSize: '0.94rem',
+    position: 'relative',
+    paddingRight: '1rem',
+  };
+
+  const deleteBtnStyle = {
+    width: '1rem',
+    height: '1rem',
+    border: '1px solid #F5F5F5',
+    borderRadius: '10px',
+    fontSize: '1rem',
+    color: '#F56132',
+    backgroundColor: 'rgba(217, 217, 217, 0.58)',
+    position: 'absolute',
+    right: '1%',
+    top: '18%',
+    fontWeight: 'bold',
   };
   return (
-    <div style={ExContainnerStyle}>
+    <div style={ExContainnerStyle} className="h-[60vh]">
       <BackBtn text="처방전 확인"></BackBtn>
 
       <div
@@ -74,17 +100,17 @@ const ScanConfirm: React.FC = () => {
 
       <div className="relative">
         {/* //추가, 수정 소 버튼의 위치를 상대적으로 지정하기 위해 div로 한번 감싸주었음. */}
-        <PillNextText prescriptionText="처방약품"></PillNextText>
+        <PillNextText headText="처방약품"></PillNextText>
         <div
           style={{
-            height:"5rem",
+            height: '5rem',
             maxWidth: '90%',
             minWidth: '90%',
             backgroundColor: 'white',
             marginLeft: 'auto',
             marginRight: 'auto',
             display: 'flex',
-            overflow:"scroll",
+            overflow: 'scroll',
           }}
         >
           <ul
@@ -97,23 +123,44 @@ const ScanConfirm: React.FC = () => {
               flexWrap: 'wrap',
             }}
           >
-            <li style={ListStyle}>씨프로바이정250밀리그램</li>
-            <li style={ListStyle}>씨프로바이정250밀리그램</li>
-            <li style={ListStyle}>씨프로바이정250밀리그램</li>
-            <li style={ListStyle}>씨프로바이정250밀리그램</li>
-            <li style={ListStyle}>씨프로바이정250밀리그램</li>
-            <li style={ListStyle}>씨프로바이정250밀리그램</li>
-            <li style={ListStyle}>씨프로바이정250밀리그램</li>
-            <li style={ListStyle}>씨프로바이정250밀리그램</li>
-            <li style={ListStyle}>씨프로바이정250밀리그램</li>
-            <li style={ListStyle}>씨프로바이정250밀리그램</li>
-            
+            <li style={ListStyle}>
+              <p>씨프로바이정250밀리그램</p>
+              <button style={deleteBtnStyle}>-</button>
+            </li>
+            <li style={ListStyle}>
+              <p>씨프로바이정250밀리그램</p>
+              <button style={deleteBtnStyle}>-</button>
+            </li>
+            <li style={ListStyle}>
+              <p>씨프로바이정250밀리그램</p>
+              <button style={deleteBtnStyle}>-</button>
+            </li>
+            <li style={ListStyle}>
+              <p>씨프로바이정250밀리그램</p>
+              <button style={deleteBtnStyle}>-</button>
+            </li>
+            <li style={ListStyle}>
+              <p>씨프로바이정250밀리그램</p>
+              <button style={deleteBtnStyle}>-</button>
+            </li>
+            <li style={ListStyle}>
+              <p>씨프로바이정250밀리그램</p>
+              <button style={deleteBtnStyle}>-</button>
+            </li>
+            <li style={ListStyle}>
+              <p>씨프로바이정250밀리그램</p>
+              <button style={deleteBtnStyle}>-</button>
+            </li>
+            <li style={ListStyle}>
+              <p>씨프로바이정250밀리그램</p>
+              <button style={deleteBtnStyle}>-</button>
+            </li>
           </ul>
         </div>
         <button
           style={{
             position: 'absolute',
-            right: '0%',
+            right: '7%',
             top: '10%',
             width: '2.3125rem',
             height: '1.125rem',
@@ -127,49 +174,31 @@ const ScanConfirm: React.FC = () => {
             fontWeight: 800,
             lineHeight: 'normal',
           }}
-        >
-          수정
-        </button>
-        <button
-          style={{
-            position: 'absolute',
-            right: '10%',
-            top: '10%',
-            width: '2.3125rem',
-            height: '1.125rem',
-            borderRadius: '2.34375rem',
-            backgroundColor: '#F5F5F5',
-            color: '#F56132',
-            textAlign: 'center',
-            fontFamily: 'Abhaya Libre ExtraBold',
-            fontSize: '0.625rem',
-            fontStyle: 'normal',
-            fontWeight: 800,
-            lineHeight: 'normal',
-          }}
+          onClick={handleOpenModal} // 모달창 open 핸들러
         >
           추가
         </button>
       </div>
-      <PillNextText prescriptionText="처방약품"></PillNextText>
+      <PillNextText headText="복용기간"></PillNextText>
 
       <form
         style={{
           width: '100%',
           height: '6.4%',
-          marginTop: '1rem',
+          marginTop: '0.5rem',
+          marginBottom: '2rem',
           // backgroundColor: 'red',
         }}
       >
         <DatePicker
-          style={{
-            width: '38%',
-            height: '75%',
-            fontSize: '1rem',
-            display: 'block',
-            margin: 'auto',
-            marginLeft: '10px',
-          }}
+          // style={{
+          //   width: '38%',
+          //   height: '75%',
+          //   fontSize: '1rem',
+          //   display: 'block',
+          //   margin: 'auto',
+          //   marginLeft: '10px',
+          // }}
           className="date-picker-input"
           showIcon
           selected={selectedDate}
@@ -202,7 +231,7 @@ const ScanConfirm: React.FC = () => {
           }
         />
       </form>
-      <PillNextText prescriptionText="처방약품"></PillNextText>
+      <PillNextText headText="질환이름"></PillNextText>
       <p
         style={{
           // backgroundColor: 'blue',
@@ -218,13 +247,34 @@ const ScanConfirm: React.FC = () => {
         알츠하이머
       </p>
       <div style={{ width: '100%', height: '15%' }}>
-        <InputBtn style={{ height: '30%', fontSize: '1.25rem' }}>
+        <InputBtn
+          style={{
+            height: '40%',
+            fontSize: '1.25rem',
+            color: '#666',
+            backgroundColor: 'white',
+            border: '1px solid rgba(59, 171, 231, 0.51)',
+          }}
+        >
           질병입력
         </InputBtn>
-        <InputBtn style={{ height: '30%', fontSize: '1.25rem' }}>
+        <InputBtn
+          style={{
+            height: '40%',
+            fontSize: '1.25rem',
+            color: 'white',
+            backgroundColor: '#A7D1FF',
+          }}
+        >
           저장하기
         </InputBtn>
       </div>
+
+      <AddPillModal showModal={showModal} onClose={handleCloseModal}>
+        <h2>모달 창 내용</h2>
+        <p>여기에 추가할 내용을 넣으세요.</p>
+      </AddPillModal>
+      
     </div>
   );
 };
