@@ -14,6 +14,7 @@ import DirectRegister from './components/register/DirectRegister';
 import DirectRegisterPage from './pages/register/DirectRegisterPage';
 import PillSearchPage from './pages/register/PillSearchPage';
 import PillRegister from './pages/register/PillRegister';
+import CalendarPage from './pages/calendar/CalendarPage';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
@@ -22,9 +23,10 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     {/* <SiginupPage2></SiginupPage2> */}
     {/* <ScanOrDirectPage></ScanOrDirectPage> */}
     {/* <DirectScanPage></DirectScanPage> */}
-    <ScanConfirmPage></ScanConfirmPage>
+    {/* <ScanConfirmPage></ScanConfirmPage> */}
     {/* <DirectRegisterPage></DirectRegisterPage> */}
     {/* <PillSearchPage></PillSearchPage> */}
     {/* <PillRegister></PillRegister> */}
+    <CalendarPage />
   </React.StrictMode>,
 );
