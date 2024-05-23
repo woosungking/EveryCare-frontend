@@ -6,9 +6,9 @@ const BackLayout: React.FC = ({ children }) => {
       className="flex justify-center items-center"
       style={{
         backgroundColor: '#F1F8FF',
-        minWidth: '35%', // viewport의 너비의 1/3
-        minHeight: '100%', // viewport의 높이의 1/3
-        overflow: 'auto',
+        minWidth: '35vw', // viewport의 너비의 1/3
+        minHeight: '100vh', // viewport의 높이의 1/3
+        // overflow: 'auto',
       }}
     >
       {children}

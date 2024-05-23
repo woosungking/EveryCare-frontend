@@ -8,13 +8,11 @@ import ScanConfirm from '../../components/register/ScanConfirm';
 const ScanConfirmPage: React.FC = () => {
   return (
     <BackLayout>
-      <div className="relative">
         <CenterLayout>
           <SmallLogo></SmallLogo>
           <ScanConfirm></ScanConfirm>
         </CenterLayout>
         <NavBar></NavBar>
-      </div>
     </BackLayout>
   );
 };

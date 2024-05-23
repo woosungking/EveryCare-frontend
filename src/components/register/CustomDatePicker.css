@@ -4,7 +4,9 @@
     height: 37px;
     min-height: 100%;
     margin-left: 2rem;
+    
     font-size: 0.8rem;
+    border: 1px solid rgba(59, 171, 231, 0.51);
   }
 
   .date-picker-img{

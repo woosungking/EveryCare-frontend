@@ -5,13 +5,14 @@ import CustomHr from '../CustomHr';
 const ScanOrDirec: React.FC = () => {
   const ContainnerStyle = {
     width: '100%',
-    height: '40rem',
+    minHeight: '100vh',
+    // height: '40rem',
     // backgroundColor: 'blue', 범위확인용
     marginTop: '3%',
     marginBottom: '20%',
   };
   const ImgContainnerStyle = {
-    height: '45%',
+    height: '40%',
     width: '65%',
     margin: 'auto',
     margginTop: '100px',
