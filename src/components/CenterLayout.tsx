@@ -8,7 +8,7 @@ const CenterLayout: React.FC<{ style?: React.CSSProperties }> = ({
   const CenterLayoutStyle = {
     boxShadow: '0 0 1px gray',
     width: '453px',
-    minHeight: '100%',
+    minHeight: '100vh',
   };
   const mergedStyle = { ...style, ...CenterLayoutStyle };
   return (

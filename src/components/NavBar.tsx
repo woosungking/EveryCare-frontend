@@ -18,7 +18,7 @@ const NavBar: React.FC = () => {
     backgroundSize: 'contain',
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
-    marginTop:"10px",
+    marginTop: '10px',
   };
 
   return (
