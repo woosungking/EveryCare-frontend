@@ -28,7 +28,9 @@ const PillNextText: React.FC = ({ headText, contentText }) => {
         }}
       >
         <p className="block">{headText}</p>
-        <p className="text-gray-500 font-abel text-sm font-normal">{contentText}</p>
+        <p className="text-gray-500 font-abel text-sm font-normal">
+          {contentText}
+        </p>
       </div>
     </div>
   );
