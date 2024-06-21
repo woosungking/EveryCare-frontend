@@ -8,9 +8,6 @@ import MainLog from '../../assets/BigMainLogo.png';
 import Bg1 from '../../assets/login/Bg1.svg';
 import Bg12 from '../../assets/login/Bg12.svg';
 
-const LoginPageStyle = {};
-//로그인, 회원가입시에는 메인컨텐츠 화면이 왼쪽에 있으므로 페이지 파일에서 left값을 따로 주었음.
-
 const LoginPage: React.FC = () => {
   return (
     <BackLayout>
@@ -19,7 +16,7 @@ const LoginPage: React.FC = () => {
         <img src={Bg12} className="w-[28vw]" />
       </div>
 
-      <CenterLayout style={LoginPageStyle}>
+      <CenterLayout>
         <img
           src={MainLog}
           alt="MainLogo"

@@ -1,36 +1,83 @@
-import React from 'react';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
-const SignupForm: React.FC = () => {
-  const fieldsetStyle = { // input을 감싸는 fieldset에 대한 스타일
-    width: '100%',
-    height: '25%',
-    marginLeft: '5%',
+function SignupForm() {
+  const { register, handleSubmit } = useForm();
+  const navigate = useNavigate();
 
+  const handleStart = () => {
+    navigate('/signup2');
   };
 
-  const inputStyle = { // 입력칸에 대한 스타일
-    minWidth: '90%',
-    minHeight: '30%',
-    borderRadius: '15px',
-    border: '1px solid #A7D1FF',
-    margin: '10px',
-  };
-  const fontStyle = { // legend태그의 폰트사이즈에 대한 스타일
-    fontSize: '0.5rem',
-  };
   return (
-    <fieldset style={fieldsetStyle}>
-      <legend style={fontStyle}>아이디</legend>
-      <label htmlFor="username"></label>
-      <input type="text" id="username" style={inputStyle} />
-      <legend style={fontStyle}>비밀번호</legend>
-      <label htmlFor="password"></label>
-      <input type="password" id="password" style={inputStyle} />
-      <legend style={fontStyle}>비밀번호 재입력</legend>
-      <label htmlFor="repassword"></label>
-      <input type="text" id="repassword" style={inputStyle} />
-    </fieldset>
+    <form
+      onSubmit={handleSubmit((data) => {
+        console.log(data);
+      })}
+    >
+      <div className="mb-6">
+        <label
+          className="block text-black text-sm font-bold pl-[2vh] mb-2"
+          htmlFor="id"
+        >
+          아이디
+        </label>
+
+        <div className="flex justify-center">
+          <input
+            id="id"
+            type="text"
+            {...register('id')}
+            className="shadow appearance-none w-[23vw] border border-black rounded py-2"
+          />
+        </div>
+      </div>
+
+      <div className="mb-6">
+        <label
+          className="block text-black text-sm font-bold pl-[2vh] mb-2"
+          htmlFor="password"
+        >
+          비밀번호
+        </label>
+        <div className="flex justify-center">
+          <input
+            id="password"
+            type="text"
+            {...register('password')}
+            className="shadow appearance-none w-[23vw] border border-black rounded py-2"
+          />
+        </div>
+      </div>
+
+      <div className="mb-6">
+        <label
+          className="block text-black text-sm font-bold pl-[2vh] mb-2"
+          htmlFor="password"
+        >
+          비밀번호 확인
+        </label>
+        <div className="flex justify-center">
+          <input
+            id="password"
+            type="text"
+            {...register('password')}
+            className="shadow appearance-none w-[23vw] border border-black rounded py-2 mb-6"
+          />
+        </div>
+      </div>
+
+      <div className="flex items-center justify-center mb-5">
+        <button
+          type="submit"
+          onClick={handleStart}
+          className="w-[23vw] justify-center bg-[#C4DDF7] hover:bg-blue-200 text-black font-extrabold py-2.5 px-4 rounded-lg"
+        >
+          다음
+        </button>
+      </div>
+    </form>
   );
-};
+}
 
 export default SignupForm;

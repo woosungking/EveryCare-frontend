@@ -1,55 +1,101 @@
-import React from 'react';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 
-const SignupForm2: React.FC = () => {
-  const fieldsetStyle = {
-    // 입력 태그들을 감싸는 fieldset태그에 대한 스타일
-    width: '100%',
-    height: '25%',
-    marginLeft: '5%',
-  };
+interface ISignup {
+  category: 'Man' | 'Women';
+}
 
-  const inputStyle = {
-    // 입력 태그들에 대한 스타일
-    width: '90%',
-    height: '30%',
-    borderRadius: '15px',
-    border: '1px solid #A7D1FF',
-    margin: '10px',
+function SignupForm2({ category }: ISignup) {
+  const { register, handleSubmit } = useForm();
+  const [selectedGender, setSelectedGender] = useState<string | null>(null);
+  const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const {
+      currentTarget: { name },
+    } = event;
+    setSelectedGender(name);
   };
-  const fontStyle = {
-    // 폰트사이즈 조정
-    fontSize: '0.8rem',
-  };
-
-  // const checkboxStyle = {
-  //   appearance: 'none',
-  //   WebkitAppearance: 'none',
-  //   MozAppearance: 'none',
-  //   border: '2px solid #555',
-  //   borderRadius: '5px',
-  //   // outline: 'none',
-  //   // cursor: 'pointer',
-  //   backgroundImage: "url('./BigMainLogo.png')", // 배경 이미지 URL을 지정합니다.
-  //   backgroundSize: 'cover',
-  //   minWidth: '20px',
-  //   minHeight: '20px',
-  // };
 
   return (
-    <fieldset style={fieldsetStyle}>
-      <legend style={fontStyle}>아이디</legend>
-      <label htmlFor="username"></label>
-      <input type="text" id="username" style={inputStyle} />
+    <form
+      onSubmit={handleSubmit((data) => {
+        console.log(data);
+      })}
+    >
+      <div className="mb-6">
+        <label
+          className="block text-black text-sm font-bold pl-[2vh] mb-2"
+          htmlFor="id"
+        >
+          아이디
+        </label>
 
-      <legend style={fontStyle}>성별</legend>
-      <label htmlFor="username"></label>
-      <input type="text" id="username" style={inputStyle} />
+        <div className="flex justify-center">
+          <input
+            id="id"
+            type="text"
+            {...register('id')}
+            className="shadow appearance-none w-[23vw] border border-black rounded py-2"
+          />
+        </div>
+      </div>
 
-      <legend style={fontStyle}>비밀번호 재입력</legend>
-      <label htmlFor="repassword"></label>
-      <input type="text" id="repassword" style={inputStyle} />
-    </fieldset>
+      <div className="mb-6">
+        <label
+          className="block text-black text-sm font-bold pl-[2vh] mb-2"
+          htmlFor="gender"
+        >
+          성별
+        </label>
+        <div className="flex justify-center space-x-10">
+          {category !== 'Man' && (
+            <button
+              name="Man"
+              onClick={onClick}
+              className={`w-[10vw] border border-black text-black py-2 px-4 rounded ${selectedGender === 'Man' ? 'bg-blue-400' : 'hover:bg-blue-200'}`}
+            >
+              남자
+            </button>
+          )}
+          {category !== 'Women' && (
+            <button
+              name="Women"
+              onClick={onClick}
+              className={`w-[10vw] border border-black text-black py-2 px-4 rounded ${selectedGender === 'Women' ? 'bg-pink-400' : 'hover:bg-pink-200'}`}
+            >
+              여자
+            </button>
+          )}
+        </div>
+      </div>
+
+      <div className="mb-6">
+        <label
+          className="block text-black text-sm font-bold pl-[2vh] mb-2"
+          htmlFor="birth"
+        >
+          생년월일
+        </label>
+        <div className="flex justify-center">
+          <input
+            id="birth"
+            type="text"
+            {...register('birth')}
+            placeholder="'YYYYMMDD' 8자리로 입력해주세요"
+            className="shadow appearance-none w-[23vw] border border-black rounded py-2 mb-6"
+          />
+        </div>
+      </div>
+
+      <div className="flex items-center justify-center mb-5">
+        <button
+          type="submit"
+          className="w-[23vw] justify-center bg-[#C4DDF7] hover:bg-blue-200 text-black font-extrabold py-2.5 px-4 rounded-lg"
+        >
+          가입하기
+        </button>
+      </div>
+    </form>
   );
-};
+}
 
 export default SignupForm2;
