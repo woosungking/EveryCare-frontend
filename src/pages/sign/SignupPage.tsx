@@ -1,35 +1,33 @@
 import React from 'react';
 import BackLayout from '../../components/BackLayout';
 import CenterLayout from '../../components/CenterLayout';
-import SignupBtn from '../../components/button/Btn2';
 import SignupForm from '../../components/signup/SignupForm';
 import MainLog from '../../assets/BigMainLogo.png';
-
-const LoginPageStyle = {
-  left: '15%',
-};
-//로그인, 회원가입시에는 메인컨텐츠 화면이 왼쪽에 있으므로 페이지 파일에서 left값을 따로 주었음.
-
-const SignupBtnStyle = {
-  marginLeft: '5%',
-  marginTop: '6rem',
-
-};
+import Signup1 from '../../assets/signup/Signup1.svg';
+import Signup12 from '../../assets/signup/Signup12.svg';
+import Signup13 from '../../assets/signup/Signup13.svg';
 
 const SignupPage: React.FC = () => {
   return (
     <BackLayout>
-      <CenterLayout style={LoginPageStyle}>
-      <img
+      <div className="flex flex-col items-center mb-3 ml-auto">
+        <img src={Signup1} alt="Bg1" className="w-[10vw] mb-8 " />
+        <img src={Signup12} className="w-[15vw] mb-10" />
+        <img src={Signup13} className="w-[28vw]" />
+      </div>
+      <CenterLayout>
+        <img
           src={MainLog}
           alt="MainLogo"
-          style={{ width: '17rem', marginLeft: 'auto', marginRight: 'auto' }}
+          style={{
+            width: '17rem',
+            marginLeft: 'auto',
+            marginRight: 'auto',
+            marginTop: '40%',
+            marginBottom: '10%',
+          }}
         />
-        {/* 로고를 동적으로 받아온 후 부모요소의 가운대로 오도록 정렬 */}
-        <form action="" style={{ height: '30rem' }}>
-          <SignupForm></SignupForm>
-          <SignupBtn style={SignupBtnStyle}>회원가입</SignupBtn>
-        </form>
+        <SignupForm></SignupForm>
       </CenterLayout>
     </BackLayout>
   );
