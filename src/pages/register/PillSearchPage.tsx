@@ -2,21 +2,24 @@ import React from 'react';
 import BackLayout from '../../components/BackLayout';
 import CenterLayout from '../../components/CenterLayout';
 import NavBar from '../../components/NavBar';
-import SmallLogo from '../../components/SmallLogo';
+import SmallLogo from '../../assets/SmallLogo.png';
 import BackBtn from '../../components/register/button/BackBtn';
 import PillSearch from '../../components/register/PillSearch';
 
 const PillSearchPage: React.FC = () => {
+  const LogoStyle = {
+    width: '30%',
+    marginTop: '3%',
+    marginLeft: '3%',
+  };
   return (
     <BackLayout>
-      <div className="relative">
-        <CenterLayout>
-          <SmallLogo></SmallLogo>
-          <BackBtn text="약 입력"></BackBtn>
-          <PillSearch></PillSearch>
-        </CenterLayout>
+      <CenterLayout>
+        <img src={SmallLogo} alt="" style={LogoStyle} />
+        <BackBtn text="약 입력"></BackBtn>
+        <PillSearch></PillSearch>
         <NavBar></NavBar>
-      </div>
+      </CenterLayout>
     </BackLayout>
   );
 };

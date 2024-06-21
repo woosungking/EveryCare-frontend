@@ -4,35 +4,33 @@ import PillNextText from './PillNextText';
 import CustomHr from '../CustomHr';
 
 const PillSearch: React.FC = () => {
-  const inputStyle = {
-    border: '1px solid #02A2F8',
-    width: '26.4375rem',
-    height: '2.1875rem',
-    borderRadius: '1.375rem',
-    fontSize: '1rem',
-    textAlign: 'center',
-    marginLeft: '1rem',
-    backgroundColor: '#FFFAFA',
-  };
   return (
-    <div className='mb-20'>
-      <form action="" className="relative mt-4">
-        <input style={inputStyle} type="text" placeholder="약 이름으로 검색" />
-        <button className="absolute right-8 bottom-2">
+    <div className="mb-20">
+      <form className="relative flex justify-center mt-4">
+        <input
+          type="text"
+          placeholder="약 이름으로 입력해주세요."
+          className="w-[26vw] min-w-[420px] h-7 border-2 rounded-lg px-2"
+        />
+        <button className="absolute right-5">
           <img
             src={SearchIcon}
             alt="검색"
-            style={{ width: '20px', height: '20px' }}
+            className="w-[1.5vw] min-w-[20px] h-[2vh] mt-0.5"
           />
         </button>
       </form>
-      <div className="mt-3 ml-5">
+
+      <div className="mt-6 mb-5 ml-5">
         <span>검색 결과</span>
         <span className="text-red-600"> 2</span>
       </div>
       <ul>
         <li>
-          <PillNextText headText="타이레놀8시간이알서방정" contentText="진동 해열제 입니다."></PillNextText>
+          <PillNextText
+            headText="타이레놀8시간이알서방정"
+            contentText="진동 해열제 입니다."
+          ></PillNextText>
           <CustomHr></CustomHr>
         </li>
 
