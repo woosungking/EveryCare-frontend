@@ -1,5 +1,4 @@
 import React from 'react';
-import MainLog from '../assets/BigMainLogo.png';
 
 const CenterLayout: React.FC<{ style?: React.CSSProperties }> = ({
   children,
