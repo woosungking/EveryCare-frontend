@@ -1,36 +1,67 @@
-import React from 'react';
+import { useForm } from 'react-hook-form';
 
-const LoginForm: React.FC = () => {
-  const fieldsetStyle = {
-    // 입력 태그들을 감싸는 fieldset태그에 대한 스타일
-    width: '100%',
-    height: '25%',
-    marginLeft: '5%',
-  };
-
-  const inputStyle = {
-    // 입력 태그들에 대한 스타일
-    width: '90%',
-    height: '30%',
-    borderRadius: '15px',
-    border: '1px solid #A7D1FF',
-    margin: '10px',
-  };
-  const fontStyle = {
-    // 폰트사이즈 조정
-    fontSize: '0.8rem',
-  };
+function LoginForm() {
+  const { register, handleSubmit } = useForm();
 
   return (
-    <fieldset style={fieldsetStyle}>
-      <legend style={fontStyle}>아이디</legend>
-      <label htmlFor="username"></label>
-      <input type="text" id="username" style={inputStyle} />
-      <legend style={fontStyle}>비밀번호</legend>
-      <label htmlFor="password"></label>
-      <input type="password" id="password" style={inputStyle} />
-    </fieldset>
+    <form
+      onSubmit={handleSubmit((data) => {
+        console.log(data);
+      })}
+    >
+      <div className="mb-6">
+        <label
+          className="block text-black text-sm font-bold pl-[2vh] mb-2"
+          htmlFor="id"
+        >
+          아이디
+        </label>
+
+        <div className="flex justify-center">
+          <input
+            id="id"
+            type="text"
+            {...register('id')}
+            className="shadow appearance-none w-[20vw] border border-black rounded py-2"
+          />
+        </div>
+      </div>
+
+      <div className="mb-6">
+        <label
+          className="block text-black text-sm font-bold pl-[2vh] mb-2"
+          htmlFor="password"
+        >
+          비밀번호
+        </label>
+        <div className="flex justify-center">
+          <input
+            id="password"
+            type="text"
+            {...register('password')}
+            className="shadow appearance-none w-[20vw] border border-black rounded py-2 mb-6"
+          />
+        </div>
+      </div>
+
+      <div className="flex items-center justify-center mb-5">
+        <button
+          type="submit"
+          className="w-[20vw] justify-center bg-[#C4DDF7] hover:bg-blue-200 text-black font-extrabold py-2.5 px-4 rounded-lg"
+        >
+          로그인
+        </button>
+      </div>
+      <div className="flex items-center justify-center mb-4">
+        <button
+          type="submit"
+          className="w-[20vw] bg-[#C4DDF7] hover:bg-blue-200 text-black font-bold py-2.5 px-4 rounded-lg"
+        >
+          회원가입
+        </button>
+      </div>
+    </form>
   );
-};
+}
 
 export default LoginForm;
