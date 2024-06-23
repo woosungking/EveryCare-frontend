@@ -13,13 +13,11 @@ const DirectScanPage: React.FC = () => {
 
   return (
     <BackLayout>
-      <div className="relative">
         <CenterLayout>
           <SmallLogo></SmallLogo>
           <DirectScan></DirectScan>
+          <NavBar></NavBar>
         </CenterLayout>
-        <NavBar></NavBar>
-      </div>
     </BackLayout>
   );
 };

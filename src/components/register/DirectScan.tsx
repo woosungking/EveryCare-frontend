@@ -6,70 +6,65 @@ import BackBtn from './button/BackBtn';
 
 const DirectScan: React.FC = () => {
   const ExContainnerStyle = {
-    width: '100%',
-    height: '30rem',
-    marginTop: '3%',
-    marginBottom:"50%"
+    minHeight: '83vh',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    overflow: 'hidden',
+    textAlign: 'center', // 부모 div의 텍스트 가로 정렬을 중앙 정렬로 설정
     // backgroundColor: 'green',
   }; // 큐알코드 및 업로드 컨테이너, 2개를 감싸는 메인 컨테이너.
-  const InContainnerStyle = {
-    width: '100%',
-    height: '50%',
+  const FirstInContainnerStyle = {
+    width: '90%',
+    height:"23vh",
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    // \backgroundColor: 'blue',
-  }; // 큐알코드 혹은 업로드 컨테이너
-
-  const ImgContainnerStyle = {
     backgroundColor: '#F5F5F5',
     border: '1px dashed black',
     borderRadius: '10px',
-    width: '70%',
-    height: '65%',
+    fontSize: '0.9rem',
+    marginTop: "0",
+    marginBottom:"2vh",
+    // backgroundColor: 'blue',
+  }; // 큐알코드 혹은 업로드 컨테이너
+
+  const SecondInContainnerStyle = {
+    width: '100%',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    // margin: 'auto',
-  };
+    height: '32vh',
+    fontSize: '0.9rem',
+    flexDirection: 'column',
+    // backgroundColor: 'blue',
+  }; // 큐알코드 혹은 업로드 컨테이너
   // 큐알코드 혹은 업로드 컨테이너 내부에 이미지 및 내용이 들어 갈 컨테이너.
   const FirstImgStyle = {
-    width: '30%',
-    height: '50%',
+    width: '10vh',
+    height: '10vh',
     display: 'inline-block',
   };
   //첫번째 이미지 드레그 및 파일선택 이미지
 
   const SecondImgStyle = {
-    width: '60%',
-    height: '90%',
+    width: '50vh',
+    height: '30vh',
   };
 
   return (
+    <>
+    <BackBtn text="약봉투 등록하기"></BackBtn>
     <div style={ExContainnerStyle}>
-      <BackBtn text="약봉투 등록하기"></BackBtn>
       {/* //최상단 < 약봉투 등록하기 */}
-      <div style={InContainnerStyle}>
-        <div style={ImgContainnerStyle}>
+      <div style={FirstInContainnerStyle}>
           <img src={RegisterIcon} style={FirstImgStyle} />
-          <div
-            style={{
-              height: '90%',
-              width: '60%',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              fontSize: '0.9rem',
-              //글씨 가운데 정렬(p태그내부)를 위한 스타일
-            }}
-          >
             <p>이곳에 이미지를 드래그하거나 파일을 업로드 하세요</p>
-          </div>
-        </div>
       </div>
 
       <CustomHr></CustomHr>
-      <div style={{ ...InContainnerStyle, flexDirection: 'column' }}>
+      <div style={SecondInContainnerStyle}>
         <img src={QR} style={SecondImgStyle} />
         <div
           style={{
@@ -86,6 +81,7 @@ const DirectScan: React.FC = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
