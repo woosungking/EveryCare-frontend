@@ -11,8 +11,9 @@ const ScanConfirmPage: React.FC = () => {
         <CenterLayout>
           <SmallLogo></SmallLogo>
           <ScanConfirm></ScanConfirm>
+          <NavBar></NavBar>
         </CenterLayout>
-        <NavBar></NavBar>
+        
     </BackLayout>
   );
 };
