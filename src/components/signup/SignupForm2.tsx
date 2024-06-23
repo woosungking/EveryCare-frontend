@@ -24,16 +24,16 @@ function SignupForm2({ category }: ISignup) {
       <div className="mb-6">
         <label
           className="block text-black text-sm font-bold pl-[2vh] mb-2"
-          htmlFor="id"
+          htmlFor="name"
         >
-          아이디
+          이름
         </label>
 
         <div className="flex justify-center">
           <input
-            id="id"
+            id="name"
             type="text"
-            {...register('id')}
+            {...register('name')}
             className="shadow appearance-none w-[23vw] border border-black rounded py-2"
           />
         </div>
