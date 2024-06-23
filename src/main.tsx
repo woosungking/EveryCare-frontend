@@ -11,7 +11,7 @@ import DirectScanPage from './pages/register/DirectScanPage';
 import ScanConfirmPage from './pages/register/ScanConfirmPage';
 import DirectRegisterPage from './pages/register/DirectRegisterPage';
 import PillSearchPage from './pages/register/PillSearchPage';
-import PillRegister from './pages/register/PillRegister';
+import PillRegisterPage from './pages/register/PillRegisterPage';
 import CalendarPage from './pages/calendar/CalendarPage';
 import MainPg from './pages/mainPage/MainPg';
 
@@ -28,7 +28,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
         <Route path="/scan-confirm" element={<ScanConfirmPage />} />
         <Route path="/direct-register" element={<DirectRegisterPage />} />
         <Route path="/pill-search" element={<PillSearchPage />} />
-        <Route path="/pill-register" element={<PillRegister />} />
+        <Route path="/pill-register" element={<PillRegisterPage />} />
         <Route path="/calendar" element={<CalendarPage />} />
       </Routes>
     </Router>
