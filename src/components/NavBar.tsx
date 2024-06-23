@@ -9,7 +9,8 @@ const NavBar: React.FC = () => {
   const NavStyle = {
     bottom: '0', // 화면 하단에 고정
     width: '100%',
-    height: '4.25rem',
+    // height: '4.25rem',
+    height: '9vh',
     borderTop: '1px solid #D9D9D9',
     borderRadius: '15px 15px 0 0',
     backgroundColor: 'white',
