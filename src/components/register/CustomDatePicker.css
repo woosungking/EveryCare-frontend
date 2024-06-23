@@ -3,8 +3,8 @@
     width: 85%;
     height: 37px;
     min-height: 100%;
-    margin-left: 2rem;
-    
+    margin-left: 1rem;
+    margin-bottom: 0px;
     font-size: 0.8rem;
     border: 1px solid rgba(59, 171, 231, 0.51);
   }
