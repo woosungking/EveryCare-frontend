@@ -12,8 +12,8 @@ const ScanOrDirectPage: React.FC = () => {
         <CenterLayout>
           <SmallLogo></SmallLogo>
           <ScanOrDirec></ScanOrDirec>
+          <NavBar></NavBar>
         </CenterLayout>
-        <NavBar></NavBar>
     </BackLayout>
   );
 };
