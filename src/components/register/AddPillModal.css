@@ -1,0 +1,12 @@
+/* styles.css 또는 <style> 태그 내에서 정의 */
+@keyframes floating {
+    0% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
+  }
