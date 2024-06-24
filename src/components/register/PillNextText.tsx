@@ -8,11 +8,11 @@ const PillNextText: React.FC<{ headText: string; contentText: string }> = ({
   contentText,
 }) => {
   return (
-    <div className="flex items-center mt-16 ml-5 w-[26vw] font-extrabold">
-      <img src={PillImg} className="w-[60px] h-[60px]" />
-      <div className="flex flex-col ml-3 mt-1">
-        <p className="h-[30px] w-[160px] text-lg">{headText}</p>
-        <p className="h-[30px] w-[160px] text-gray-500 font-abel text-sm font-normal">
+    <div className="flex ml-5 w-[26vw] font-extrabold">
+      <img src={PillImg} className="w-[35px] h-[35px]" />
+      <div className="flex flex-col ml-3 mt-1 text-left">
+        <p className="h-[20px] w-[160px] text-[20px]">{headText}</p>
+        <p className="h-[10px] w-[200px] text-gray-500 font-abel text-sm font-normal">
           {contentText}
         </p>
       </div>

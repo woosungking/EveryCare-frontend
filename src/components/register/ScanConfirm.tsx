@@ -28,29 +28,35 @@ const ScanConfirm: React.FC = () => {
   };
 
   const ExContainnerStyle = {
-    width: '453px',
-    padding:"16px",
-    marginTop: '3%',
-    marginBottom: '50%',
+    width:"100%",
+    height:"80vh",
+    display:"flex",
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    overflow: 'hidden',
+    textAlign: 'center',
+    margin:"0",
     // backgroundColor: 'green',
   }; // 처방전 사진, 처방약품, 복용기간, 질환이름등 모든 컨텐츠를 감싸는 컨테이너
 
+
+
   const ListStyle = {
     width: '46%',
-    height: '28px',
-    display: 'block',
+    height: '2.5vh',
+    display: 'flex',
     marginTop: '10px',
     marginLeft: '0.8rem',
     border: '1px solid gray',
     borderRadius: '15px',
-    // backgroundColor: 'red',
-    display: 'flex',
     justifyContent: 'center', // 수평 가운데 정렬
     alignItems: 'center', // 수직 가운데 정렬
     fontSize: '0.8rem',
     color: 'gray',
-    fontSize: '0.94rem',
     position: 'relative',
+    paddingTop:"1rem",
+    paddingBottom:"1rem",
     paddingRight: '1rem',
   };
 
@@ -67,43 +73,28 @@ const ScanConfirm: React.FC = () => {
     top: '18%',
     fontWeight: 'bold',
   };
+
+  const MediNameStyle ={
+    flex: 1, // p 태그가 가능한 너비를 차지하도록 설정합니다.
+    margin: '0', // p 태그의 기본 마진을 제거합니다.
+    overflow: 'hidden', // 넘치는 텍스트를 숨깁니다.
+    whiteSpace: 'nowrap', // 텍스트가 한 줄로 유지되도록 합니다.
+    textOverflow: 'ellipsis', // 넘치는 텍스트를 말줄임표(...)로 표시합니다.
+  }
+  
   return (
-    <div style={ExContainnerStyle} className="h-[60vh]">
-      <BackBtn text="처방전 확인"></BackBtn>
-
-      <div
-        style={{
-          backgroundColor: '#F4F4F5',
-          width: '95%',
-          height: '38%',
-          marginTop: '10px',
-          marginLeft: 'auto',
-          marginRight: 'auto',
-          display: 'flex',
-          justifyContent: 'center',
-          justifyItems: 'center',
-          flexDirection: 'column',
-        }}
-      >
-        <img
-          src={Prescription}
-          style={{ height: '95%', width: '95%', margin: 'auto' }}
-        />
-      </div>
-      {/* 스캔한 처방전 사진이 보여지는 컨테이너 */}
-
-      <div
-        style={{ textAlign: 'center', fontSize: '0.94rem', color: '#666666' }}
-      >
-        등록한 처방전에서 개인정보는 저장되지 않습니다.
-      </div>
-
-      <div className="relative">
-        {/* //추가, 수정 소 버튼의 위치를 상대적으로 지정하기 위해 div로 한번 감싸주었음. */}
-        <PillNextText headText="처방약품"></PillNextText>
-        <div
-          style={{
-            height: '5rem',
+    <><BackBtn text="처방전 확인"></BackBtn>
+    <div style={ExContainnerStyle}>
+        <img src={Prescription} className='h-[30%] w-[80%] m-[auto] mt-[10px] mb-[0] pt-[2vh]'/>
+          <p style={{ textAlign: 'center', fontSize: '0.94rem', color: '#666666' }} className='mt-[0.5rem]'>
+            등록한 처방전에서 개인정보는 저장되지 않습니다.
+          </p>
+          
+        <div className="w-[100%] h-[15vh] relative mb-[0] mt-[0.8rem]"> {/* //추가, 수정 소 버튼의 위치를 상대적으로 지정하기 위해 div로 한번 감싸주었음. */}
+        <PillNextText className="absolute" headText="처방약품" contentText='sdd'></PillNextText>
+          <div
+            style={{
+            height: '10vh',
             maxWidth: '90%',
             minWidth: '90%',
             backgroundColor: 'white',
@@ -116,45 +107,37 @@ const ScanConfirm: React.FC = () => {
           <ul
             style={{
               display: 'flex',
-              // position: 'relative',
-              // justifyContent: 'space-between',
               width: '100%',
-              height: '100%',
+              height: '10vh',
               flexWrap: 'wrap',
             }}
           >
             <li style={ListStyle}>
-              <p>씨프로바이정250밀리그램</p>
+              <p style={MediNameStyle}>씨프로바이정250밀리그램</p>
               <button style={deleteBtnStyle}>-</button>
             </li>
             <li style={ListStyle}>
-              <p>씨프로바이정250밀리그램</p>
+              <p style={MediNameStyle}>씨프로바이정250밀리그램</p>
               <button style={deleteBtnStyle}>-</button>
             </li>
             <li style={ListStyle}>
-              <p>씨프로바이정250밀리그램</p>
+              <p style={MediNameStyle}>씨프로바이정250밀리그램</p>
               <button style={deleteBtnStyle}>-</button>
             </li>
             <li style={ListStyle}>
-              <p>씨프로바이정250밀리그램</p>
+              <p style={MediNameStyle}>씨프로바이정250밀리그램</p>
               <button style={deleteBtnStyle}>-</button>
             </li>
             <li style={ListStyle}>
-              <p>씨프로바이정250밀리그램</p>
+              <p style={MediNameStyle}>씨프로바이정2asndjknaskjndsajknsdjkn250밀리그램</p>
               <button style={deleteBtnStyle}>-</button>
             </li>
             <li style={ListStyle}>
-              <p>씨프로바이정250밀리그램</p>
+              <p style={MediNameStyle}>씨프로바이정250밀리그램</p>
               <button style={deleteBtnStyle}>-</button>
             </li>
-            <li style={ListStyle}>
-              <p>씨프로바이정250밀리그램</p>
-              <button style={deleteBtnStyle}>-</button>
-            </li>
-            <li style={ListStyle}>
-              <p>씨프로바이정250밀리그램</p>
-              <button style={deleteBtnStyle}>-</button>
-            </li>
+         
+     
           </ul>
         </div>
         <button
@@ -179,26 +162,21 @@ const ScanConfirm: React.FC = () => {
           추가
         </button>
       </div>
+
+      <div className='h-[15vh] w-[100%] mt-[2vh]'>
       <PillNextText headText="복용기간"></PillNextText>
 
       <form
         style={{
           width: '100%',
           height: '6.4%',
-          marginTop: '0.5rem',
-          marginBottom: '2rem',
-          // backgroundColor: 'red',
+          display:"flex",
+          justifyContent:"center",
+          // alignItems:"center",
+        
         }}
       >
         <DatePicker
-          // style={{
-          //   width: '38%',
-          //   height: '75%',
-          //   fontSize: '1rem',
-          //   display: 'block',
-          //   margin: 'auto',
-          //   marginLeft: '10px',
-          // }}
           className="date-picker-input"
           showIcon
           selected={selectedDate}
@@ -231,39 +209,35 @@ const ScanConfirm: React.FC = () => {
           }
         />
       </form>
-      <PillNextText headText="질환이름"></PillNextText>
-      <p
-        style={{
-          // backgroundColor: 'blue',
-          width: '85%',
-          marginLeft: 'auto',
-          fontSize: '1rem',
-          color: '#9E9797',
-        }}
-      >
-        어떤 질병으로 약을 복용하시나요
-      </p>
+      </div>
+
+      <div className='w-[100%] h-[30vh] mt-[1vh]'>
+      <PillNextText headText="질환이름" contentText='어떤 질환으로 약을 복용하시나요'></PillNextText>
       <p style={{ textAlign: 'center', fontSize: '1rem', marginTop: '1rem' }}>
         알츠하이머
       </p>
       <div style={{ width: '100%', height: '15%' }}>
         <InputBtn
           style={{
-            height: '40%',
+            height: '100%',
             fontSize: '1.25rem',
             color: '#666',
             backgroundColor: 'white',
             border: '1px solid rgba(59, 171, 231, 0.51)',
+            // paddingTop:"0.5rem",
+            // paddingBottom:"0.5rem",
           }}
         >
           질병입력
         </InputBtn>
         <InputBtn
           style={{
-            height: '40%',
+            height: '100%',
             fontSize: '1.25rem',
             color: 'white',
             backgroundColor: '#A7D1FF',
+            // paddingTop:"0.5rem",
+            // paddingBottom:"0.5rem",
           }}
         >
           저장하기
@@ -274,8 +248,10 @@ const ScanConfirm: React.FC = () => {
         <h2>모달 창 내용</h2>
         <p>여기에 추가할 내용을 넣으세요.</p>
       </AddPillModal>
+      </div>    
       
     </div>
+    </>
   );
 };
 

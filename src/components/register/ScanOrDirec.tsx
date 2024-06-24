@@ -16,7 +16,7 @@ const ScanOrDirec: React.FC = () => {
 
   const ImgContainnerStyle = {
     height: '32vh',
-    width: '23vw',
+    width: '80%',
     margin: '20px 0',
     borderRadius: '15px',
     boxShadow: '0 0 4px rgba(128, 128, 128, 0.5)',
