@@ -11,22 +11,10 @@ import CalendarImg from '../../assets/calendar.png';
 import './CustomDatePicker.css';
 import InputBtn from '../button/Btn2';
 import AddPillModal from './AddPillModal';
+
+import axios from 'axios';
+
 const ScanConfirm: React.FC = () => {
-  const [selectedDate, setSelectedDate] = useState(null);
-  const [showModal, setShowModal] = useState(false);
-
-  const handleOpenModal = () => {
-    setShowModal(true);
-  };
-
-  const handleCloseModal = () => {
-    setShowModal(false);
-  };
-  // 모달창 여닫기 useState
-
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
-  };
 
   const ExContainnerStyle = {
     width: '100%',
@@ -80,10 +68,85 @@ const ScanConfirm: React.FC = () => {
     whiteSpace: 'nowrap', // 텍스트가 한 줄로 유지되도록 합니다.
     textOverflow: 'ellipsis', // 넘치는 텍스트를 말줄임표(...)로 표시합니다.
   };
+  //--------------------------- 스타일 ---------------------------------------
+
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [inputValue, setInputValue] = useState<string>(''); // 모달창 input박스 안 데이터를 읽어오는 배열.
+
+  interface MedicineData {
+    medicine_name: string;
+    medicine_code: string;
+    medicine_pcode: string;
+    medicine_company: string;
+    check: boolean;
+  }
+  const [mediData, setMediData] = useState<MedicineData>([
+    {
+      medicine_id: '',
+      medicine_name: '',
+      medicine_code: '',
+      medicine_pcode: '',
+      medicine_company: '',
+    },
+  ]);
+
+  const [prescMediData, setPrescMediData] = useState<MedicineData>([
+    {
+      medicine_id: '',
+      medicine_name: '',
+      medicine_code: '',
+      medicine_pcode: '',
+      medicine_company: '',
+    },
+  ]);
+
+  const changeInputBox = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+    // 모달창 input박스에서 글씨가 입력되면 onChange이벤트 발생하는데 그때마다 배열 최신화.
+    console.log('입력중...');
+  };
+
+  const searchMedi = () => {
+    //서버로 inputValue값 넘길 로직 작성
+    if (inputValue.trim() == '') {
+      alert('감색어를 입력하세요!!');
+      // 스페이스 같은 짓 못하도록 trim() 을 사용해서 공백문자 줄바꿈 제거 후 검증
+      return;
+    }
+    console.log('전송중,,');
+    axios
+      .post('http://127.0.0.1:8000/test/', { query: inputValue })
+      .then((response) => {
+        console.log('서버 응답:', response.data);
+        setMediData(response.data);
+        // console.log('테스트', mediData);
+        // console.log('테스트2', mediData[0]["medicine_id"]);
+      })
+      .catch((error) =>
+        console.error('서버로 데이터를 보내는데 실패했습니다:', error),
+      );
+  };
+
+  const handleOpenModal = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+  // 모달창 여닫기 useState
+
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+  };
+
 
   return (
     <>
       <BackBtn text="처방전 확인"></BackBtn>
+      {/*뒤로가기 */}
+
       <div style={ExContainnerStyle}>
         <img
           src={Prescription}
@@ -95,62 +158,21 @@ const ScanConfirm: React.FC = () => {
         >
           등록한 처방전에서 개인정보는 저장되지 않습니다.
         </p>
+        {/* 처방전 사진 */}
 
         <div className="w-[100%] h-[15vh] relative mb-[0] mt-[0.8rem]">
-          {' '}
           {/* //추가, 수정 소 버튼의 위치를 상대적으로 지정하기 위해 div로 한번 감싸주었음. */}
-          <PillNextText
-            className="absolute"
-            headText="처방약품"
-            contentText="sdd"
-          ></PillNextText>
-          <div
-            style={{
-              height: '10vh',
-              maxWidth: '90%',
-              minWidth: '90%',
-              backgroundColor: 'white',
-              marginLeft: 'auto',
-              marginRight: 'auto',
-              display: 'flex',
-              overflow: 'scroll',
-            }}
-          >
-            <ul
-              style={{
-                display: 'flex',
-                width: '100%',
-                height: '10vh',
-                flexWrap: 'wrap',
-              }}
-            >
-              <li style={ListStyle}>
-                <p style={MediNameStyle}>씨프로바이정250밀리그램</p>
-                <button style={deleteBtnStyle}>-</button>
-              </li>
-              <li style={ListStyle}>
-                <p style={MediNameStyle}>씨프로바이정250밀리그램</p>
-                <button style={deleteBtnStyle}>-</button>
-              </li>
-              <li style={ListStyle}>
-                <p style={MediNameStyle}>씨프로바이정250밀리그램</p>
-                <button style={deleteBtnStyle}>-</button>
-              </li>
-              <li style={ListStyle}>
-                <p style={MediNameStyle}>씨프로바이정250밀리그램</p>
-                <button style={deleteBtnStyle}>-</button>
-              </li>
-              <li style={ListStyle}>
-                <p style={MediNameStyle}>
-                  씨프로바이정2asndjknaskjndsajknsdjkn250밀리그램
-                </p>
-                <button style={deleteBtnStyle}>-</button>
-              </li>
-              <li style={ListStyle}>
-                <p style={MediNameStyle}>씨프로바이정250밀리그램</p>
-                <button style={deleteBtnStyle}>-</button>
-              </li>
+          <PillNextText className="absolute" headText="처방약품"></PillNextText>
+          <div className="h-10vh max-w-[90%] min-w-[90%] bg-white mx-auto flex overflow-x-scroll">
+            <ul className="flex w-full h-10vh flex-wrap">
+              {prescMediData.map((medicine) => (
+                <li style={ListStyle}>
+                  <p style={MediNameStyle}>{medicine.medicine_name}</p>
+                  <button style={deleteBtnStyle}>-</button>
+                </li>
+              ))}
             </ul>
+            {/* 약품 */}
 
             <AddPillModal showModal={showModal} onClose={handleCloseModal}>
               <div className="w-[100%] h-[20%] mt-[2vh]">
@@ -158,9 +180,13 @@ const ScanConfirm: React.FC = () => {
                   type="text"
                   placeholder="   찾는 약이 있으신가요?"
                   className="mx-auto w-[80%] h-[5vh] border border-gray-300  "
+                  onChange={changeInputBox} // input창에 입력 발생시 배열에 저장.(최종전송은 버튼이 눌리면 할거임.)
                 />
 
-                <button className="w-[20%] h-[5vh] border border-gray-400 bg-gray-200">
+                <button
+                  className="w-[20%] h-[5vh] border border-gray-400 bg-gray-200"
+                  onClick={searchMedi}
+                >
                   검색 🔍
                 </button>
               </div>
@@ -188,120 +214,36 @@ const ScanConfirm: React.FC = () => {
                     </tr>
                   </thead>
                   <tbody className="w-[100%] bg-white h-[80%] overflow-y-scroll">
-                    <tr className="border border-gray-200 relative">
-                      <td className="h-[4vh] w-[26%] border border-gray-200 whitespace-normal overflow-x-scroll align-middle">
-                        asdmjklasmdklmasdlkmaskldmsalasdjnasjkndjkasnjkdsan
-                      </td>
-                      <td className="h-[10%] w-[17%] border border-gray-200 whitespace-normal overflow-x-scroll align-middle">
-                        11231231223
-                      </td>
-                      <td className="h-[10%] w-[19%] border border-gray-200 whitespace-normal overflow-x-scroll align-middle">
-                        asdasd
-                      </td>
-                      <td className="h-[10%] w-[28%] border border-gray-200 whitespace-normal overflow-x-scroll align-middle">
-                        4124124124
-                      </td>
-                      <input className='absolute bottom-[50%] right-[3%]' type="checkbox" id="myCheckbox" />
-                    </tr>
-                    <tr className="border border-gray-200 relative">
-                      <td className="h-[4vh] w-[26%] border border-gray-200 whitespace-normal overflow-x-scroll align-middle">
-                        asdmjklasmdklmasdlkmaskldmsalasdjnasjkndjkasnjkdsan
-                      </td>
-                      <td className="h-[10%] w-[17%] border border-gray-200 whitespace-normal overflow-x-scroll align-middle">
-                        11231231223
-                      </td>
-                      <td className="h-[10%] w-[19%] border border-gray-200 whitespace-normal overflow-x-scroll align-middle">
-                        asdasd
-                      </td>
-                      <td className="h-[10%] w-[28%] border border-gray-200 whitespace-normal overflow-x-scroll align-middle">
-                        4124124124
-                      </td>
-                      <input className='absolute bottom-[50%] right-[3%]' type="checkbox" id="myCheckbox" />
-                    </tr>
-                    <tr className="border border-gray-200 relative">
-                      <td className="h-[4vh] w-[26%] border border-gray-200 whitespace-normal overflow-x-scroll align-middle">
-                        asdmjklasmdklmasdlkmaskldmsalasdjnasjkndjkasnjkdsan
-                      </td>
-                      <td className="h-[10%] w-[17%] border border-gray-200 whitespace-normal overflow-x-scroll align-middle">
-                        11231231223
-                      </td>
-                      <td className="h-[10%] w-[19%] border border-gray-200 whitespace-normal overflow-x-scroll align-middle">
-                        asdasd
-                      </td>
-                      <td className="h-[10%] w-[28%] border border-gray-200 whitespace-normal overflow-x-scroll align-middle">
-                        4124124124
-                      </td>
-                      <input className='absolute bottom-[50%] right-[3%]' type="checkbox" id="myCheckbox" />
-                    </tr>
-                    <tr className="border border-gray-200 relative">
-                      <td className="h-[4vh] w-[26%] border border-gray-200 whitespace-normal overflow-x-scroll align-middle">
-                        asdmjklasmdklmasdlkmaskldmsalasdjnasjkndjkasnjkdsan
-                      </td>
-                      <td className="h-[10%] w-[17%] border border-gray-200 whitespace-normal overflow-x-scroll align-middle">
-                        11231231223
-                      </td>
-                      <td className="h-[10%] w-[19%] border border-gray-200 whitespace-normal overflow-x-scroll align-middle">
-                        asdasd
-                      </td>
-                      <td className="h-[10%] w-[28%] border border-gray-200 whitespace-normal overflow-x-scroll align-middle">
-                        4124124124
-                      </td>
-                      <input className='absolute bottom-[50%] right-[3%]' type="checkbox" id="myCheckbox" />
-                    </tr>
-                    <tr className="border border-gray-200 relative">
-                      <td className="h-[4vh] w-[26%] border border-gray-200 whitespace-normal overflow-x-scroll align-middle">
-                        asdmjklasmdklmasdlkmaskldmsalasdjnasjkndjkasnjkdsan
-                      </td>
-                      <td className="h-[10%] w-[17%] border border-gray-200 whitespace-normal overflow-x-scroll align-middle">
-                        11231231223
-                      </td>
-                      <td className="h-[10%] w-[19%] border border-gray-200 whitespace-normal overflow-x-scroll align-middle">
-                        asdasd
-                      </td>
-                      <td className="h-[10%] w-[28%] border border-gray-200 whitespace-normal overflow-x-scroll align-middle">
-                        4124124124
-                      </td>
-                      <input className='absolute bottom-[50%] right-[3%]' type="checkbox" id="myCheckbox" />
-                    </tr>
-                    <tr className="border border-gray-200 relative">
-                      <td className="h-[4vh] w-[26%] border border-gray-200 whitespace-normal overflow-x-scroll align-middle">
-                        asdmjklasmdklmasdlkmaskldmsalasdjnasjkndjkasnjkdsan
-                      </td>
-                      <td className="h-[10%] w-[17%] border border-gray-200 whitespace-normal overflow-x-scroll align-middle">
-                        11231231223
-                      </td>
-                      <td className="h-[10%] w-[19%] border border-gray-200 whitespace-normal overflow-x-scroll align-middle">
-                        asdasd
-                      </td>
-                      <td className="h-[10%] w-[28%] border border-gray-200 whitespace-normal overflow-x-scroll align-middle">
-                        4124124124
-                      </td>
-                      <input className='absolute bottom-[50%] right-[3%]' type="checkbox" id="myCheckbox" />
-                    </tr>
-              
-                   
+                    {mediData.map((medicine) => (
+                      <tr
+                        className="border border-gray-200 relative"
+                        key={medicine.medicine_id}
+                      >
+                        <td className="h-[10%] w-[17%] border border-gray-200 whitespace-normal overflow-x-scroll align-middle">
+                          {medicine.medicine_name}
+                        </td>
+                        <td className="h-[10%] w-[17%] border border-gray-200 whitespace-normal overflow-x-scroll align-middle">
+                          {medicine.medicine_code}
+                        </td>
+                        <td className="h-[10%] w-[17%] border border-gray-200 whitespace-normal overflow-x-scroll align-middle">
+                          {medicine.medicine_pcode}
+                        </td>
+                        <td className="h-[10%] w-[17%] border border-gray-200 whitespace-normal overflow-x-scroll align-middle">
+                          {medicine.medicine_company}
+                        </td>
+                        <input
+                          className="absolute bottom-[50%] right-[3%]"
+                          type="checkbox"
+                        />
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               </div>
             </AddPillModal>
           </div>
           <button
-            style={{
-              position: 'absolute',
-              right: '7%',
-              top: '10%',
-              width: '2.3125rem',
-              height: '1.125rem',
-              borderRadius: '2.34375rem',
-              backgroundColor: '#F5F5F5',
-              color: '#F56132',
-              textAlign: 'center',
-              fontFamily: 'Abhaya Libre ExtraBold',
-              fontSize: '0.625rem',
-              fontStyle: 'normal',
-              fontWeight: 800,
-              lineHeight: 'normal',
-            }}
+            className="absolute right-[7%] top-[10%] pl-[5px] pr-[5px] rounded-full bg-gray-200 text-red-500 text-center font-extrabold text-[12px] leading-normal"
             onClick={handleOpenModal} // 모달창 open 핸들러
           >
             추가
@@ -317,7 +259,6 @@ const ScanConfirm: React.FC = () => {
               height: '6.4%',
               display: 'flex',
               justifyContent: 'center',
-              // alignItems:"center",
             }}
           >
             <DatePicker
@@ -373,8 +314,6 @@ const ScanConfirm: React.FC = () => {
                 color: '#666',
                 backgroundColor: 'white',
                 border: '1px solid rgba(59, 171, 231, 0.51)',
-                // paddingTop:"0.5rem",
-                // paddingBottom:"0.5rem",
               }}
             >
               질병입력
@@ -385,8 +324,6 @@ const ScanConfirm: React.FC = () => {
                 fontSize: '1.25rem',
                 color: 'white',
                 backgroundColor: '#A7D1FF',
-                // paddingTop:"0.5rem",
-                // paddingBottom:"0.5rem",
               }}
             >
               저장하기

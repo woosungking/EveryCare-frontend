@@ -16,8 +16,8 @@ const DirectScanPage: React.FC = () => {
       <CenterLayout>
         <img src={SmallLogo} alt="Small Logo" className="w-1/3 mt-3 ml-3" />
         <DirectScan></DirectScan>
+        <NavBar></NavBar>
       </CenterLayout>
-      <NavBar></NavBar>
     </BackLayout>
   );
 };

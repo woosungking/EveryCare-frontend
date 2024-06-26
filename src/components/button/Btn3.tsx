@@ -2,7 +2,7 @@ import React from 'react';
 
 interface BtnProps {
   onClick?: () => void; // onClick prop으로 변경\
-  className? : String;
+  className? : string;
 }
 
 const btnStyle = {
@@ -20,7 +20,7 @@ const OkBtn: React.FC<BtnProps> = ({
   onClick, // onClick prop으로 변경
   className,
 }) => {
-  const mergedStyle = {...style };
+  const mergedStyle = {...btnStyle };
 
   const handleClick = () => {
     if (onClick) {
@@ -29,7 +29,12 @@ const OkBtn: React.FC<BtnProps> = ({
   };
 
   return (
-    <button type="button" style={mergedStyle} className={`${className}`}  onClick={handleClick}>
+    <button
+      type="button"
+      style={mergedStyle}
+      className={`${className}`}
+      onClick={handleClick}
+    >
       {children}
     </button>
   );
