@@ -9,7 +9,7 @@ interface ModalProps {
 
 const ModalStyle = {
   width: '100%',
-  height: '300%',
+  height: '340%',
   backgroundColor: 'white',
   position: 'absolute',
   top: '40%',
@@ -33,6 +33,7 @@ const AddPillModal: React.FC<ModalProps> = ({
   children,
 }) => {
   if (!showModal) {
+    //ScanConfirm에 showModal 이라는 State가 false면 랜더링을 안하는거임.
     return null;
   }
   return (
