@@ -28,8 +28,9 @@ const ModalContentStyle = {
   backgorundColor: 'red',
 };
 const AddPillModal: React.FC<ModalProps> = ({
-  showModal,
-  onClose,
+  showModal, // 모달 랜더링을 현제 컴포넌트에서 하니까 메인 컴포넌트에 useState를 인자로 받아옴.
+  onClose, // onClick이 일어났을때 함수를 실행해야 하므로 메인 컴포넌트에 onClose함수를 실행한다고 알려줘야 함으로 메인컴포넌트의 onClose함수를 인자로 받아옴.
+           // onClose={handleCloseModal 의 실행을 위해
   children,
 }) => {
   if (!showModal) {
