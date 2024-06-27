@@ -22,7 +22,7 @@ function LoginForm() {
             id="id"
             type="text"
             {...register('id')}
-            className="shadow appearance-none w-[23vw] border border-black rounded py-2"
+            className="w-[85%] h-[3vh] shadow appearance-none border border-black rounded py-2"
           />
         </div>
       </div>
@@ -39,7 +39,7 @@ function LoginForm() {
             id="password"
             type="text"
             {...register('password')}
-            className="shadow appearance-none w-[23vw] border border-black rounded py-2 mb-6"
+            className="w-[85%] h-[3vh] shadow appearance-none border border-black rounded py-2 mb-6"
           />
         </div>
       </div>
@@ -47,7 +47,7 @@ function LoginForm() {
       <div className="flex items-center justify-center mb-5">
         <button
           type="submit"
-          className="w-[23vw] justify-center bg-[#C4DDF7] hover:bg-blue-200 text-black font-extrabold py-2.5 px-4 rounded-lg"
+          className="w-[85%] h-[3vh] justify-center bg-[#C4DDF7] hover:bg-blue-200 text-black font-extrabold py-2.5 px-4 rounded-lg"
         >
           로그인
         </button>
@@ -55,7 +55,7 @@ function LoginForm() {
       <div className="flex items-center justify-center mb-4">
         <button
           type="submit"
-          className="w-[23vw] bg-[#C4DDF7] hover:bg-blue-200 text-black font-bold py-2.5 px-4 rounded-lg"
+          className="w-[85%] h-[3vh] bg-[#C4DDF7] hover:bg-blue-200 text-black font-bold py-2.5 px-4 rounded-lg"
         >
           회원가입
         </button>

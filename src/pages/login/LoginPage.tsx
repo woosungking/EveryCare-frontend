@@ -21,7 +21,8 @@ const LoginPage: React.FC = () => {
           src={MainLog}
           alt="MainLogo"
           style={{
-            width: '17rem',
+            width: '60%',
+            height: '20vh',
             marginLeft: 'auto',
             marginRight: 'auto',
             marginTop: '40%',
