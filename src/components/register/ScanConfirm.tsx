@@ -15,7 +15,6 @@ import AddPillModal from './AddPillModal';
 import axios from 'axios';
 
 const ScanConfirm: React.FC = () => {
-
   const ExContainnerStyle = {
     width: '100%',
     height: '80vh',
@@ -69,9 +68,6 @@ const ScanConfirm: React.FC = () => {
     textOverflow: 'ellipsis', // 넘치는 텍스트를 말줄임표(...)로 표시합니다.
   };
   //--------------------------- 스타일 ---------------------------------------
-
-  const [selectedDate, setSelectedDate] = useState(null);
-  const [showModal, setShowModal] = useState(false);
   const [inputValue, setInputValue] = useState<string>(''); // 모달창 input박스 안 데이터를 읽어오는 배열.
 
   interface MedicineData {
@@ -81,25 +77,7 @@ const ScanConfirm: React.FC = () => {
     medicine_company: string;
     check: boolean;
   }
-  const [mediData, setMediData] = useState<MedicineData>([
-    {
-      medicine_id: '',
-      medicine_name: '',
-      medicine_code: '',
-      medicine_pcode: '',
-      medicine_company: '',
-    },
-  ]);
-
-  const [prescMediData, setPrescMediData] = useState<MedicineData>([
-    {
-      medicine_id: '',
-      medicine_name: '',
-      medicine_code: '',
-      medicine_pcode: '',
-      medicine_company: '',
-    },
-  ]);
+  const [mediData, setMediData] = useState<MedicineData>([]);
 
   const changeInputBox = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -128,24 +106,62 @@ const ScanConfirm: React.FC = () => {
       );
   };
 
+  const [saveMediData, setSaveMediData] = useState<MedicineData[]>([]);
+  const handleCheckboxChange = (index: number) => {
+    const updatedMediData = [...mediData];
+    updatedMediData[index].check = !updatedMediData[index].check;
+    console.log(index);
+    if (updatedMediData[index].check) {
+      console.log("체크박스 체크");
+      setSaveMediData([...saveMediData, updatedMediData[index]]);
+    } else {
+      const updatedSaveMediData = saveMediData.filter(
+        (item) => item.medicine_id !== updatedMediData[index].medicine_id
+      ); // 일치하지 않는것은 저장을 안하고 일치하는것만 남겨서 update배열에 새로 저장, 중괄호가 없으면 boolean으로
+      console.log("체크박스 해제");
+      setSaveMediData(updatedSaveMediData);
+    }
+
+    setMediData(updatedMediData);
+  };
+
+  const handleDeleteList = (medicine_name: string) => {
+    const updatedMediData = [...saveMediData]; // 기존 저장배열을 받아옴
+    const updatedSaveMediData = updatedMediData.filter((item)=>{
+      return item.medicine_name !== medicine_name;
+    });
+    setSaveMediData(updatedSaveMediData);
+    console.log(saveMediData);
+  };
+
+  
+  const [showModal, setShowModal] = useState(false);
+
   const handleOpenModal = () => {
     setShowModal(true);
   };
 
   const handleCloseModal = () => {
     setShowModal(false);
+    setMediData([]);
   };
-  // 모달창 여닫기 useState
+  
 
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
+  const [startDate, setStartdDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+
+  const handleStartDateChange = (date: Date | null) => {
+    setStartDate(date);
+  };
+
+  const handleEndDateChange = (date: Date | null) => {
+    setEndDate(date);
   };
 
 
   return (
     <>
       <BackBtn text="처방전 확인"></BackBtn>
-      {/*뒤로가기 */}
 
       <div style={ExContainnerStyle}>
         <img
@@ -158,90 +174,92 @@ const ScanConfirm: React.FC = () => {
         >
           등록한 처방전에서 개인정보는 저장되지 않습니다.
         </p>
-        {/* 처방전 사진 */}
 
         <div className="w-[100%] h-[15vh] relative mb-[0] mt-[0.8rem]">
           {/* //추가, 수정 소 버튼의 위치를 상대적으로 지정하기 위해 div로 한번 감싸주었음. */}
           <PillNextText className="absolute" headText="처방약품"></PillNextText>
-          <div className="h-10vh max-w-[90%] min-w-[90%] bg-white mx-auto flex overflow-x-scroll">
-            <ul className="flex w-full h-10vh flex-wrap">
-              {prescMediData.map((medicine) => (
-                <li style={ListStyle}>
-                  <p style={MediNameStyle}>{medicine.medicine_name}</p>
-                  <button style={deleteBtnStyle}>-</button>
-                </li>
-              ))}
-            </ul>
-            {/* 약품 */}
-
-            <AddPillModal showModal={showModal} onClose={handleCloseModal}>
-              <div className="w-[100%] h-[20%] mt-[2vh]">
-                <input
-                  type="text"
-                  placeholder="   찾는 약이 있으신가요?"
-                  className="mx-auto w-[80%] h-[5vh] border border-gray-300  "
-                  onChange={changeInputBox} // input창에 입력 발생시 배열에 저장.(최종전송은 버튼이 눌리면 할거임.)
-                />
-
+          <ul className="flex m-auto w-[90%] h-[10vh] flex-wrap overflow-y-scroll">
+            {saveMediData.map((medicine) => (
+              <li style={ListStyle}>
+                <p style={MediNameStyle}>{medicine.medicine_name}</p>
                 <button
-                  className="w-[20%] h-[5vh] border border-gray-400 bg-gray-200"
-                  onClick={searchMedi}
+                  style={deleteBtnStyle}
+                  onClick={() => handleDeleteList(medicine.medicine_name)}
                 >
-                  검색 🔍
+                  ㅇ
                 </button>
-              </div>
-              {/* 상단 검색 */}
+              </li>
+            ))}
+          </ul>
 
-              <div className="w-[100%] h-[25vh] overflow-y-scroll text-[1vh]">
-                <table className="w-[100%] h-[30vh] divide-y border-black border-1 table-fixed">
-                  <thead className="w-[100%] h-[3vh] bg-gray-100 border-t-2 border-gray-300">
-                    <tr>
-                      <th className="h-[3vh] w-[26%] text-center align-middle text-[1.4vh] p-[5px] border-l-[1px] border-gray-200">
-                        제품명
-                      </th>
-                      <th className="h-[3vh] w-[17%] text-center align-middle text-[1.4vh] p-[5px] border-l-[1px] border-gray-200">
-                        제품코드
-                      </th>
-                      <th className="h-[3vh] w-[19%] text-center align-middle text-[1.4vh] p-[5px] border-l-[1px] border-gray-200">
-                        주성분코드
-                      </th>
-                      <th className="h-[3vh] w-[28%] text-center align-middle text-[1.4vh] p-[5px] border-l-[1px] border-gray-200">
-                        업체명
-                      </th>
-                      <th className="h-[3vh] w-[10%] text-center align-middle text-[1.4vh] p-[5px] border-l-[1px] border-r-[1px] border-gray-200">
-                        선택
-                      </th>
+          <AddPillModal showModal={showModal} onClose={handleCloseModal}>
+            <div className="w-[100%] h-[20%] mt-[2vh]">
+              <input
+                type="text"
+                placeholder="   찾는 약이 있으신가요?"
+                className="mx-auto w-[80%] h-[5vh] border border-gray-300  "
+                onChange={changeInputBox} // input창에 입력 발생시 배열에 저장.(최종전송은 버튼이 눌리면 할거임.)
+              />
+
+              <button
+                className="w-[20%] h-[5vh] border border-gray-400 bg-gray-200"
+                onClick={searchMedi}
+              >
+                검색 🔍
+              </button>
+            </div>
+
+            <div className="w-[100%] h-[25vh] overflow-y-scroll text-[1vh]">
+              <table className="w-[100%] h-[30vh] divide-y border-black border-1 table-fixed">
+                <thead className="w-[100%] h-[3vh] bg-gray-100 border-t-2 border-gray-300">
+                  <tr>
+                    <th className="h-[3vh] w-[26%] text-center align-middle text-[1.4vh] p-[5px] border-l-[1px] border-gray-200">
+                      제품명
+                    </th>
+                    <th className="h-[3vh] w-[17%] text-center align-middle text-[1.4vh] p-[5px] border-l-[1px] border-gray-200">
+                      제품코드
+                    </th>
+                    <th className="h-[3vh] w-[19%] text-center align-middle text-[1.4vh] p-[5px] border-l-[1px] border-gray-200">
+                      주성분코드
+                    </th>
+                    <th className="h-[3vh] w-[28%] text-center align-middle text-[1.4vh] p-[5px] border-l-[1px] border-gray-200">
+                      업체명
+                    </th>
+                    <th className="h-[3vh] w-[10%] text-center align-middle text-[1.4vh] p-[5px] border-l-[1px] border-r-[1px] border-gray-200">
+                      선택
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="w-[100%] bg-white h-[80%] overflow-y-scroll">
+                  {mediData.map((medicine, index) => (
+                    <tr
+                      className="border border-gray-200 relative"
+                      key={medicine.medicine_id}
+                    >
+                      <td className="h-[10%] w-[17%] border border-gray-200 whitespace-normal overflow-x-scroll align-middle">
+                        {medicine.medicine_name}
+                      </td>
+                      <td className="h-[10%] w-[17%] border border-gray-200 whitespace-normal overflow-x-scroll align-middle">
+                        {medicine.medicine_code}
+                      </td>
+                      <td className="h-[10%] w-[17%] border border-gray-200 whitespace-normal overflow-x-scroll align-middle">
+                        {medicine.medicine_pcode}
+                      </td>
+                      <td className="h-[10%] w-[17%] border border-gray-200 whitespace-normal overflow-x-scroll align-middle">
+                        {medicine.medicine_company}
+                      </td>
+                      <input
+                        className="absolute bottom-[50%] right-[3%]"
+                        type="checkbox"
+                        onChange={() => handleCheckboxChange(index)}
+                      />
                     </tr>
-                  </thead>
-                  <tbody className="w-[100%] bg-white h-[80%] overflow-y-scroll">
-                    {mediData.map((medicine) => (
-                      <tr
-                        className="border border-gray-200 relative"
-                        key={medicine.medicine_id}
-                      >
-                        <td className="h-[10%] w-[17%] border border-gray-200 whitespace-normal overflow-x-scroll align-middle">
-                          {medicine.medicine_name}
-                        </td>
-                        <td className="h-[10%] w-[17%] border border-gray-200 whitespace-normal overflow-x-scroll align-middle">
-                          {medicine.medicine_code}
-                        </td>
-                        <td className="h-[10%] w-[17%] border border-gray-200 whitespace-normal overflow-x-scroll align-middle">
-                          {medicine.medicine_pcode}
-                        </td>
-                        <td className="h-[10%] w-[17%] border border-gray-200 whitespace-normal overflow-x-scroll align-middle">
-                          {medicine.medicine_company}
-                        </td>
-                        <input
-                          className="absolute bottom-[50%] right-[3%]"
-                          type="checkbox"
-                        />
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </AddPillModal>
-          </div>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </AddPillModal>
+          {/* </div> */}
           <button
             className="absolute right-[7%] top-[10%] pl-[5px] pr-[5px] rounded-full bg-gray-200 text-red-500 text-center font-extrabold text-[12px] leading-normal"
             onClick={handleOpenModal} // 모달창 open 핸들러
@@ -264,8 +282,8 @@ const ScanConfirm: React.FC = () => {
             <DatePicker
               className="date-picker-input"
               showIcon
-              selected={selectedDate}
-              onChange={handleDateChange}
+              selected={startDate}
+              onChange={handleStartDateChange}
               dateFormat="yyyy-MM-dd"
               placeholderText="시작일"
               icon={
@@ -281,8 +299,8 @@ const ScanConfirm: React.FC = () => {
               // className="border border-gray-300 rounded-lg"
               className="date-picker-input"
               showIcon
-              selected={selectedDate}
-              onChange={handleDateChange}
+              selected={endDate}
+              onChange={handleEndDateChange}
               dateFormat="yyyy-MM-dd"
               placeholderText="죵료일"
               icon={
