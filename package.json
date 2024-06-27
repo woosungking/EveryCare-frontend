@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "axios": "^1.7.2",
     "date-fns": "^3.6.0",
     "eslint-config-prettier": "^9.1.0",
     "flatpickr": "^4.6.13",
