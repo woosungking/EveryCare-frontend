@@ -2,6 +2,7 @@ import React from 'react';
 import UpImg from '../../assets/register/Register.png';
 import LowImg from '../../assets/register/Register2.png';
 import CustomHr from '../CustomHr';
+import { useNavigate } from 'react-router-dom';
 
 const ScanOrDirec: React.FC = () => {
   const ContainnerStyle = {
@@ -35,14 +36,26 @@ const ScanOrDirec: React.FC = () => {
     height: '90%',
   };
 
+  const nevigate = useNavigate();
+  const handleRedirect = (path: string) => {
+    console.log('sdsd');
+    nevigate(path);
+  };
+
   return (
     <div style={ContainnerStyle}>
-      <div style={{ ...ImgContainnerStyle, backgroundColor: '#FFFFED' }}>
+      <div
+        style={{ ...ImgContainnerStyle, backgroundColor: '#FFFFED' }}
+        onClick={() => handleRedirect('/direct-scan')}
+      >
         <img src={UpImg} style={imgStyle} alt="약봉투 등록하기" />
         <p>약봉투 등록하기</p>
       </div>
       <CustomHr />
-      <div style={{ ...ImgContainnerStyle, backgroundColor: '#E6FBFF' }}>
+      <div
+        style={{ ...ImgContainnerStyle, backgroundColor: '#E6FBFF' }}
+        onClick={() => handleRedirect('/direct-register')}
+      >
         <img src={LowImg} style={imgStyle} alt="직접입력하기" />
         <p>직접입력하기</p>
       </div>
