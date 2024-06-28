@@ -11,9 +11,12 @@ const ScanConfirmPage: React.FC = () => {
     marginTop: '3%',
     marginLeft: '3%',
   };
+  const CenterStyle={
+    
+  };
   return (
     <BackLayout>
-      <CenterLayout>
+      <CenterLayout style={}>
         <img src={SmallLogo} alt="" style={LogoStyle} />
         <ScanConfirm></ScanConfirm>
         <NavBar></NavBar>

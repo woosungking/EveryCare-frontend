@@ -9,7 +9,8 @@ import 'react-datepicker/dist/react-datepicker.css';
 import CalendarImg from '../../assets/calendar.png';
 
 import './CustomDatePicker.css';
-import InputBtn from '../button/Btn2';
+import InputBtn from '../../components/register/button/InputBtn';
+import SaveBtn from '../../components/register/button/SaveBtn';
 import AddPillModal from './AddPillModal';
 
 import axios from 'axios';
@@ -18,13 +19,14 @@ const ScanConfirm: React.FC = () => {
   const ExContainnerStyle = {
     width: '100%',
     height: '80vh',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    overflow: 'hidden',
+    // display: 'flex',
+    // flexDirection: 'column',
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    overflow: 'auto',
     textAlign: 'center',
     margin: '0',
+    marginTop: '1vh',
     // backgroundColor: 'green',
   }; // 처방전 사진, 처방약품, 복용기간, 질환이름등 모든 컨텐츠를 감싸는 컨테이너
 
@@ -112,13 +114,13 @@ const ScanConfirm: React.FC = () => {
     updatedMediData[index].check = !updatedMediData[index].check;
     console.log(index);
     if (updatedMediData[index].check) {
-      console.log("체크박스 체크");
+      console.log('체크박스 체크');
       setSaveMediData([...saveMediData, updatedMediData[index]]);
     } else {
       const updatedSaveMediData = saveMediData.filter(
-        (item) => item.medicine_id !== updatedMediData[index].medicine_id
+        (item) => item.medicine_id !== updatedMediData[index].medicine_id,
       ); // 일치하지 않는것은 저장을 안하고 일치하는것만 남겨서 update배열에 새로 저장, 중괄호가 없으면 boolean으로
-      console.log("체크박스 해제");
+      console.log('체크박스 해제');
       setSaveMediData(updatedSaveMediData);
     }
 
@@ -127,14 +129,13 @@ const ScanConfirm: React.FC = () => {
 
   const handleDeleteList = (medicine_name: string) => {
     const updatedMediData = [...saveMediData]; // 기존 저장배열을 받아옴
-    const updatedSaveMediData = updatedMediData.filter((item)=>{
+    const updatedSaveMediData = updatedMediData.filter((item) => {
       return item.medicine_name !== medicine_name;
     });
     setSaveMediData(updatedSaveMediData);
     console.log(saveMediData);
   };
 
-  
   const [showModal, setShowModal] = useState(false);
 
   const handleOpenModal = () => {
@@ -145,19 +146,21 @@ const ScanConfirm: React.FC = () => {
     setShowModal(false);
     setMediData([]);
   };
-  
 
   const [startDate, setStartdDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
 
   const handleStartDateChange = (date: Date | null) => {
-    setStartDate(date);
+    setStartdDate(date);
   };
 
   const handleEndDateChange = (date: Date | null) => {
     setEndDate(date);
   };
 
+  const [intakeCycle, setIntakeCycle] = useState('');
+  const [hospital, setHospital] = useState('');
+  const [disease, setDisease] = useState('');
 
   return (
     <>
@@ -186,7 +189,7 @@ const ScanConfirm: React.FC = () => {
                   style={deleteBtnStyle}
                   onClick={() => handleDeleteList(medicine.medicine_name)}
                 >
-                  ㅇ
+                  -
                 </button>
               </li>
             ))}
@@ -314,40 +317,58 @@ const ScanConfirm: React.FC = () => {
           </form>
         </div>
 
-        <div className="w-[100%] h-[30vh] mt-[1vh] relative">
+        <div className="h-[15vh] w-[100%] mt-[3vh]">
+          <PillNextText
+            headText="복약주기"
+            contentText="하루에 몇번 복약 하시나요"
+          ></PillNextText>
+          <p className="text-center text-[1rem] mt-[1rem]">{intakeCycle}</p>
+          <div className="bg-pink-200 flex justify-center h-[5vh]">
+            <button className="w-[30%] h-[40%] border-2 rounded-2xl bg-[#E4EFFB] text-[16px] inline-block m-auto">
+              매일
+            </button>
+            <div className="w-[30%] h-[40%] border-2 rounded-2xl bg-[#E4EFFB] text-[16px] inline-block m-auto">
+              <input
+                type="number"
+                id="quantity"
+                name="quantity"
+                min="1"
+                max="100"
+                // className="w-[10%]"
+              ></input>
+              <button className="w-[30%]">확인</button>
+            </div>
+          </div>
+          <InputBtn className="w-[80%] h-[30px] text-[16px] p-[1vh] flex items-center justify-center text-center]">
+            주기입력
+          </InputBtn>
+        </div>
+
+        <div className="h-[15vh] w-[100%] mt-[3vh]">
+          <PillNextText
+            headText="처방병원"
+            contentText="어느 병원에서 처방받으셨나요"
+          ></PillNextText>
+          <p className="text-center text-[1rem] mt-[1rem]">{hospital}</p>
+          <InputBtn className="w-[80%] h-[30px] text-[16px] p-[1vh] flex items-center justify-center text-center]">
+            병원입력
+          </InputBtn>
+        </div>
+
+        <div className="w-[100%] h-[15vh] mt-[5vh] relative">
           <PillNextText
             headText="질환이름"
             contentText="어떤 질환으로 약을 복용하시나요"
           ></PillNextText>
-          <p
-            style={{ textAlign: 'center', fontSize: '1rem', marginTop: '1rem' }}
-          >
-            알츠하이머
-          </p>
-          <div style={{ width: '100%', height: '15%' }}>
-            <InputBtn
-              style={{
-                height: '100%',
-                fontSize: '1.25rem',
-                color: '#666',
-                backgroundColor: 'white',
-                border: '1px solid rgba(59, 171, 231, 0.51)',
-              }}
-            >
-              질병입력
-            </InputBtn>
-            <InputBtn
-              style={{
-                height: '100%',
-                fontSize: '1.25rem',
-                color: 'white',
-                backgroundColor: '#A7D1FF',
-              }}
-            >
-              저장하기
-            </InputBtn>
-          </div>
+          <p className="text-center text-[1rem] mt-[1rem]">{disease}</p>
+          <InputBtn className="w-[80%] h-[30px] text-[16px] p-[1vh] flex items-center justify-center text-center]">
+            질병입력
+          </InputBtn>
         </div>
+
+        <SaveBtn className="w-[80%] h-[30px] text-[16px] p-[1vh] flex items-center justify-center text-center]">
+          저장하기
+        </SaveBtn>
       </div>
     </>
   );
