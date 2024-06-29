@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -15,12 +16,26 @@ function SignupForm2({ category }: ISignup) {
     setSelectedGender(name);
   };
 
+  const onSubmit = async (data) => {
+    try {
+      const fakeData = {
+        name: data.name,
+        gender: selectedGender,
+        birth: data.birth,
+      };
+      const response = await axios.post(
+        'https://jsonplaceholder.typicode.com/posts',
+        fakeData,
+      );
+
+      console.log(response.data);
+    } catch (error) {
+      console.log('Error:', error);
+    }
+  };
+
   return (
-    <form
-      onSubmit={handleSubmit((data) => {
-        console.log(data);
-      })}
-    >
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div className="mb-6">
         <label
           className="block text-black text-sm font-bold pl-[2vh] mb-2"

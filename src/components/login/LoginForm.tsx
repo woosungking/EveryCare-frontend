@@ -1,14 +1,30 @@
+import axios from 'axios';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router';
 
 function LoginForm() {
   const { register, handleSubmit } = useForm();
+  const navigate = useNavigate();
+
+  const onSubmit = async (data) => {
+    try {
+      const fakeData = {
+        id: data.id,
+        password: data.password,
+      };
+
+      const response = await axios.post(
+        'https://jsonplaceholder.typicode.com/posts',
+        fakeData,
+      );
+      console.log(response.data);
+    } catch (error) {
+      console.log('Error:', error);
+    }
+  };
 
   return (
-    <form
-      onSubmit={handleSubmit((data) => {
-        console.log(data);
-      })}
-    >
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div className="mb-6">
         <label
           className="block text-black text-sm font-bold pl-[2vh] mb-2"
@@ -37,7 +53,7 @@ function LoginForm() {
         <div className="flex justify-center">
           <input
             id="password"
-            type="text"
+            type="password"
             {...register('password')}
             className="w-[85%] h-[3vh] shadow appearance-none border border-black rounded py-2 mb-6"
           />
@@ -54,7 +70,8 @@ function LoginForm() {
       </div>
       <div className="flex items-center justify-center mb-4">
         <button
-          type="submit"
+          type="button"
+          onClick={() => navigate('/signup')}
           className="w-[85%] h-[3vh] bg-[#C4DDF7] hover:bg-blue-200 text-black font-bold py-2.5 px-4 rounded-lg"
         >
           회원가입
