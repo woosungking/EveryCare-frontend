@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
@@ -5,16 +6,28 @@ function SignupForm() {
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
 
-  const handleStart = () => {
-    navigate('/signup2');
+  const onSubmit = async (data) => {
+    try {
+      const fakeData = {
+        id: data.id,
+        password: data.password,
+      };
+
+      const response = await axios.post(
+        'https://jsonplaceholder.typicode.com/posts',
+        fakeData,
+      );
+
+      console.log(response.data);
+
+      navigate('/signup2');
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
   return (
-    <form
-      onSubmit={handleSubmit((data) => {
-        console.log(data);
-      })}
-    >
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div className="mb-6">
         <label
           className="block text-black text-sm font-bold pl-[2vh] mb-2"
@@ -28,7 +41,7 @@ function SignupForm() {
             id="id"
             type="text"
             {...register('id')}
-            className="shadow appearance-none w-[23vw] border border-black rounded py-2"
+            className="w-[85%] h-[3vh] shadow appearance-none border border-black rounded py-2"
           />
         </div>
       </div>
@@ -45,7 +58,7 @@ function SignupForm() {
             id="password"
             type="text"
             {...register('password')}
-            className="shadow appearance-none w-[23vw] border border-black rounded py-2"
+            className="w-[85%] h-[3vh] shadow appearance-none border border-black rounded py-2"
           />
         </div>
       </div>
@@ -62,7 +75,7 @@ function SignupForm() {
             id="password"
             type="text"
             {...register('password')}
-            className="shadow appearance-none w-[23vw] border border-black rounded py-2 mb-6"
+            className="w-[85%] h-[3vh] shadow appearance-none border border-black rounded py-2 mb-6"
           />
         </div>
       </div>
@@ -70,8 +83,7 @@ function SignupForm() {
       <div className="flex items-center justify-center mb-5">
         <button
           type="submit"
-          onClick={handleStart}
-          className="w-[23vw] justify-center bg-[#C4DDF7] hover:bg-blue-200 text-black font-extrabold py-2.5 px-4 rounded-lg"
+          className="w-[85%] h-[3vh] justify-center bg-[#C4DDF7] hover:bg-blue-200 text-black font-extrabold py-2.5 px-4 rounded-lg"
         >
           다음
         </button>
