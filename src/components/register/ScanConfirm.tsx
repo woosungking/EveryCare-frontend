@@ -15,6 +15,50 @@ import AddPillModal from './AddPillModal';
 
 import axios from 'axios';
 
+const formatDate = (date: []) => {
+  switch (date[1]) {
+    case 'Jan':
+      date[1] = '01';
+      break;
+    case 'Feb':
+      date[1] = '02';
+      break;
+    case 'Mar':
+      date[1] = '03';
+      break;
+    case 'Apr':
+      date[1] = '04';
+      break;
+    case 'May':
+      date[1] = '05';
+      break;
+    case 'Jun':
+      date[1] = '06';
+      break;
+    case 'Jul':
+      date[1] = '07';
+      break;
+    case 'Aug':
+      date[1] = '08';
+      break;
+    case 'Sep':
+      date[1] = '09';
+      break;
+    case 'Oct':
+      date[1] = '10';
+      break;
+    case 'Nov':
+      date[1] = '11';
+      break;
+    case 'Dec':
+      date[1] = '12';
+      break;
+  }
+  const formatedDate = date[3] + '-' + date[1] + '-' + date[2];
+  console.log(formatedDate);
+  return formatedDate;
+};
+
 const ScanConfirm: React.FC = () => {
   const ExContainnerStyle = {
     width: '100%',
@@ -151,16 +195,33 @@ const ScanConfirm: React.FC = () => {
   const [endDate, setEndDate] = useState(null);
 
   const handleStartDateChange = (date: Date | null) => {
-    setStartdDate(date);
+    console.log(date);
+
+    const splitDate = String(date).split(' '); // date가 datepicker 의 객체로 전달되어서 형변환 필요.
+    const formatedDate = formatDate(splitDate);
+
+    console.log(formatedDate);
+
+    setStartdDate(formatedDate);
   };
 
   const handleEndDateChange = (date: Date | null) => {
-    setEndDate(date);
+    console.log(date);
+
+    const splitDate = String(date).split(' '); // date가 datepicker 의 객체로 전달되어서 형변환 필요.
+    const formatedDate = formatDate(splitDate);
+
+    console.log(formatedDate);
+    setEndDate(formatedDate);
   };
 
   const [showIntakeCycle, setShowIntakeCycle] = useState(false);
   const [showHospital, setShowHospital] = useState(false);
   const [showDisease, setShowDisease] = useState(false);
+  const [intakeCycle, setIntakeCycle] = useState('');
+  const [intakeDaily, setIntakeDaily] = useState('');
+  const [hospital, setHospital] = useState('');
+  const [disease, setDisease] = useState('');
 
   const handleShowIntakeCycle = () => {
     setShowIntakeCycle((preShowIntakeCycle) => !preShowIntakeCycle);
@@ -174,6 +235,61 @@ const ScanConfirm: React.FC = () => {
     setShowDisease((preShowDisease) => !preShowDisease);
   };
 
+  const handleIntakeCycle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.value);
+    setIntakeCycle(e.target.value);
+  };
+
+  const handleIntakeDaily = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.value);
+    setIntakeDaily(e.target.value);
+  };
+
+  const handleHospital = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.value);
+    setHospital(e.target.value);
+  };
+
+  const handleDisease = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.value);
+    setDisease(e.target.value);
+  };
+
+  interface submitData {
+    drugName: [];
+    intakeStart: string;
+    intakeEnd: string;
+    intakeCycle: string;
+    hospital: string;
+    disease: string;
+  }
+
+  const [dataSubmit, setDataSubmit] = useState<submitData>(null);
+
+  const handleDataSubmit = () => {
+    console.log(saveMediData);
+    console.log(hospital);
+    console.log(startDate);
+    console.log(endDate);
+    console.log(disease);
+    console.log(intakeCycle);
+    console.log(intakeDaily);
+    const medicineCode = saveMediData.map((item) => item.medicine_code);
+    console.log(medicineCode);
+    axios
+      .put('http://127.0.0.1:8000/test/', {
+        medicineCode: medicineCode,
+        intakeStart: startDate,
+        intakeEnd: endDate,
+        intakeCycle: intakeCycle,
+        intakeDaily: intakeDaily,
+        hospital: hospital,
+        disease: disease,
+      })
+      .then((response) => {
+        console.log('서버 응답:', response.data);
+      });
+  };
   return (
     <>
       <BackBtn text="처방전 확인"></BackBtn>
@@ -286,14 +402,7 @@ const ScanConfirm: React.FC = () => {
         <div className="h-[15vh] w-[100%] mt-[2vh]">
           <PillNextText headText="복용기간"></PillNextText>
 
-          <form
-            style={{
-              width: '100%',
-              height: '6.4%',
-              display: 'flex',
-              justifyContent: 'center',
-            }}
-          >
+          <div className="flex w-[100%] h-[6.4%] justify-center">
             <DatePicker
               className="date-picker-input"
               showIcon
@@ -326,7 +435,7 @@ const ScanConfirm: React.FC = () => {
                 />
               }
             />
-          </form>
+          </div>
         </div>
 
         <div className="h-[15vh] w-[100%] mt-[3vh]">
@@ -344,6 +453,7 @@ const ScanConfirm: React.FC = () => {
                     max="100"
                     placeholder="ex)1"
                     className="text-[14px] text-right"
+                    onChange={handleIntakeDaily}
                   />
                   <button className="w-[30%] text-blue-400 text-left font-bold">
                     회 섭취
@@ -356,6 +466,7 @@ const ScanConfirm: React.FC = () => {
                     max="100"
                     placeholder="ex)0"
                     className="text-[14px] text-right"
+                    onChange={handleIntakeCycle}
                   />
                   <button className="w-[30%] text-blue-400 text-left font-bold">
                     일 간격
@@ -384,6 +495,7 @@ const ScanConfirm: React.FC = () => {
                 type="text"
                 className="w-[70%] h-[80%] m-auto text-center"
                 placeholder="병원을 입력 해 주세요"
+                onChange={handleHospital}
               />
             </div>
           ) : null}
@@ -407,6 +519,7 @@ const ScanConfirm: React.FC = () => {
                 type="text"
                 className="w-[70%] h-[80%] m-auto text-center"
                 placeholder="질병을 입력 해 주세요."
+                onChange={handleDisease}
               />
             </div>
           ) : null}
@@ -418,7 +531,10 @@ const ScanConfirm: React.FC = () => {
           </InputBtn>
         </div>
 
-        <SaveBtn className="w-[80%] h-[30px] text-[16px] p-[1vh] flex items-center justify-center text-center]">
+        <SaveBtn
+          className="w-[80%] h-[30px] text-[16px] p-[1vh] flex items-center justify-center text-center]"
+          onClick={handleDataSubmit}
+        >
           저장하기
         </SaveBtn>
       </div>

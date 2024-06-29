@@ -18,7 +18,6 @@ const ScanConfirmPage: React.FC = () => {
         <ScanConfirm></ScanConfirm>
         <NavBar></NavBar>
       </CenterLayout>
-      
     </BackLayout>
   );
 };

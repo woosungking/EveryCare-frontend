@@ -17,7 +17,7 @@ const DirectScan: React.FC = () => {
   }; // 큐알코드 및 업로드 컨테이너, 2개를 감싸는 메인 컨테이너.
   const FirstInContainnerStyle = {
     width: '90%',
-    height:"23vh",
+    height: '23vh',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -25,8 +25,8 @@ const DirectScan: React.FC = () => {
     border: '1px dashed black',
     borderRadius: '10px',
     fontSize: '0.9rem',
-    marginTop: "0",
-    marginBottom:"2vh",
+    marginTop: '0',
+    marginBottom: '2vh',
     // backgroundColor: 'blue',
   }; // 큐알코드 혹은 업로드 컨테이너
 
@@ -55,32 +55,32 @@ const DirectScan: React.FC = () => {
 
   return (
     <>
-    <BackBtn text="약봉투 등록하기"></BackBtn>
-    <div style={ExContainnerStyle}>
-      {/* //최상단 < 약봉투 등록하기 */}
-      <div style={FirstInContainnerStyle}>
+      <BackBtn text="약봉투 등록하기"></BackBtn>
+      <div style={ExContainnerStyle}>
+        {/* //최상단 < 약봉투 등록하기 */}
+        <div style={FirstInContainnerStyle}>
           <img src={RegisterIcon} style={FirstImgStyle} />
-            <p>이곳에 이미지를 드래그하거나 파일을 업로드 하세요</p>
-      </div>
+          <p>이곳에 이미지를 드래그하거나 파일을 업로드 하세요</p>
+        </div>
 
-      <CustomHr></CustomHr>
-      <div style={SecondInContainnerStyle}>
-        <img src={QR} style={SecondImgStyle} />
-        <div
-          style={{
-            width: '80%',
-            textAlign: 'center',
-            backgroundColor: '#D9D9D9',
-            borderRadius: '20px',
-            fontSize: '0.9rem',
-            padding: '0.2rem',
-            //맨 하단 코멘트 스타일 및 코멘트 박스 스타일
-          }}
-        >
-          휴대폰으로 qr코드를 인식한 후 약 봉투를 스캔해주세요
+        <CustomHr></CustomHr>
+        <div style={SecondInContainnerStyle}>
+          <img src={QR} style={SecondImgStyle} />
+          <div
+            style={{
+              width: '80%',
+              textAlign: 'center',
+              backgroundColor: '#D9D9D9',
+              borderRadius: '20px',
+              fontSize: '0.9rem',
+              padding: '0.2rem',
+              //맨 하단 코멘트 스타일 및 코멘트 박스 스타일
+            }}
+          >
+            휴대폰으로 qr코드를 인식한 후 약 봉투를 스캔해주세요
+          </div>
         </div>
       </div>
-    </div>
     </>
   );
 };

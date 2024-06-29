@@ -10,9 +10,8 @@ interface SaveBtnProps {
 const SaveBtn: React.FC<SaveBtnProps> = ({ children, className, onClick }) => {
   return (
     <button
-      type="submit"
-      onClick={onClick}
       className={`rounded-2xl bg-sky-200 w-[80%] h-[7%] block mx-auto mt-4 ${className}`}
+      onClick={onClick}
     >
       {children}
     </button>
