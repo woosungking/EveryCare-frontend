@@ -7,6 +7,11 @@ import SmallLogo from '../../assets/SmallLogo.png';
 import PillRegister from '../../components/register/PillRegister';
 
 const PillRegisterPage: React.FC = () => {
+  const LogoStyle = {
+    width: '30%',
+    marginTop: '3%',
+    marginLeft: '3%',
+  };
   return (
     <BackLayout>
       <CenterLayout>

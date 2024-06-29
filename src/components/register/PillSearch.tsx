@@ -5,19 +5,15 @@ import CustomHr from '../CustomHr';
 
 const PillSearch: React.FC = () => {
   return (
-    <div className="mb-20">
+    <div className="flex flex-col h-[70vh] mb-20">
       <form className="relative flex justify-center mt-4">
         <input
           type="text"
           placeholder="약 이름으로 입력해주세요."
-          className="w-[26vw] min-w-[420px] h-7 border-2 rounded-lg px-2"
+          className="w-[97%] h-[4vh] border-2 rounded-2xl px-2"
         />
         <button className="absolute right-5">
-          <img
-            src={SearchIcon}
-            alt="검색"
-            className="w-[1.5vw] min-w-[20px] h-[2vh] mt-0.5"
-          />
+          <img src={SearchIcon} alt="검색" className="w-[90%] h-[3vh] mt-1" />
         </button>
       </form>
 

@@ -28,7 +28,7 @@ function SignupForm() {
             id="id"
             type="text"
             {...register('id')}
-            className="shadow appearance-none w-[23vw] border border-black rounded py-2"
+            className="w-[85%] h-[3vh] shadow appearance-none border border-black rounded py-2"
           />
         </div>
       </div>
@@ -45,7 +45,7 @@ function SignupForm() {
             id="password"
             type="text"
             {...register('password')}
-            className="shadow appearance-none w-[23vw] border border-black rounded py-2"
+            className="w-[85%] h-[3vh] shadow appearance-none border border-black rounded py-2"
           />
         </div>
       </div>
@@ -62,7 +62,7 @@ function SignupForm() {
             id="password"
             type="text"
             {...register('password')}
-            className="shadow appearance-none w-[23vw] border border-black rounded py-2 mb-6"
+            className="w-[85%] h-[3vh] shadow appearance-none border border-black rounded py-2 mb-6"
           />
         </div>
       </div>
@@ -71,7 +71,7 @@ function SignupForm() {
         <button
           type="submit"
           onClick={handleStart}
-          className="w-[23vw] justify-center bg-[#C4DDF7] hover:bg-blue-200 text-black font-extrabold py-2.5 px-4 rounded-lg"
+          className="w-[85%] h-[3vh] justify-center bg-[#C4DDF7] hover:bg-blue-200 text-black font-extrabold py-2.5 px-4 rounded-lg"
         >
           다음
         </button>
