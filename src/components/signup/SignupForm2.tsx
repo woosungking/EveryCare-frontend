@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 interface ISignup {
   category: 'Man' | 'Women';
@@ -15,6 +16,7 @@ function SignupForm2({ category }: ISignup) {
     } = event;
     setSelectedGender(name);
   };
+  const navigate = useNavigate();
 
   const onSubmit = async (data) => {
     try {
@@ -29,6 +31,7 @@ function SignupForm2({ category }: ISignup) {
       );
 
       console.log(response.data);
+      navigate('/login');
     } catch (error) {
       console.log('Error:', error);
     }

@@ -1,21 +1,42 @@
-// useCalendar.tsx
-import { useCallback, useState } from 'react';
-import { startOfMonth, endOfMonth, subMonths, addMonths } from 'date-fns';
-import { throttle } from 'lodash';
-
-interface CalendarDate {
-  day: number;
-  month: number;
-  year: number;
-}
+// src/hooks/useCalendar.ts
+import { useState, useEffect } from 'react';
+import { dosageData } from '../components/Calendar/CalMockData';
 
 export const useCalendar = () => {
-  const currentDate = new Date();
-  const [year, setYear] = useState<number>(currentDate.getFullYear());
-  const [month, setMonth] = useState<number>(currentDate.getMonth());
-  const [selectedDay, setSelectedDay] = useState<number>(currentDate.getDate());
+  const [year, setYear] = useState<number>(new Date().getFullYear());
+  const [month, setMonth] = useState<number>(new Date().getMonth());
+  const [selectedDay, setSelectedDay] = useState<number>(new Date().getDate());
   const [showModal, setShowModal] = useState<boolean>(false);
   const [dosage, setDosage] = useState<string | null>(null);
+  const [dates, setDates] = useState<
+    Array<{ day: number; month: number; year: number }>
+  >([]);
+  const [dosageDataState, setDosageDataState] = useState(dosageData);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      // 여기서 나중에 실제 API로 변경
+      // const response = await fetch('API_URL');
+      // const data = await response.json();
+
+      // 현재는 가짜 데이터 사용
+      const data = dosageData;
+      setDosageDataState(data); // 복용 기간 데이터 설정
+    };
+
+    fetchData();
+  }, []);
+
+  const handleDayClick = (day: number) => {
+    setSelectedDay(day);
+    const selectedDate = new Date(year, month, day);
+    const selectedDosage = dosageDataState.find((dosage) => {
+      const startDate = new Date(dosage.IntakeStart);
+      const endDate = new Date(dosage.IntakeEnd);
+      return selectedDate >= startDate && selectedDate <= endDate;
+    });
+    setDosage(selectedDosage ? selectedDosage.drugName : null);
+  };
 
   const handleModalConfirm = (
     selectedYear: number,
@@ -32,67 +53,33 @@ export const useCalendar = () => {
     setShowModal(false);
   };
 
-  const handleDayClick = (day: number) => {
-    setSelectedDay(day);
-    // 클릭한 날짜의 복용 내역 요청 (현재는 빈 상자만 표시)
-    setDosage(null); // 일단 빈 상자로 초기화
-    // 이후에 데이터베이스에서 복용 내역을 가져와서 setDosage로 설정하면 됨
+  const handleScroll = (event: React.WheelEvent<HTMLDivElement>) => {
+    if (event.deltaY < 0) {
+      setMonth((prev) => (prev === 0 ? 11 : prev - 1));
+      setYear((prev) => (prev === 0 ? prev - 1 : prev));
+    } else {
+      setMonth((prev) => (prev === 11 ? 0 : prev + 1));
+      setYear((prev) => (prev === 11 ? prev + 1 : prev));
+    }
   };
 
-  // 스크롤 이벤트 핸들러
-  const handleScroll = useCallback(
-    throttle((e: React.WheelEvent<HTMLDivElement>) => {
-      const delta = e.deltaY;
+  useEffect(() => {
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const newDates = Array.from({ length: daysInMonth }, (_, index) => ({
+      day: index + 1,
+      month: month,
+      year: year,
+    }));
+    setDates(newDates);
+  }, [year, month]);
 
-      if (delta < 0) {
-        // 스크롤을 위로 올릴 때
-        if (month === 0 && year > currentDate.getFullYear() - 5) {
-          setYear(year - 1);
-          setMonth(11);
-        } else if (month > 0) {
-          setMonth(month - 1);
-        }
-      } else if (delta > 0) {
-        // 스크롤을 아래로 내릴 때
-        if (month === 11 && year < currentDate.getFullYear() + 5) {
-          setYear(year + 1);
-          setMonth(0);
-        } else if (month < 11) {
-          setMonth(month + 1);
-        }
-      }
-    }, 5000),
-    [month, year],
-  );
-
-  // 날짜 데이터 생성
-  const firstDayOfMonth = startOfMonth(new Date(year, month, 1));
-  const lastDayOfMonth = endOfMonth(new Date(year, month, 1));
-
-  const dates: CalendarDate[] = [];
-
-  const lastDayOfPrevMonth = endOfMonth(subMonths(firstDayOfMonth, 1));
-  const fristDayOfNextMonth = startOfMonth(addMonths(lastDayOfMonth, 1));
-  const daysFromPrevMonth = firstDayOfMonth.getDay();
-  const daysFromNextMonth = lastDayOfMonth.getDay();
-
-  // 이전 달
-  for (let i = daysFromPrevMonth - 1; i >= 0; i--) {
-    const preDate = lastDayOfPrevMonth.getDate() - i;
-    dates.push({ day: preDate, month: month - 1, year });
-  }
-
-  // 이번 달
-  for (let i = 1; i <= lastDayOfMonth.getDate(); i++) {
-    dates.push({ day: i, month, year });
-  }
-
-  // 다음 달
-  const remainingDays = 6 - daysFromNextMonth;
-  for (let i = 1; i <= remainingDays; i++) {
-    const nextDate = fristDayOfNextMonth.getDate() + i;
-    dates.push({ day: nextDate, month: month + 1, year });
-  }
+  const initializeCalendar = () => {
+    const currentDate = new Date();
+    setYear(currentDate.getFullYear());
+    setMonth(currentDate.getMonth());
+    setSelectedDay(currentDate.getDate());
+    setShowModal(false);
+  };
 
   return {
     year,
@@ -106,5 +93,7 @@ export const useCalendar = () => {
     dosage,
     dates,
     handleScroll,
+    dosageData: dosageDataState,
+    initializeCalendar,
   };
 };

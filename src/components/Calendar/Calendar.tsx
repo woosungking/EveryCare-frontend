@@ -3,7 +3,6 @@ import Modal from './Modal';
 import CalendarTable from './CalendarTable';
 import CalendarInfo from './CalendarInfo';
 import { useCalendar } from '../../hooks/useCalendar';
-// import { Link } from 'react-router-dom';
 
 import CalendarLogo from '../../assets/Calendar/Calendar.svg';
 
@@ -24,9 +23,9 @@ const Calendar: React.FC = () => {
     handleModalConfirm,
     handleModalCancel,
     handleDayClick,
-    dosage,
     dates,
     handleScroll,
+    dosageData,
   } = useCalendar();
 
   const calendarRef = useRef<HTMLDivElement>(null);
@@ -34,26 +33,6 @@ const Calendar: React.FC = () => {
   const handleWheel = (event: React.WheelEvent<HTMLDivElement>) => {
     handleScroll(event);
   };
-
-  // const handleHomeClick = () => {
-  //   // 홈 페이지로 이동하는 로직 추가
-  // };
-
-  // const handleHistoryClick = () => {
-  //   // 복용 내역 페이지로 이동하는 로직 추가
-  // };
-
-  // const handleRegisterClick = () => {
-  //   // 약봉투 등록 페이지로 이동하는 로직 추가
-  // };
-
-  // const handleSearchClick = () => {
-  //   // 약 검색 페이지로 이동하는 로직 추가
-  // };
-
-  // const handleProfileClick = () => {
-  //   // 내 정보 페이지로 이동하는 로직 추가
-  // };
 
   return (
     <div
@@ -89,9 +68,13 @@ const Calendar: React.FC = () => {
         selectedDay={selectedDay}
         dates={dates}
         handleDayClick={handleDayClick}
-      />{' '}
-      {/* 복용 내역 정보 */}
-      <CalendarInfo month={month} selectedDay={selectedDay} dosage={dosage} />
+        dosageData={dosageData}
+      />
+      <CalendarInfo
+        selectedYear={year}
+        month={month}
+        selectedDay={selectedDay}
+      />
     </div>
   );
 };
