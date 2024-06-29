@@ -4,13 +4,15 @@ import React from 'react';
 interface SaveBtnProps {
   className?: string;
   children?: React.ReactNode;
+  onClick?: () => void;
 }
 
-const SaveBtn: React.FC<SaveBtnProps> = ({ children, className }) => {
+const SaveBtn: React.FC<SaveBtnProps> = ({ children, className, onClick }) => {
   return (
     <button
       type="submit"
-      className={`rounded-2xl bg-[#E4EFFB] w-[80%] h-[7%] block mx-auto mt-4 ${className}`}
+      onClick={onClick}
+      className={`rounded-2xl bg-sky-200 w-[80%] h-[7%] block mx-auto mt-4 ${className}`}
     >
       {children}
     </button>
