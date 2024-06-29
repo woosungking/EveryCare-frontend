@@ -6,14 +6,17 @@ const CenterLayout: React.FC<{ style?: React.CSSProperties }> = ({
 }) => {
   const CenterLayoutStyle = {
     boxShadow: '0 0 1px gray',
-    width: '453px',
-    minHeight: '100vh',
-    margin: '0 auto', // 중앙 정렬
-    position: 'relative',
+    // width: '453px',
+    // minHeight: '100vh',
+    // margin: '0 auto', // 중앙 정렬
+    // position: 'relative',
   };
   const mergedStyle = { ...CenterLayoutStyle, ...style };
   return (
-    <div className="h-screen bg-white" style={mergedStyle}>
+    <div
+      className="h-screen bg-white min-h-[100vh] w-[453px] m-auto relative"
+      style={mergedStyle}
+    >
       {/* <img
         src={MainLog}
         alt="MainLogo"

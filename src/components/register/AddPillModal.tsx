@@ -1,6 +1,6 @@
 import React from 'react';
 import OkBtn from '../../components/button/Btn3';
-import './AddPillModal.css';
+// import './AddPillModal.css';
 
 interface ModalProps {
   showModal: boolean;

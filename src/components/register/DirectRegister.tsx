@@ -19,7 +19,14 @@ const DirectRegister: React.FC = () => {
     setSickConfirm(false);
   };
   const onClickSickConfirm = () => {
-    setSickConfirm(true);
+    const trimmedValue = sickValue.trim();
+    if (trimmedValue === '') {
+      console.log('아무것도 입력되지 않았습니다.');
+      alert('질병명을 입력해주세요!');
+      setSickValue('');
+    } else {
+      setSickConfirm(true);
+    }
   };
   const handleSickInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -33,7 +40,14 @@ const DirectRegister: React.FC = () => {
     setHosConfirm(false);
   };
   const onClickHosConfirm = () => {
-    setHosConfirm(true);
+    const trimmedValue = hosValue.trim();
+    if (trimmedValue === '') {
+      console.log('아무것도 입력되지 않았습니다.');
+      alert('처방 받으신 병원을 입력해주세요!');
+      setHosValue('');
+    } else {
+      setHosConfirm(true);
+    }
   };
   const handleHosInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setHosValue(event.target.value);
@@ -52,7 +66,9 @@ const DirectRegister: React.FC = () => {
         <div className="flex flex-col w-full h-[30%] mt-[10%]">
           {!selectedSick ? (
             <>
-              <p className="text-4xl w-[50%] font-black ml-[3%] mb-[2%]">질병</p>
+              <p className="text-4xl w-[50%] font-black ml-[3%] mb-[2%]">
+                질병
+              </p>
               <p className="text-base w-[90%] text-gray-500 ml-[3%]">
                 어떤 질병으로 약을 복용하시나요?
               </p>
@@ -102,7 +118,9 @@ const DirectRegister: React.FC = () => {
         <div className="flex flex-col h-[30%] mt-[10%]">
           {!selectedHos ? (
             <>
-              <p className="text-4xl w-[50%] font-black mb-[2%] ml-[3%]">병원</p>
+              <p className="text-4xl w-[50%] font-black mb-[2%] ml-[3%]">
+                병원
+              </p>
               <p className="text-base text-gray-500 ml-[3%]">
                 처방 받으신 병원을 입력해주세요.
               </p>
