@@ -140,12 +140,10 @@ const ScanConfirm: React.FC = () => {
     }
     console.log('전송중,,');
     axios
-      .post('http://127.0.0.1:8000/test/', { query: inputValue })
+      .get('http://127.0.0.1:8000/test/?query=11')
       .then((response) => {
         console.log('서버 응답:', response.data);
         setMediData(response.data);
-        // console.log('테스트', mediData);
-        // console.log('테스트2', mediData[0]["medicine_id"]);
       })
       .catch((error) =>
         console.error('서버로 데이터를 보내는데 실패했습니다:', error),
