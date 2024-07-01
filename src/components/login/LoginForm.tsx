@@ -18,6 +18,8 @@ function LoginForm() {
         fakeData,
       );
       console.log(response.data);
+
+      navigate('/calendar');
     } catch (error) {
       console.log('Error:', error);
     }
