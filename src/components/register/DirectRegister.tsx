@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useState } from 'react';
 import RegisterSick from '../../assets/register/RegisterSick.svg';
 import RegisterHos from '../../assets/register/RegisterHospital.svg';
 import { useNavigate } from 'react-router-dom';
-import CustomHr from '../CustomHr';
+// import CustomHr from '../CustomHr';
+import { RegisterContext } from './context/RegisterContext';
 
 const DirectRegister: React.FC = () => {
+  const { OCRData, setOCRData } = useContext(RegisterContext);
+  useEffect(() => {
+    console.log(OCRData);
+    console.log('asda');
+  }, [OCRData]);
+
   const [selectedSick, setSelectedSick] = useState<boolean>(false);
   const [sickConfirm, setSickConfirm] = useState<boolean>(false);
   const [sickValue, setSickValue] = useState<string>('');

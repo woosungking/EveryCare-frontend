@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Prescription from '../../assets/register/Prescription.png';
 import PillNextText from './PillNextText';
 import BackBtn from './button/BackBtn';
@@ -14,6 +14,7 @@ import SaveBtn from '../../components/register/button/SaveBtn';
 import AddPillModal from './AddPillModal';
 
 import axios from 'axios';
+import { RegisterContext } from './context/RegisterContext';
 
 const formatDate = (date: []) => {
   switch (date[1]) {
@@ -60,6 +61,11 @@ const formatDate = (date: []) => {
 };
 
 const ScanConfirm: React.FC = () => {
+  const { OCRData, setOCRData } = useContext(RegisterContext);
+  useEffect(() => {
+    console.log(OCRData);
+    console.log('asda');
+  }, [OCRData]);
   const ExContainnerStyle = {
     width: '100%',
     height: '80vh',
@@ -245,6 +251,7 @@ const ScanConfirm: React.FC = () => {
 
   const handleHospital = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log(e.target.value);
+    console.log(OCRData);
     setHospital(e.target.value);
   };
 

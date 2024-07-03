@@ -14,23 +14,26 @@ import PillSearchPage from './pages/register/PillSearchPage';
 import PillRegisterPage from './pages/register/PillRegisterPage';
 import CalendarPage from './pages/calendar/CalendarPage';
 import MainPg from './pages/mainPage/MainPg';
+import { RegisterContextProvider } from './components/register/context/RegisterContext';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <Router>
-      <Routes>
-        <Route path="/" element={<MainPg />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignupPage />} />
-        <Route path="/signup2" element={<SiginupPage2 />} />
-        <Route path="/scan-or-direct" element={<ScanOrDirectPage />} />
-        <Route path="/direct-scan" element={<DirectScanPage />} />
-        <Route path="/scan-confirm" element={<ScanConfirmPage />} />
-        <Route path="/direct-register" element={<DirectRegisterPage />} />
-        <Route path="/pill-search" element={<PillSearchPage />} />
-        <Route path="/pill-register" element={<PillRegisterPage />} />
-        <Route path="/calendar" element={<CalendarPage />} />
-      </Routes>
-    </Router>
+    <RegisterContextProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<MainPg />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignupPage />} />
+          <Route path="/signup2" element={<SiginupPage2 />} />
+          <Route path="/scan-or-direct" element={<ScanOrDirectPage />} />
+          <Route path="/direct-scan" element={<DirectScanPage />} />
+          <Route path="/scan-confirm" element={<ScanConfirmPage />} />
+          <Route path="/direct-register" element={<DirectRegisterPage />} />
+          <Route path="/pill-search" element={<PillSearchPage />} />
+          <Route path="/pill-register" element={<PillRegisterPage />} />
+          <Route path="/calendar" element={<CalendarPage />} />
+        </Routes>
+      </Router>
+    </RegisterContextProvider>
   </React.StrictMode>,
 );

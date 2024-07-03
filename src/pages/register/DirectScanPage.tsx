@@ -4,6 +4,7 @@ import BackLayout from '../../components/BackLayout';
 import CenterLayout from '../../components/CenterLayout';
 import SmallLogo from '../../assets/SmallLogo.png';
 import NavBar from '../../components/NavBar';
+import { RegisterContextProvider } from '../../components/register/context/RegisterContext';
 
 const DirectScanPage: React.FC = () => {
   const LogoStyle = {
@@ -12,13 +13,13 @@ const DirectScanPage: React.FC = () => {
     marginLeft: '3%',
   };
   return (
-    <BackLayout>
-      <CenterLayout>
-        <img src={SmallLogo} alt="Small Logo" className="w-1/3 mt-3 ml-3" />
-        <DirectScan></DirectScan>
-        <NavBar></NavBar>
-      </CenterLayout>
-    </BackLayout>
+      <BackLayout>
+        <CenterLayout>
+          <img src={SmallLogo} alt="Small Logo" className="w-1/3 mt-3 ml-3" />
+          <DirectScan></DirectScan>
+          <NavBar></NavBar>
+        </CenterLayout>
+      </BackLayout>
   );
 };
 
