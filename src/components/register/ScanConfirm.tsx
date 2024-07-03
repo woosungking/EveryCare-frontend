@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Prescription from '../../assets/register/Prescription.png';
 import PillNextText from './PillNextText';
 import BackBtn from './button/BackBtn';
@@ -14,6 +14,7 @@ import SaveBtn from '../../components/register/button/SaveBtn';
 import AddPillModal from './AddPillModal';
 
 import axios from 'axios';
+import { RegisterContext } from './context/RegisterContext';
 
 const formatDate = (date: []) => {
   switch (date[1]) {
@@ -60,6 +61,11 @@ const formatDate = (date: []) => {
 };
 
 const ScanConfirm: React.FC = () => {
+  const { OCRData, setOCRData } = useContext(RegisterContext);
+  useEffect(() => {
+    console.log(OCRData);
+    console.log('asda');
+  }, [OCRData]);
   const ExContainnerStyle = {
     width: '100%',
     height: '80vh',
@@ -140,12 +146,10 @@ const ScanConfirm: React.FC = () => {
     }
     console.log('전송중,,');
     axios
-      .post('http://127.0.0.1:8000/test/', { query: inputValue })
+      .get('http://127.0.0.1:8000/test/?query=11')
       .then((response) => {
         console.log('서버 응답:', response.data);
         setMediData(response.data);
-        // console.log('테스트', mediData);
-        // console.log('테스트2', mediData[0]["medicine_id"]);
       })
       .catch((error) =>
         console.error('서버로 데이터를 보내는데 실패했습니다:', error),
@@ -247,6 +251,7 @@ const ScanConfirm: React.FC = () => {
 
   const handleHospital = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log(e.target.value);
+    console.log(OCRData);
     setHospital(e.target.value);
   };
 
