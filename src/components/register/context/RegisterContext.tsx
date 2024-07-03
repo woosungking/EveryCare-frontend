@@ -11,12 +11,12 @@ interface OCRDataType {
 }
 
 const initData: OCRDataType = {
-  drugName: ['약1 초기화', '약2 초기화'],
-  intakeStart: '졸료일 초기화',
-  intakeEnd: '시작일 초기화',
-  intakeCycle: '주기 초기화',
-  hospital: '병원 초기화',
-  disease: '감기 초기화',
+  drugName: [],
+  intakeStart: '',
+  intakeEnd: '',
+  intakeCycle: '',
+  hospital: '',
+  disease: '',
 };
 
 // export const RegisterContext = createContext<{

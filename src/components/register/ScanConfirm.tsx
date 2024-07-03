@@ -61,23 +61,33 @@ const formatDate = (date: []) => {
 };
 
 const ScanConfirm: React.FC = () => {
-  const { OCRData, setOCRData } = useContext(RegisterContext);
+  const { OCRData, setOCRData } = useContext(RegisterContext); // 처방전 인식 결과를 받아오는 전역변수 역할
   useEffect(() => {
-    console.log(OCRData);
-    console.log('asda');
+    const drugName = OCRData.drugName; // ocr로 받을때 약 정보는 한번에 배열로 받아서 직접입력하기 형식과 맞추려면 drugName배열을 다 풀어서 pcode,code,company가 있는 형식으로 맞춰줘야함. 안그러면 리스트에서 랜더링을 못함
+    //OCRData는 객체이므로 바로 map으로 돌리기가 불가능.
+    const parsedDrugData = drugName.map((drugName) => ({
+      drugName: drugName,
+      drugCode: '',
+      drugPcode: '',
+      drugCompany: '',
+    }));
+
+    setSaveMediData(parsedDrugData);
+    setIntakeCycle(OCRData.intakeCycle);
+    // setStartdDate(OCRData.intakeStart);
+    // setEndDate(OCRData.intakeEnd);
+    setHospital(OCRData.hospital);
+    setShowHospital(true);
+    setDisease(OCRData.disease);
+    setShowDisease(true);
   }, [OCRData]);
   const ExContainnerStyle = {
     width: '100%',
     height: '80vh',
-    // display: 'flex',
-    // flexDirection: 'column',
-    // justifyContent: 'center',
-    // alignItems: 'center',
     overflow: 'auto',
     textAlign: 'center',
     margin: '0',
     marginTop: '1vh',
-    // backgroundColor: 'green',
   }; // 처방전 사진, 처방약품, 복용기간, 질환이름등 모든 컨텐츠를 감싸는 컨테이너
 
   const ListStyle = {
@@ -122,14 +132,14 @@ const ScanConfirm: React.FC = () => {
   //--------------------------- 스타일 ---------------------------------------
   const [inputValue, setInputValue] = useState<string>(''); // 모달창 input박스 안 데이터를 읽어오는 배열.
 
-  interface MedicineData {
-    medicine_name: string;
-    medicine_code: string;
-    medicine_pcode: string;
-    medicine_company: string;
+  interface DrugData {
+    drugName: string;
+    drugCode: string;
+    drugPcode: string;
+    drugCompany: string;
     check: boolean;
   }
-  const [mediData, setMediData] = useState<MedicineData>([]);
+  const [mediData, setMediData] = useState<DrugData>([]);
 
   const changeInputBox = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -156,7 +166,7 @@ const ScanConfirm: React.FC = () => {
       );
   };
 
-  const [saveMediData, setSaveMediData] = useState<MedicineData[]>([]);
+  const [saveMediData, setSaveMediData] = useState<DrugData[]>([]);
   const handleCheckboxChange = (index: number) => {
     const updatedMediData = [...mediData];
     updatedMediData[index].check = !updatedMediData[index].check;
@@ -164,9 +174,10 @@ const ScanConfirm: React.FC = () => {
     if (updatedMediData[index].check) {
       console.log('체크박스 체크');
       setSaveMediData([...saveMediData, updatedMediData[index]]);
+      console.log(saveMediData);
     } else {
       const updatedSaveMediData = saveMediData.filter(
-        (item) => item.medicine_id !== updatedMediData[index].medicine_id,
+        (item) => item.drugID !== updatedMediData[index].drugID,
       ); // 일치하지 않는것은 저장을 안하고 일치하는것만 남겨서 update배열에 새로 저장, 중괄호가 없으면 boolean으로
       console.log('체크박스 해제');
       setSaveMediData(updatedSaveMediData);
@@ -175,10 +186,10 @@ const ScanConfirm: React.FC = () => {
     setMediData(updatedMediData);
   };
 
-  const handleDeleteList = (medicine_name: string) => {
+  const handleDeleteList = (drugName: string) => {
     const updatedMediData = [...saveMediData]; // 기존 저장배열을 받아옴
     const updatedSaveMediData = updatedMediData.filter((item) => {
-      return item.medicine_name !== medicine_name;
+      return item.drugName !== drugName;
     });
     setSaveMediData(updatedSaveMediData);
     console.log(saveMediData);
@@ -279,11 +290,11 @@ const ScanConfirm: React.FC = () => {
     console.log(disease);
     console.log(intakeCycle);
     console.log(intakeDaily);
-    const medicineCode = saveMediData.map((item) => item.medicine_code);
-    console.log(medicineCode);
+    const drugCode = saveMediData.map((item) => item.drugCode);
+    console.log(drugCode);
     axios
       .put('http://127.0.0.1:8000/test/', {
-        medicineCode: medicineCode,
+        drugCode: drugCode,
         intakeStart: startDate,
         intakeEnd: endDate,
         intakeCycle: intakeCycle,
@@ -299,7 +310,7 @@ const ScanConfirm: React.FC = () => {
     <>
       <BackBtn text="처방전 확인"></BackBtn>
 
-      <div style={ExContainnerStyle}>
+      <div style={ExContainnerStyle}> 
         <img
           src={Prescription}
           className="h-[30%] w-[80%] m-[auto] mt-[10px] mb-[0] pt-[2vh]"
@@ -317,10 +328,11 @@ const ScanConfirm: React.FC = () => {
           <ul className="flex m-auto w-[90%] h-[10vh] flex-wrap overflow-y-scroll">
             {saveMediData.map((medicine) => (
               <li style={ListStyle}>
-                <p style={MediNameStyle}>{medicine.medicine_name}</p>
+                <p style={MediNameStyle}>{medicine.drugName}</p>
+
                 <button
                   style={deleteBtnStyle}
-                  onClick={() => handleDeleteList(medicine.medicine_name)}
+                  onClick={() => handleDeleteList(medicine.drugName)}
                 >
                   -
                 </button>
@@ -370,19 +382,19 @@ const ScanConfirm: React.FC = () => {
                   {mediData.map((medicine, index) => (
                     <tr
                       className="border border-gray-200 relative"
-                      key={medicine.medicine_id}
+                      key={medicine.drugID}
                     >
                       <td className="h-[10%] w-[17%] border border-gray-200 whitespace-normal overflow-x-scroll align-middle">
-                        {medicine.medicine_name}
+                        {medicine.drugName}
                       </td>
                       <td className="h-[10%] w-[17%] border border-gray-200 whitespace-normal overflow-x-scroll align-middle">
-                        {medicine.medicine_code}
+                        {medicine.drugCode}
                       </td>
                       <td className="h-[10%] w-[17%] border border-gray-200 whitespace-normal overflow-x-scroll align-middle">
-                        {medicine.medicine_pcode}
+                        {medicine.drugPcode}
                       </td>
                       <td className="h-[10%] w-[17%] border border-gray-200 whitespace-normal overflow-x-scroll align-middle">
-                        {medicine.medicine_company}
+                        {medicine.drugCompany}
                       </td>
                       <input
                         className="absolute bottom-[50%] right-[3%]"
@@ -500,6 +512,7 @@ const ScanConfirm: React.FC = () => {
                 type="text"
                 className="w-[70%] h-[80%] m-auto text-center"
                 placeholder="병원을 입력 해 주세요"
+                value={hospital}
                 onChange={handleHospital}
               />
             </div>
@@ -524,6 +537,7 @@ const ScanConfirm: React.FC = () => {
                 type="text"
                 className="w-[70%] h-[80%] m-auto text-center"
                 placeholder="질병을 입력 해 주세요."
+                value={disease}
                 onChange={handleDisease}
               />
             </div>
