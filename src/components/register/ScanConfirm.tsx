@@ -16,7 +16,7 @@ import AddPillModal from './AddPillModal';
 import axios from 'axios';
 import { RegisterContext } from './context/RegisterContext';
 
-const formatDate = (date: []) => {
+const formatDate = (date: string[]) => {
   switch (date[1]) {
     case 'Jan':
       date[1] = '01';
@@ -56,11 +56,21 @@ const formatDate = (date: []) => {
       break;
   }
   const formatedDate = date[3] + '-' + date[1] + '-' + date[2];
-  console.log(formatedDate);
   return formatedDate;
 };
 
 const ScanConfirm: React.FC = () => {
+  const formatStartDate = (formatedDate) => {
+    const date = new Date(formatedDate);
+    setStartDate(date);
+  };
+
+  const formatEndDate = (formatedDate) => {
+    const date = new Date(formatedDate);
+    console.log(date);
+    setEndDate(date);
+  };
+
   const { OCRData, setOCRData } = useContext(RegisterContext); // 처방전 인식 결과를 받아오는 전역변수 역할
   useEffect(() => {
     const drugName = OCRData.drugName; // ocr로 받을때 약 정보는 한번에 배열로 받아서 직접입력하기 형식과 맞추려면 drugName배열을 다 풀어서 pcode,code,company가 있는 형식으로 맞춰줘야함. 안그러면 리스트에서 랜더링을 못함
@@ -74,8 +84,8 @@ const ScanConfirm: React.FC = () => {
 
     setSaveMediData(parsedDrugData);
     setIntakeCycle(OCRData.intakeCycle);
-    // setStartdDate(OCRData.intakeStart);
-    // setEndDate(OCRData.intakeEnd);
+    formatStartDate(OCRData.intakeStart);
+    formatEndDate(OCRData.intakeEnd);
     setHospital(OCRData.hospital);
     setShowHospital(true);
     setDisease(OCRData.disease);
@@ -206,28 +216,17 @@ const ScanConfirm: React.FC = () => {
     setMediData([]);
   };
 
-  const [startDate, setStartdDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
+  const [startDate, setStartDate] = useState<string | null>(null);
+  const [endDate, setEndDate] = useState<string | null>(null);
 
   const handleStartDateChange = (date: Date | null) => {
-    console.log(date);
-
-    const splitDate = String(date).split(' '); // date가 datepicker 의 객체로 전달되어서 형변환 필요.
-    const formatedDate = formatDate(splitDate);
-
-    console.log(formatedDate);
-
-    setStartdDate(formatedDate);
+    console.log(date);)
+    setStartDate(date);
   };
 
   const handleEndDateChange = (date: Date | null) => {
     console.log(date);
-
-    const splitDate = String(date).split(' '); // date가 datepicker 의 객체로 전달되어서 형변환 필요.
-    const formatedDate = formatDate(splitDate);
-
-    console.log(formatedDate);
-    setEndDate(formatedDate);
+    setEndDate(date);
   };
 
   const [showIntakeCycle, setShowIntakeCycle] = useState(false);
@@ -263,6 +262,7 @@ const ScanConfirm: React.FC = () => {
   const handleHospital = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log(e.target.value);
     console.log(OCRData);
+    console.log(endDate);
     setHospital(e.target.value);
   };
 
@@ -280,37 +280,56 @@ const ScanConfirm: React.FC = () => {
     disease: string;
   }
 
-  const [dataSubmit, setDataSubmit] = useState<submitData>(null);
+  const [dataSubmit, setDataSubmit] = useState<submitData | boolean>(false);
+
+  useEffect(() => {
+    console.log('동작 중....', startDate);
+    console.log('동작 중....', endDate);
+
+    if (dataSubmit) {
+      const drugCode = saveMediData.map((item) => item.drugCode);
+      axios
+        .put('http://127.0.0.1:8000/test/', {
+          drugCode: drugCode,
+          intakeStart: startDate,
+          intakeEnd: endDate,
+          intakeCycle: intakeCycle,
+          intakeDaily: intakeDaily,
+          hospital: hospital,
+          disease: disease,
+        })
+        .then((response) => {
+          console.log('서버 응답:', response.data);
+        });
+    }
+  }, [
+    dataSubmit,
+    disease,
+    endDate,
+    hospital,
+    intakeCycle,
+    intakeDaily,
+    saveMediData,
+    startDate,
+  ]);
 
   const handleDataSubmit = () => {
-    console.log(saveMediData);
-    console.log(hospital);
-    console.log(startDate);
-    console.log(endDate);
-    console.log(disease);
-    console.log(intakeCycle);
-    console.log(intakeDaily);
-    const drugCode = saveMediData.map((item) => item.drugCode);
-    console.log(drugCode);
-    axios
-      .put('http://127.0.0.1:8000/test/', {
-        drugCode: drugCode,
-        intakeStart: startDate,
-        intakeEnd: endDate,
-        intakeCycle: intakeCycle,
-        intakeDaily: intakeDaily,
-        hospital: hospital,
-        disease: disease,
-      })
-      .then((response) => {
-        console.log('서버 응답:', response.data);
-      });
+    let splitDate = String(startDate).split(' '); // date가 datepicker 의 객체로 전달되어서 형변환 필요.
+    let formatedDate = formatDate(splitDate);
+    setStartDate(formatedDate);
+
+    splitDate = String(endDate).split(' '); // date가 datepicker 의 객체로 전달되어서 형변환 필요.
+    console.log(splitDate);
+    formatedDate = formatDate(splitDate);
+    setEndDate(formatedDate);
+    console.log('서버 전송', endDate, startDate);
+    setDataSubmit(true); //저장하기 버튼을 누르면 useEffect
   };
   return (
     <>
       <BackBtn text="처방전 확인"></BackBtn>
 
-      <div style={ExContainnerStyle}> 
+      <div style={ExContainnerStyle}>
         <img
           src={Prescription}
           className="h-[30%] w-[80%] m-[auto] mt-[10px] mb-[0] pt-[2vh]"

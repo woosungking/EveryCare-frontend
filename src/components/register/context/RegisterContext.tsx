@@ -28,9 +28,11 @@ const initData: OCRDataType = {
 //     throw new Error('오류~~ ㅠㅠㅠ 살려줘');
 //   },
 // });
-export const RegisterContext = createContext({
-  OCRData: initData,
-});
+// export const RegisterContext = createContext({
+//   OCRData: initData,
+// });
+
+export const RegisterContext = createContext(initData);
 
 export const RegisterContextProvider: React.FC = ({ children }) => {
   const [OCRData, setOCRData] = useState(initData);

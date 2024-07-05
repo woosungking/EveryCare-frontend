@@ -5,7 +5,6 @@ import NavBar from '../../components/NavBar';
 import SmallLogo from '../../assets/SmallLogo.png';
 import ScanConfirm from '../../components/register/ScanConfirm';
 
-
 const ScanConfirmPage: React.FC = () => {
   const LogoStyle = {
     width: '30%',
