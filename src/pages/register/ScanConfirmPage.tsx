@@ -4,7 +4,6 @@ import CenterLayout from '../../components/CenterLayout';
 import NavBar from '../../components/NavBar';
 import SmallLogo from '../../assets/SmallLogo.png';
 import ScanConfirm from '../../components/register/ScanConfirm';
-import { RegisterContext, RegisterContextProvider } from '../../components/register/context/RegisterContext';
 
 const ScanConfirmPage: React.FC = () => {
   const LogoStyle = {

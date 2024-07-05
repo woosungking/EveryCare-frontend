@@ -16,7 +16,7 @@ import AddPillModal from './AddPillModal';
 import axios from 'axios';
 import { RegisterContext } from './context/RegisterContext';
 
-const formatDate = (date: []) => {
+const formatDate = (date: string[]) => {
   switch (date[1]) {
     case 'Jan':
       date[1] = '01';
@@ -56,28 +56,48 @@ const formatDate = (date: []) => {
       break;
   }
   const formatedDate = date[3] + '-' + date[1] + '-' + date[2];
-  console.log(formatedDate);
   return formatedDate;
 };
 
 const ScanConfirm: React.FC = () => {
-  const { OCRData, setOCRData } = useContext(RegisterContext);
+  const formatStartDate = (formatedDate) => {
+    const date = new Date(formatedDate);
+    setStartDate(date);
+  };
+
+  const formatEndDate = (formatedDate) => {
+    const date = new Date(formatedDate);
+    console.log(date);
+    setEndDate(date);
+  };
+
+  const { OCRData, setOCRData } = useContext(RegisterContext); // 처방전 인식 결과를 받아오는 전역변수 역할
   useEffect(() => {
-    console.log(OCRData);
-    console.log('asda');
+    const drugName = OCRData.drugName; // ocr로 받을때 약 정보는 한번에 배열로 받아서 직접입력하기 형식과 맞추려면 drugName배열을 다 풀어서 pcode,code,company가 있는 형식으로 맞춰줘야함. 안그러면 리스트에서 랜더링을 못함
+    //OCRData는 객체이므로 바로 map으로 돌리기가 불가능.
+    const parsedDrugData = drugName.map((drugName) => ({
+      drugName: drugName,
+      drugCode: '',
+      drugPcode: '',
+      drugCompany: '',
+    }));
+
+    setSaveMediData(parsedDrugData);
+    setIntakeCycle(OCRData.intakeCycle);
+    formatStartDate(OCRData.intakeStart);
+    formatEndDate(OCRData.intakeEnd);
+    setHospital(OCRData.hospital);
+    setShowHospital(true);
+    setDisease(OCRData.disease);
+    setShowDisease(true);
   }, [OCRData]);
   const ExContainnerStyle = {
     width: '100%',
     height: '80vh',
-    // display: 'flex',
-    // flexDirection: 'column',
-    // justifyContent: 'center',
-    // alignItems: 'center',
     overflow: 'auto',
     textAlign: 'center',
     margin: '0',
     marginTop: '1vh',
-    // backgroundColor: 'green',
   }; // 처방전 사진, 처방약품, 복용기간, 질환이름등 모든 컨텐츠를 감싸는 컨테이너
 
   const ListStyle = {
@@ -122,14 +142,14 @@ const ScanConfirm: React.FC = () => {
   //--------------------------- 스타일 ---------------------------------------
   const [inputValue, setInputValue] = useState<string>(''); // 모달창 input박스 안 데이터를 읽어오는 배열.
 
-  interface MedicineData {
-    medicine_name: string;
-    medicine_code: string;
-    medicine_pcode: string;
-    medicine_company: string;
+  interface DrugData {
+    drugName: string;
+    drugCode: string;
+    drugPcode: string;
+    drugCompany: string;
     check: boolean;
   }
-  const [mediData, setMediData] = useState<MedicineData>([]);
+  const [mediData, setMediData] = useState<DrugData>([]);
 
   const changeInputBox = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -156,7 +176,7 @@ const ScanConfirm: React.FC = () => {
       );
   };
 
-  const [saveMediData, setSaveMediData] = useState<MedicineData[]>([]);
+  const [saveMediData, setSaveMediData] = useState<DrugData[]>([]);
   const handleCheckboxChange = (index: number) => {
     const updatedMediData = [...mediData];
     updatedMediData[index].check = !updatedMediData[index].check;
@@ -164,9 +184,10 @@ const ScanConfirm: React.FC = () => {
     if (updatedMediData[index].check) {
       console.log('체크박스 체크');
       setSaveMediData([...saveMediData, updatedMediData[index]]);
+      console.log(saveMediData);
     } else {
       const updatedSaveMediData = saveMediData.filter(
-        (item) => item.medicine_id !== updatedMediData[index].medicine_id,
+        (item) => item.drugID !== updatedMediData[index].drugID,
       ); // 일치하지 않는것은 저장을 안하고 일치하는것만 남겨서 update배열에 새로 저장, 중괄호가 없으면 boolean으로
       console.log('체크박스 해제');
       setSaveMediData(updatedSaveMediData);
@@ -175,10 +196,10 @@ const ScanConfirm: React.FC = () => {
     setMediData(updatedMediData);
   };
 
-  const handleDeleteList = (medicine_name: string) => {
+  const handleDeleteList = (drugName: string) => {
     const updatedMediData = [...saveMediData]; // 기존 저장배열을 받아옴
     const updatedSaveMediData = updatedMediData.filter((item) => {
-      return item.medicine_name !== medicine_name;
+      return item.drugName !== drugName;
     });
     setSaveMediData(updatedSaveMediData);
     console.log(saveMediData);
@@ -195,28 +216,17 @@ const ScanConfirm: React.FC = () => {
     setMediData([]);
   };
 
-  const [startDate, setStartdDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
+  const [startDate, setStartDate] = useState<string | null>(null);
+  const [endDate, setEndDate] = useState<string | null>(null);
 
   const handleStartDateChange = (date: Date | null) => {
-    console.log(date);
-
-    const splitDate = String(date).split(' '); // date가 datepicker 의 객체로 전달되어서 형변환 필요.
-    const formatedDate = formatDate(splitDate);
-
-    console.log(formatedDate);
-
-    setStartdDate(formatedDate);
+    console.log(date);)
+    setStartDate(date);
   };
 
   const handleEndDateChange = (date: Date | null) => {
     console.log(date);
-
-    const splitDate = String(date).split(' '); // date가 datepicker 의 객체로 전달되어서 형변환 필요.
-    const formatedDate = formatDate(splitDate);
-
-    console.log(formatedDate);
-    setEndDate(formatedDate);
+    setEndDate(date);
   };
 
   const [showIntakeCycle, setShowIntakeCycle] = useState(false);
@@ -252,6 +262,7 @@ const ScanConfirm: React.FC = () => {
   const handleHospital = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log(e.target.value);
     console.log(OCRData);
+    console.log(endDate);
     setHospital(e.target.value);
   };
 
@@ -269,31 +280,50 @@ const ScanConfirm: React.FC = () => {
     disease: string;
   }
 
-  const [dataSubmit, setDataSubmit] = useState<submitData>(null);
+  const [dataSubmit, setDataSubmit] = useState<submitData | boolean>(false);
+
+  useEffect(() => {
+    console.log('동작 중....', startDate);
+    console.log('동작 중....', endDate);
+
+    if (dataSubmit) {
+      const drugCode = saveMediData.map((item) => item.drugCode);
+      axios
+        .put('http://127.0.0.1:8000/test/', {
+          drugCode: drugCode,
+          intakeStart: startDate,
+          intakeEnd: endDate,
+          intakeCycle: intakeCycle,
+          intakeDaily: intakeDaily,
+          hospital: hospital,
+          disease: disease,
+        })
+        .then((response) => {
+          console.log('서버 응답:', response.data);
+        });
+    }
+  }, [
+    dataSubmit,
+    disease,
+    endDate,
+    hospital,
+    intakeCycle,
+    intakeDaily,
+    saveMediData,
+    startDate,
+  ]);
 
   const handleDataSubmit = () => {
-    console.log(saveMediData);
-    console.log(hospital);
-    console.log(startDate);
-    console.log(endDate);
-    console.log(disease);
-    console.log(intakeCycle);
-    console.log(intakeDaily);
-    const medicineCode = saveMediData.map((item) => item.medicine_code);
-    console.log(medicineCode);
-    axios
-      .put('http://127.0.0.1:8000/test/', {
-        medicineCode: medicineCode,
-        intakeStart: startDate,
-        intakeEnd: endDate,
-        intakeCycle: intakeCycle,
-        intakeDaily: intakeDaily,
-        hospital: hospital,
-        disease: disease,
-      })
-      .then((response) => {
-        console.log('서버 응답:', response.data);
-      });
+    let splitDate = String(startDate).split(' '); // date가 datepicker 의 객체로 전달되어서 형변환 필요.
+    let formatedDate = formatDate(splitDate);
+    setStartDate(formatedDate);
+
+    splitDate = String(endDate).split(' '); // date가 datepicker 의 객체로 전달되어서 형변환 필요.
+    console.log(splitDate);
+    formatedDate = formatDate(splitDate);
+    setEndDate(formatedDate);
+    console.log('서버 전송', endDate, startDate);
+    setDataSubmit(true); //저장하기 버튼을 누르면 useEffect
   };
   return (
     <>
@@ -317,10 +347,11 @@ const ScanConfirm: React.FC = () => {
           <ul className="flex m-auto w-[90%] h-[10vh] flex-wrap overflow-y-scroll">
             {saveMediData.map((medicine) => (
               <li style={ListStyle}>
-                <p style={MediNameStyle}>{medicine.medicine_name}</p>
+                <p style={MediNameStyle}>{medicine.drugName}</p>
+
                 <button
                   style={deleteBtnStyle}
-                  onClick={() => handleDeleteList(medicine.medicine_name)}
+                  onClick={() => handleDeleteList(medicine.drugName)}
                 >
                   -
                 </button>
@@ -370,19 +401,19 @@ const ScanConfirm: React.FC = () => {
                   {mediData.map((medicine, index) => (
                     <tr
                       className="border border-gray-200 relative"
-                      key={medicine.medicine_id}
+                      key={medicine.drugID}
                     >
                       <td className="h-[10%] w-[17%] border border-gray-200 whitespace-normal overflow-x-scroll align-middle">
-                        {medicine.medicine_name}
+                        {medicine.drugName}
                       </td>
                       <td className="h-[10%] w-[17%] border border-gray-200 whitespace-normal overflow-x-scroll align-middle">
-                        {medicine.medicine_code}
+                        {medicine.drugCode}
                       </td>
                       <td className="h-[10%] w-[17%] border border-gray-200 whitespace-normal overflow-x-scroll align-middle">
-                        {medicine.medicine_pcode}
+                        {medicine.drugPcode}
                       </td>
                       <td className="h-[10%] w-[17%] border border-gray-200 whitespace-normal overflow-x-scroll align-middle">
-                        {medicine.medicine_company}
+                        {medicine.drugCompany}
                       </td>
                       <input
                         className="absolute bottom-[50%] right-[3%]"
@@ -500,6 +531,7 @@ const ScanConfirm: React.FC = () => {
                 type="text"
                 className="w-[70%] h-[80%] m-auto text-center"
                 placeholder="병원을 입력 해 주세요"
+                value={hospital}
                 onChange={handleHospital}
               />
             </div>
@@ -524,6 +556,7 @@ const ScanConfirm: React.FC = () => {
                 type="text"
                 className="w-[70%] h-[80%] m-auto text-center"
                 placeholder="질병을 입력 해 주세요."
+                value={disease}
                 onChange={handleDisease}
               />
             </div>

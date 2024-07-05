@@ -13,13 +13,13 @@ const DirectScanPage: React.FC = () => {
     marginLeft: '3%',
   };
   return (
-      <BackLayout>
-        <CenterLayout>
-          <img src={SmallLogo} alt="Small Logo" className="w-1/3 mt-3 ml-3" />
-          <DirectScan></DirectScan>
-          <NavBar></NavBar>
-        </CenterLayout>
-      </BackLayout>
+    <BackLayout>
+      <CenterLayout>
+        <img src={SmallLogo} alt="Small Logo" className="w-1/3 mt-3 ml-3" />
+        <DirectScan></DirectScan>
+        <NavBar></NavBar>
+      </CenterLayout>
+    </BackLayout>
   );
 };
 
