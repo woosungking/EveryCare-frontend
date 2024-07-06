@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { ReactElement, useContext, useEffect } from 'react';
 import { useState } from 'react';
 import RegisterSick from '../../assets/register/RegisterSick.svg';
 import RegisterHos from '../../assets/register/RegisterHospital.svg';
@@ -24,13 +24,13 @@ const DirectRegister: React.FC = () => {
   const [hosConfirm, setHosConfirm] = useState<boolean>(false);
   const [hosValue, setHosValue] = useState<string>('');
 
-  const [selectDate, setSelectDate] = useState();
-  const [intakeStartDate, setIntakeStartDate] = useState();
-  const [intakeEndDate, setIntakeEndDate] = useState();
+  const [selectDate, setSelectDate] = useState<boolean>(false);
+  const [startDate, setStartDate] = useState<Date | string>(new Date());
+  const [endDate, setEndDate] = useState<Date | string>(new Date());
 
   const [selectCycle, setSelectCycle] = useState();
-  const [intakeSum, setIntakeSum] = useState();
-  const [intakeCycle, setIntakeCycle] = useState();
+  const [intakeSum, setIntakeSum] = useState<null | String>(null);
+  const [intakeCycle, setIntakeCycle] = useState<null | String>(null);
 
   const onClickSick = () => {
     setSelectedSick(true);
@@ -78,6 +78,27 @@ const DirectRegister: React.FC = () => {
     navigate('/pill-search');
   };
 
+  const handleStartDate = (date: Date) => {
+    const newDate = date;
+    console.log(newDate);
+    setStartDate(newDate);
+  };
+  const handleEndDate = (date: Date) => {
+    const newDate = date;
+    console.log(newDate);
+    setEndDate(newDate);
+  };
+
+  const handleIntakeCycle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newCycle = e.target.value;
+    console.log(newCycle);
+    setIntakeCycle(newCycle);
+  };
+  const handleIntakeSum= (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newSum = e.target.value;
+    console.log(newSum);
+    setIntakeSum(newSum);
+  };
   return (
     <div className="h-[83vh] w-100% items-center overflow-scroll">
       <div className="flex h-[30vh] w-[100%]">
@@ -172,7 +193,9 @@ const DirectRegister: React.FC = () => {
               />
               {hosConfirm ? (
                 <div className="relative w-[90%]">
-                  <p className="inline-block overflow-x-scroll w-[70%] h-[40px] text-2xl text-gray-700 font-bold">{hosValue}</p>
+                  <p className="inline-block overflow-x-scroll w-[70%] h-[40px] text-2xl text-gray-700 font-bold">
+                    {hosValue}
+                  </p>
                   <button
                     name="sickConfirm"
                     onClick={onClickHos}
@@ -180,7 +203,7 @@ const DirectRegister: React.FC = () => {
                   >
                     수정
                   </button>
-                  </div>
+                </div>
               ) : (
                 <div className="relative w-[90%]">
                   <input
@@ -243,12 +266,14 @@ const DirectRegister: React.FC = () => {
               </div>
             </>
           ) : (
-            <div className="m-[3vh] flex items-center space-x-4">
+            <div className="flex w-[100%] h-[6.4%] justify-center">
               <DatePicker
+                selected={startDate}
                 className="date-picker-input2"
                 showIcon
                 dateFormat="yyyy-MM-dd"
                 placeholderText="시작일"
+                onChange={handleStartDate}
                 icon={
                   <img
                     src={CalendarImg} // 외부 이미지의 URL을 지정합니다.
@@ -257,10 +282,12 @@ const DirectRegister: React.FC = () => {
                 }
               ></DatePicker>
               <DatePicker
+                selected={endDate}
                 className="date-picker-input2"
                 showIcon
                 dateFormat="yyyy-MM-dd"
                 placeholderText="죵료일"
+                onChange={handleEndDate}
                 icon={
                   <img
                     src={CalendarImg} // 외부 이미지의 URL을 지정합니다.
@@ -304,7 +331,7 @@ const DirectRegister: React.FC = () => {
                       max="100"
                       placeholder="ex)1"
                       className="text-[14px] text-right"
-                      // onChange={handleIntakeDaily}
+                      onChange={handleIntakeSum}
                     />
                     <button className="w-[30%] text-blue-400 text-left font-bold">
                       회 섭취
@@ -317,7 +344,7 @@ const DirectRegister: React.FC = () => {
                       max="100"
                       placeholder="ex)0"
                       className="text-[14px] text-right"
-                      // onChange={handleIntakeCycle}
+                      onChange={handleIntakeCycle}
                     />
                     <button className="w-[30%] text-blue-400 text-left font-bold">
                       일 간격
