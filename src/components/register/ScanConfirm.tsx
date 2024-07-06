@@ -220,7 +220,7 @@ const ScanConfirm: React.FC = () => {
   const [endDate, setEndDate] = useState<string | null>(null);
 
   const handleStartDateChange = (date: Date | null) => {
-    console.log(date);)
+    console.log(date);
     setStartDate(date);
   };
 

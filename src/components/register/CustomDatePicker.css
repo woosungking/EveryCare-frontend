@@ -15,3 +15,21 @@
     width: 1rem;
     height: 1rem;
   }
+
+  .date-picker-input2 {
+    border-radius: 15px;
+    width: 85%;
+    height: 37px;
+    min-height: 100%;
+    margin-left: 1rem;
+    margin-bottom: 0px;
+    font-size: 0.8rem;
+    border: 1px solid rgba(59, 171, 231, 0.51);
+  }
+
+  .date-picker-img2{
+    left: 80%;
+    bottom: 5%;
+    width: 1rem;
+    height: 1rem;
+  }
