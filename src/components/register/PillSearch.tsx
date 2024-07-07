@@ -1,8 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import SearchIcon from '../../assets/SearchIc.png';
 import PillNextText from './PillNextText';
-import CustomHr from '../CustomHr';
+// import CustomHr from '../CustomHr';
 import axios from 'axios';
+import SaveBtn from './button/SaveBtn';
+import { RegisterContext } from './context/RegisterContext';
+import { useNavigate } from 'react-router';
 
 const PillSearch: React.FC = () => {
   interface DrugData {
@@ -12,10 +15,18 @@ const PillSearch: React.FC = () => {
     drugCompany: string;
     check: boolean;
   }
-
+  const nevigate = useNavigate();
+  const handleRedirect = (path: string) => {
+    console.log('sdsd');
+    nevigate(path);
+  };
+  const { savedDrug, setSavedDrug } = useContext(RegisterContext);
   const [searchedDrugData, setSearchedDrugData] = useState<DrugData[] | null>(
     null,
   );
+  // const [selectedDrugData, setSelectedDrugData] = useState<DrugData | null>(
+  //   null,
+  // );
   const [searchInputValue, setSearchInputValue] = useState<string>('');
   const [countDrug, setCountDrug] = useState<number>(0); // countDrug 타입 추가
   const checkboxRefs = useRef<(HTMLInputElement | null)[]>([]); // checkboxRefs 수정
@@ -26,32 +37,44 @@ const PillSearch: React.FC = () => {
   };
 
   const handleCheckboxChange = (index: number) => {
+    // 토글 기능만 하는 함수
     if (checkboxRefs.current[index]) {
       console.log(checkboxRefs.current[index]?.value);
       if (checkboxRefs.current[index]!.checked == true) {
-        //체크박스가 선택이 안되어 있다면 -> 선택을 하고 배경색을 바꿀거임
-        handleCheckboxBgChange(index);
+        //체크박스가 선택이 안되어 있다면 -> 선택을 한 후 -> 배경색, 선택되어진 약 저장하는 함수로 이동
         checkboxRefs.current[index]!.checked =
           !checkboxRefs.current[index]!.checked; // checked 토글 역할
+        handleCheckboxBgChange(index);
       } else if (checkboxRefs.current[index]!.checked == false) {
         console.log('선택됌.');
-        handleCheckboxBgChange2(index);
+
         checkboxRefs.current[index]!.checked =
           !checkboxRefs.current[index]!.checked; // checked 토글 역할
+        handleCheckboxBgChange2(index);
       }
     }
   };
 
   const handleCheckboxBgChange = (index: number) => {
-    // 선택해제 모드
+    // 선택 해제 모드
     console.log(checkedBgRefs.current[index]);
     checkedBgRefs.current[index]?.classList.remove('bg-blue-100');
+    const drug = checkboxRefs.current[index]!.value; // 삭제 할 약의 값
+    const { drugCode, ...restDrugData } = JSON.parse(drug); // 문자열로 바꾼후, 재구조화를 통해서 drugCode만 추출.
+    console.log('drugCode:', drugCode);
+    const temp = savedDrug.filter(
+      (drugData: DrugData) => drugData.drugCode != drugCode,
+    ); // 지우려는 데이터를 뺀 나머지 항목을 다시 저장
+    setSavedDrug(temp);
   };
   const handleCheckboxBgChange2 = (index: number) => {
     // 선택 모드
     console.log(checkedBgRefs.current[index]);
-    console.log(checkboxRefs.current[index]?.style.backgroundColor);
     checkedBgRefs.current[index]?.classList.add('bg-blue-100');
+    const temp = checkboxRefs.current[index]?.value; //json형식으로 파싱되어 있는 value값을 받아옴
+    const drug = JSON.parse(temp); // input값의 객체를 원래 DrugData객체로 다시 파싱해줌.
+    // setSavedDrug(...savedDrug, drug);
+    setSavedDrug((preSavedDrug: DrugData) => [...preSavedDrug, drug]);
   };
 
   useEffect(() => {
@@ -67,6 +90,28 @@ const PillSearch: React.FC = () => {
       alert('검색어를 입력해 주세요!');
       return;
     }
+
+    const updatedDrugs = [...savedDrug]; // 기존 저장된 약 데이터 복사
+    for (let i = 0; i < checkboxRefs.current.length; i++) {
+      const temp = checkboxRefs.current[i]?.checked;
+      if (temp === true) {
+        const item = checkboxRefs.current[i]?.value;
+        const drug = JSON.parse(item); // JSON 문자열을 객체로 변환
+
+        // 이미 있는지 확인
+        const exists = updatedDrugs.some(
+          (savedDrug) => savedDrug.drugCode === drug.drugCode,
+        );
+        if (!exists) {
+          updatedDrugs.push(drug); // 새로운 약 데이터 추가
+        }
+
+        handleCheckboxChange(i); // 체크박스 상태 변경
+      }
+    }
+
+    setSavedDrug(updatedDrugs); // 한 번에 상태 업데이트
+
     axios
       .get(`http://127.0.0.1:8000/test/?query=${searchInputValue}`)
       .then((response) => {
@@ -77,26 +122,30 @@ const PillSearch: React.FC = () => {
       );
   };
 
+  const saveDrug = () => {
+    console.log(savedDrug);
+    handleRedirect('/pill-register');
+  };
   return (
-    <div className="flex flex-col overflow-y-scroll h-[83vh] mb-20">
-      <div className="relative flex justify-center mt-4">
+    <div className="overflow-y-scroll h-[83vh] mb-20">
+      <div className="w-[100%] relative flex justify-center mt-4">
         <input
           type="text"
           placeholder="약 이름으로 입력해주세요."
           onChange={handleSearchInputChange}
-          className="w-[97%] h-[4vh] border-2 rounded-2xl px-2"
+          className="w-[97%] h-[30px] border-2 rounded-2xl px-2"
         />
-        <button className="absolute right-5" onClick={searchDrug}>
+        <button className="absolute right-[3%]" onClick={searchDrug}>
           <img src={SearchIcon} alt="검색" className="w-[90%] h-[3vh] mt-1" />
         </button>
       </div>
 
-      <div className="mt-6 mb-5 ml-5">
+      <div className="w-[100%] mt-[10px] ml-5 mb-2">
         <span>검색 결과</span>
         <span className="text-red-600">{countDrug}</span>
       </div>
-
-      <ul>
+      <hr className="border-none h-px w-[95%] bg-gray-500 m-auto mb-[3px]" />
+      <ul className="w-[100%] h-[50vh] overflow-y-scroll">
         {searchedDrugData &&
           searchedDrugData.map((medicine, index) => (
             <li
@@ -105,11 +154,11 @@ const PillSearch: React.FC = () => {
               ref={(element) => (checkedBgRefs.current[index] = element)}
             >
               <PillNextText headText={medicine.drugName} />
-              <CustomHr />
+              <hr className="border-none h-px w-[95%] bg-gray-500 m-auto mt-8 mb-[3px]" />
               <input
                 type="checkbox"
                 className="hidden"
-                value={medicine.drugName} // 서버로 보내줄때 약 이름을 주기로 해서 이름을 저장했음.
+                value={JSON.stringify(medicine)} // 서버로 보내줄때 약 이름을 주기로 해서 이름을 저장했음.
                 ref={(element) => (checkboxRefs.current[index] = element)}
                 // element는 React 컴포넌트 내에서 해당 DOM 요소에 대한 참조를 나타내는 매개변수입니다. 이 매개변수는 일반적으로 DOM 요소 자체를 나타내며,
                 // ref={checkboxRefs}
@@ -118,6 +167,10 @@ const PillSearch: React.FC = () => {
             </li>
           ))}
       </ul>
+
+      <SaveBtn className="mt-[30px] h-[30px] w-[80%]" onClick={saveDrug}>
+        저장하기
+      </SaveBtn>
     </div>
   );
 };

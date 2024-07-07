@@ -35,17 +35,29 @@ const PillRegister: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col h-[70vh]">
-      <div className="w-full h-[20vh] mt-10 mb-5 md:mt-20 md:mb-10">
+    <div className="bg-blue-300 h-[78vh] overflow-y-scroll">
+      <div className="bg-purple-100 w-[100%] h-[35vh] mt-[3vh]">
+        <PillNextText
+        headText="복용 약"
+          contentText="복용하시는 약이 맞으신가요?"
+        ></PillNextText>
+        <div className="h-[20vh] w-[100%] border-red-100 border-2">
+          <ul>
+            <li>asd</li>
+            <li>123</li>
+          </ul>
+        </div>
+      </div>
+      <div className="bg-red-100 w-[100%] h-[25vh] mt-[3vh]">
         <PillNextText
           headText="복약 횟수"
           contentText="하루에 몇 번 복용하시나요?"
         />
         <form
           onSubmit={handleSubmit}
-          className="w-full h-full flex flex-col justify-center items-center space-y-6"
+          className="w-100% flex flex-col justify-center items-center space-y-6"
         >
-          <div className="flex justify-center space-x-8 w-full px-4">
+          <div className="flex justify-center space-x-8 w-[100%] px-4">
             <button
               name="everyday"
               onClick={onClick}
@@ -93,13 +105,13 @@ const PillRegister: React.FC = () => {
           )}
         </form>
       </div>
-      <div className="w-full h-[20vh] mt-10 mb-5 md:mt-20 md:mb-10">
+      <div className="bg-yellow-100 w-[100%] h-[25vh] mt-[3vh]">
         <PillNextText headText="시작일" contentText="언제 복약을 시작하나요?" />
         <form
           onSubmit={handleSubmit}
-          className="w-full h-full flex flex-col justify-center items-center space-y-4"
+          className="w-[100%] flex flex-col justify-center items-center space-y-4"
         >
-          <div className="flex justify-center space-x-8 w-full max-w-[600px] px-4">
+          <div className="flex justify-center space-x-8 w-[100%] max-w-[600px] px-4">
             <button
               name="today"
               onClick={onClickStartDate}
@@ -135,13 +147,13 @@ const PillRegister: React.FC = () => {
           )}
         </form>
       </div>
-      <div className="w-full h-[20vh] mt-10 mb-5 md:mt-20 md:mb-10">
+      <div className="bg-green-100 w-[100%] h-[25vh] mt-[3vh]">
         <PillNextText headText="종료일" contentText="언제 복약을 종료하나요?" />
         <form
           onSubmit={handleSubmit}
-          className="w-full h-full flex flex-col justify-center items-center space-y-4"
+          className="w-[100%] flex flex-col justify-center items-center space-y-4"
         >
-          <div className="flex justify-center space-x-8 w-full max-w-[600px] px-4">
+          <div className="flex justify-center space-x-8 w-[100%] max-w-[600px] px-4">
             <button
               name="infinite"
               onClick={onClickEndDate}

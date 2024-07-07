@@ -19,26 +19,47 @@ const initData: OCRDataType = {
   disease: '',
 };
 
-// export const RegisterContext = createContext<{
-//   OCRData: OCRDataType;
-//   setOCRData: React.Dispatch<React.SetStateAction<OCRDataType>>;
-// }>({
-//   OCRData: initData,
-//   setOCRData: () => {
-//     throw new Error('오류~~ ㅠㅠㅠ 살려줘');
-//   },
-// });
-// export const RegisterContext = createContext({
-//   OCRData: initData,
-// });
+interface DrugData {
+  drugName: string;
+  drugCode: string;
+  drugPcode: string;
+  drugCompany: string;
+  check: boolean;
+}
 
 export const RegisterContext = createContext(initData);
 
 export const RegisterContextProvider: React.FC = ({ children }) => {
   const [OCRData, setOCRData] = useState(initData);
+  const [savedDrug, setSavedDrug] = useState<(DrugData | null)[]>([]);
+  const [startDate, setStartDate] = useState<Date | null>(null);
+  const [endDate, setEndDate] = useState<Date | null>(null);
+  const [hospital, setHospital] = useState<string>('');
+  const [disease, setDisease] = useState<string>('');
+  const [intakeSum, setIntakeSum] = useState<string>('');
+  const [intakeCycle, setIntakeCycle] = useState<string>('');
 
   return (
-    <RegisterContext.Provider value={{ OCRData, setOCRData }}>
+    <RegisterContext.Provider
+      value={{
+        OCRData,
+        setOCRData,
+        savedDrug,
+        setSavedDrug,
+        startDate,
+        setStartDate,
+        endDate,
+        setEndDate,
+        hospital,
+        setHospital,
+        disease,
+        setDisease,
+        intakeSum,
+        setIntakeSum,
+        intakeCycle,
+        setIntakeCycle,
+      }}
+    >
       {children}
     </RegisterContext.Provider>
   );
