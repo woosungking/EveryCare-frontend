@@ -18,30 +18,41 @@ const DirectRegister: React.FC = () => {
 
   const [selectedSick, setSelectedSick] = useState<boolean>(false);
   const [sickConfirm, setSickConfirm] = useState<boolean>(false);
-  const [sickValue, setSickValue] = useState<string>('');
+  
 
   const [selectedHos, setSelectedHos] = useState<boolean>(false);
   const [hosConfirm, setHosConfirm] = useState<boolean>(false);
-  const [hosValue, setHosValue] = useState<string>('');
+  
 
-  const [selectDate, setSelectDate] = useState<boolean>(false);
-  const [startDate, setStartDate] = useState<Date | string>(new Date());
-  const [endDate, setEndDate] = useState<Date | string>(new Date());
+  const {
+    savedDrug,
+    setSavedDrug,
+    startDate,
+    setStartDate,
+    endDate,
+    setEndDate,
+    hospital,
+    setHospital,
+    disease,
+    setDisease,
+    intakeDaily,
+    setIntakeDaily,
+    intakeCycle,
+    setIntakeCycle,
+  } = useContext(RegisterContext);
 
-  const [selectCycle, setSelectCycle] = useState();
-  const [intakeSum, setIntakeSum] = useState<null | String>(null);
-  const [intakeCycle, setIntakeCycle] = useState<null | String>(null);
+
 
   const onClickSick = () => {
     setSelectedSick(true);
     setSickConfirm(false);
   };
   const onClickSickConfirm = () => {
-    const trimmedValue = sickValue.trim();
+    const trimmedValue = disease.trim();
     if (trimmedValue === '') {
       console.log('아무것도 입력되지 않았습니다.');
       alert('질병명을 입력해주세요!');
-      setSickValue('');
+      setDisease(trimmedValue);
     } else {
       setSickConfirm(true);
     }
@@ -49,7 +60,7 @@ const DirectRegister: React.FC = () => {
   const handleSickInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    setSickValue(event.target.value);
+    setDisease(event.target.value);
     console.log(event.target.value);
   };
 
@@ -58,17 +69,17 @@ const DirectRegister: React.FC = () => {
     setHosConfirm(false);
   };
   const onClickHosConfirm = () => {
-    const trimmedValue = hosValue.trim();
+    const trimmedValue = hospital.trim();
     if (trimmedValue === '') {
       console.log('아무것도 입력되지 않았습니다.');
       alert('처방 받으신 병원을 입력해주세요!');
-      setHosValue('');
+      setHospital(trimmedValue);
     } else {
       setHosConfirm(true);
     }
   };
   const handleHosInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setHosValue(event.target.value);
+    setHospital(event.target.value);
     console.log(event.target.value);
   };
 
@@ -79,14 +90,12 @@ const DirectRegister: React.FC = () => {
   };
 
   const handleStartDate = (date: Date) => {
-    const newDate = date;
-    console.log(newDate);
-    setStartDate(newDate);
+    console.log(date);
+    setStartDate(date);
   };
   const handleEndDate = (date: Date) => {
-    const newDate = date;
-    console.log(newDate);
-    setEndDate(newDate);
+    console.log(date);
+    setEndDate(date);
   };
 
   const handleIntakeCycle = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -94,10 +103,10 @@ const DirectRegister: React.FC = () => {
     console.log(newCycle);
     setIntakeCycle(newCycle);
   };
-  const handleIntakeSum= (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleIntakeDaily = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newSum = e.target.value;
     console.log(newSum);
-    setIntakeSum(newSum);
+    setIntakeDaily(newSum);
   };
   return (
     <div className="h-[83vh] w-100% items-center overflow-scroll">
@@ -131,7 +140,7 @@ const DirectRegister: React.FC = () => {
               {sickConfirm ? (
                 <div className="relative w-[90%]">
                   <p className="inline-block overflow-x-scroll w-[70%] h-[40px] text-2xl text-gray-700 font-bold">
-                    {sickValue}
+                    {disease}
                   </p>
                   <button
                     name="sickConfirm"
@@ -145,7 +154,7 @@ const DirectRegister: React.FC = () => {
                 <div className="relative w-[90%]">
                   <input
                     type="text"
-                    value={sickValue}
+                    value={disease}
                     onChange={handleSickInputChange}
                     className="h-[40px] w-[70%] rounded-xl border border-black text-gray-700 bg-white text-lg "
                     placeholder="질병명을 입력해주세요."
@@ -194,7 +203,7 @@ const DirectRegister: React.FC = () => {
               {hosConfirm ? (
                 <div className="relative w-[90%]">
                   <p className="inline-block overflow-x-scroll w-[70%] h-[40px] text-2xl text-gray-700 font-bold">
-                    {hosValue}
+                    {hospital}
                   </p>
                   <button
                     name="sickConfirm"
@@ -208,7 +217,7 @@ const DirectRegister: React.FC = () => {
                 <div className="relative w-[90%]">
                   <input
                     type="text"
-                    value={hosValue}
+                    value={hospital}
                     onChange={handleHosInputChange}
                     className="inline-block h-[40px] w-[70%] rounded-xl border border-black text-gray-700 bg-white text-lg"
                     placeholder="병원명을 입력해주세요."
@@ -331,7 +340,8 @@ const DirectRegister: React.FC = () => {
                       max="100"
                       placeholder="ex)1"
                       className="text-[14px] text-right"
-                      onChange={handleIntakeSum}
+                      onChange={handleIntakeDaily}
+                      value={intakeDaily}
                     />
                     <button className="w-[30%] text-blue-400 text-left font-bold">
                       회 섭취
@@ -345,6 +355,7 @@ const DirectRegister: React.FC = () => {
                       placeholder="ex)0"
                       className="text-[14px] text-right"
                       onChange={handleIntakeCycle}
+                      value={intakeCycle}
                     />
                     <button className="w-[30%] text-blue-400 text-left font-bold">
                       일 간격

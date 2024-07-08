@@ -219,12 +219,12 @@ const ScanConfirm: React.FC = () => {
   const [startDate, setStartDate] = useState<string | null>(null);
   const [endDate, setEndDate] = useState<string | null>(null);
 
-  const handleStartDateChange = (date: Date | null) => {
+  const handleStartDate = (date: Date | null) => {
     console.log(date);
     setStartDate(date);
   };
 
-  const handleEndDateChange = (date: Date | null) => {
+  const handleEndDate = (date: Date | null) => {
     console.log(date);
     setEndDate(date);
   };
@@ -443,7 +443,7 @@ const ScanConfirm: React.FC = () => {
               className="date-picker-input"
               showIcon
               selected={startDate}
-              onChange={handleStartDateChange}
+              onChange={handleStartDate}
               dateFormat="yyyy-MM-dd"
               placeholderText="시작일"
               icon={
@@ -460,7 +460,7 @@ const ScanConfirm: React.FC = () => {
               className="date-picker-input"
               showIcon
               selected={endDate}
-              onChange={handleEndDateChange}
+              onChange={handleEndDate}
               dateFormat="yyyy-MM-dd"
               placeholderText="죵료일"
               icon={

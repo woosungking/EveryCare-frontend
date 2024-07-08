@@ -36,7 +36,7 @@ export const RegisterContextProvider: React.FC = ({ children }) => {
   const [endDate, setEndDate] = useState<Date | null>(null);
   const [hospital, setHospital] = useState<string>('');
   const [disease, setDisease] = useState<string>('');
-  const [intakeSum, setIntakeSum] = useState<string>('');
+  const [intakeDaily, setIntakeDaily] = useState<string>('');
   const [intakeCycle, setIntakeCycle] = useState<string>('');
 
   return (
@@ -54,8 +54,8 @@ export const RegisterContextProvider: React.FC = ({ children }) => {
         setHospital,
         disease,
         setDisease,
-        intakeSum,
-        setIntakeSum,
+        intakeDaily,
+        setIntakeDaily,
         intakeCycle,
         setIntakeCycle,
       }}
