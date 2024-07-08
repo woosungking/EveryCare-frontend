@@ -58,11 +58,23 @@ const PillRegister: React.FC = () => {
     setHospital,
     disease,
     setDisease,
-    intakeSum,
-    setIntakeSum,
+    intakeDaily,
+    setIntakeDaily,
     intakeCycle,
     setIntakeCycle,
   } = useContext(RegisterContext);
+
+  useEffect(() => {
+    console.log('context값 변경');
+    console.log(
+      disease,
+      hospital,
+      startDate,
+      endDate,
+      intakeCycle,
+      intakeDaily,
+    );
+  }, [disease, hospital, startDate, endDate, intakeCycle, intakeDaily]);
   const [selectedBtn, setSelectedBtn] = useState<string | null>(null);
   const [selectedStartDateBtn, setSelectedStartDateBtn] = useState<
     string | null
@@ -70,6 +82,26 @@ const PillRegister: React.FC = () => {
   const [selectedEndDateBtn, setSelectedEndDateBtn] = useState<string | null>(
     null,
   );
+
+  const handleIntakeCycle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log('intakecycle input.. : ');
+    setIntakeCycle(e.target.value);
+    console.log(intakeCycle);
+  };
+  const handleIntakeDaily = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log('intakedaily input..');
+    setIntakeDaily(e.target.value);
+    console.log(intakeDaily);
+  };
+
+  const handleStartDate = (date: Date) => {
+    console.log(date);
+    setStartDate(date);
+  };
+  const handleEndDate = (date: Date) => {
+    console.log(date);
+    setEndDate(date);
+  };
 
   const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     const {
@@ -104,9 +136,9 @@ const PillRegister: React.FC = () => {
     console.log('업데이트된 savedDrug:', savedDrug);
   }, [savedDrug]); //다음 랜더링 주기에 반영이 되므로 useEffect로 확인
   const nevigate = useNavigate();
-  const handleRedirect = () => {
-    console.log('sdsd');
-    nevigate('/pill-search');
+  const handleRedirect = (path) => {
+    console.log('pill-search page redirect...');
+    nevigate(path);
   };
   return (
     <div className="h-[78vh] overflow-y-scroll">
@@ -131,7 +163,7 @@ const PillRegister: React.FC = () => {
         </ul>
         <SaveBtn
           className="h-[30px] w-[80%] mb-[10px] border-blue-200 border-2 text-blue-500 bg-white text-sm font-bold"
-          onClick={handleRedirect}
+          onClick={() => handleRedirect('/pill-search')}
         >
           추가하기
         </SaveBtn>
@@ -176,7 +208,9 @@ const PillRegister: React.FC = () => {
               <input
                 type="text"
                 className="w-[55%] h-[2.5vh] rounded-xl border border-gray-700 text-gray-700 bg-white text-sm font-bold"
+                onChange={handleIntakeDaily}
                 placeholder="복약 횟수"
+                value={intakeDaily}
               />
             </div>
           )}
@@ -187,7 +221,9 @@ const PillRegister: React.FC = () => {
               <input
                 type="text"
                 className="w-[55%] h-[2.5vh] rounded-xl border border-gray-700 text-gray-700 bg-white text-sm font-bold"
+                onChange={handleIntakeCycle}
                 placeholder="간격 일수"
+                value={intakeCycle}
               />
             </div>
           )}
@@ -204,7 +240,8 @@ const PillRegister: React.FC = () => {
             showIcon
             dateFormat="yyyy-MM-dd"
             placeholderText="시작일"
-            // onChange={handleEndDate}
+            selected={startDate}
+            onChange={handleStartDate}
             icon={
               <img
                 src={CalendarImg} // 외부 이미지의 URL을 지정합니다.
@@ -218,6 +255,8 @@ const PillRegister: React.FC = () => {
             showIcon
             dateFormat="yyyy-MM-dd"
             placeholderText="죵료일"
+            selected={endDate}
+            onChange={handleEndDate}
             // onChange={handleEndDate}
             icon={
               <img
@@ -316,7 +355,10 @@ const PillRegister: React.FC = () => {
         </form>
       </div> */}
       <div className="flex justify-center mt-16">
-        <button className="justify-center h-[35px] w-[40%] rounded-xl border-2 border-blue-300 text-white bg-blue-300 text-base font-bold">
+        <button
+          className="justify-center h-[35px] w-[40%] rounded-xl border-2 border-blue-300 text-white bg-blue-300 text-base font-bold"
+          onClick={() => handleRedirect('/direct-register')}
+        >
           등록
         </button>
       </div>
