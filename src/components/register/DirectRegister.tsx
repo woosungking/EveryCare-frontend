@@ -356,7 +356,8 @@ const DirectRegister: React.FC = () => {
           )}
         </div>
       </div>
-      <SaveBtn className="text-[16px]">저장하기</SaveBtn>
+      <hr className="border-1 border-gray-300 m-auto w-[70%]" />
+      <SaveBtn className="h-[30px] w-[90%] mb-[10px] border-blue-200 border-2 text-blue-500 bg-white text-sm font-bold">저장하기</SaveBtn>
     </div>
   );
 };

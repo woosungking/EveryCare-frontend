@@ -17,8 +17,8 @@ const PillNextText: React.FC<{ headText: string; contentText: string }> = ({
         className={`${imgStyle}ml-3 mt-[5px] w-[35px] h-[35px]`}
       />
       <div className={`${inStyle} flex flex-col ml-3 mt-1 text-left`}>
-        <p className="h-[20px] w-[160px] text-[20px] text-aligin item-center">{headText}</p>
-        <p className="h-[10px] w-[200px] text-gray-500 font-abel text-sm font-normal">
+        <p className="h-[20px] w-[100%] text-[20px] text-aligin item-center">{headText}</p>
+        <p className="h-[10px] w-[100%] text-gray-500 font-abel text-sm font-normal">
           {contentText}
         </p>
       </div>

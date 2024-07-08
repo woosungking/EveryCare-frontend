@@ -168,7 +168,10 @@ const PillSearch: React.FC = () => {
           ))}
       </ul>
 
-      <SaveBtn className="mt-[30px] h-[30px] w-[80%]" onClick={saveDrug}>
+      <SaveBtn
+        className="mt-[30px] h-[30px] w-[80%] mb-[10px] border-blue-200 border-2 text-blue-500 bg-white text-sm font-bold"
+        onClick={saveDrug}
+      >
         저장하기
       </SaveBtn>
     </div>
