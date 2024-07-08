@@ -15,11 +15,7 @@ const PillSearch: React.FC = () => {
     drugCompany: string;
     check: boolean;
   }
-  const nevigate = useNavigate();
-  const handleRedirect = (path: string) => {
-    console.log('sdsd');
-    nevigate(path);
-  };
+  력
   const { savedDrug, setSavedDrug } = useContext(RegisterContext);
   const [searchedDrugData, setSearchedDrugData] = useState<DrugData[] | null>(
     null,

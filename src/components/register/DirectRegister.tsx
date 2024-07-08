@@ -18,11 +18,9 @@ const DirectRegister: React.FC = () => {
 
   const [selectedSick, setSelectedSick] = useState<boolean>(false);
   const [sickConfirm, setSickConfirm] = useState<boolean>(false);
-  
 
   const [selectedHos, setSelectedHos] = useState<boolean>(false);
   const [hosConfirm, setHosConfirm] = useState<boolean>(false);
-  
 
   const {
     savedDrug,
@@ -40,8 +38,6 @@ const DirectRegister: React.FC = () => {
     intakeCycle,
     setIntakeCycle,
   } = useContext(RegisterContext);
-
-
 
   const onClickSick = () => {
     setSelectedSick(true);
@@ -85,8 +81,8 @@ const DirectRegister: React.FC = () => {
 
   const navigate = useNavigate();
 
-  const handleMedicine = () => {
-    navigate('/pill-search');
+  const handleRedirect = (path) => {
+    navigate(path);
   };
 
   const handleStartDate = (date: Date) => {
@@ -107,6 +103,13 @@ const DirectRegister: React.FC = () => {
     const newSum = e.target.value;
     console.log(newSum);
     setIntakeDaily(newSum);
+  };
+  const handleSubmitData = () => {
+    console.log('병원 : ', hospital);
+    console.log('질병 : ', disease);
+    console.log('약품 : ', savedDrug);
+    console.log('시작일, 종료일 : ', startDate, endDate);
+    console.log('주기, 총 합 : ', intakeCycle, intakeDaily);
   };
   return (
     <div className="h-[83vh] w-100% items-center overflow-scroll">
@@ -245,10 +248,17 @@ const DirectRegister: React.FC = () => {
           <div className="flex justify-center w-full mt-[3vh]">
             <button
               name="medicine"
-              onClick={handleMedicine}
+              onClick={() => handleRedirect('/pill-search')}
               className="w-[80%] h-[40px] border-2 rounded-xl text-lg border-blue-200 text-blue-500 bg-white hover:bg-blue-200 hover:text-white"
             >
               약 입력
+            </button>
+            <button
+              name="medicine"
+              onClick={() => handleRedirect('/pill-register')}
+              className="w-[80%] h-[40px] border-2 rounded-xl text-lg border-blue-200 text-blue-500 bg-white hover:bg-blue-200 hover:text-white"
+            >
+              입력 확인
             </button>
           </div>
         </div>
@@ -325,7 +335,7 @@ const DirectRegister: React.FC = () => {
                   onClick={onClickSick}
                   className="w-[80%] h-[40px] border-2 rounded-xl text-lg border-blue-200 text-blue-500 bg-white hover:bg-blue-200 hover:text-white"
                 >
-                  질병 입력
+                  주기 입력
                 </button>
               </div>
             </>
@@ -368,7 +378,12 @@ const DirectRegister: React.FC = () => {
         </div>
       </div>
       <hr className="border-1 border-gray-300 m-auto w-[70%]" />
-      <SaveBtn className="h-[30px] w-[90%] mb-[10px] border-blue-200 border-2 text-blue-500 bg-white text-sm font-bold">저장하기</SaveBtn>
+      <SaveBtn
+        onClick={handleSubmitData}
+        className="h-[30px] w-[90%] mb-[10px] border-blue-200 border-2 text-blue-500 bg-white text-sm font-bold"
+      >
+        저장하기
+      </SaveBtn>
     </div>
   );
 };
