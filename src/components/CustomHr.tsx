@@ -1,17 +1,10 @@
 import React from 'react';
 
 const CustomHr: React.FC = () => {
-  const customhr = {
-    border: 'none',
-    height: '1px',
-    width: '95%',
-    backgroundColor: 'gray',
-    margin: 'auto',
-    marginTop: '30px',
-    marginBottom: '30px',
-  };
 
-  return <hr style={customhr} />;
+  return (
+    <hr className="border-none h-px w-[95%] bg-gray-500 m-auto mt-8 mb-8" />
+  );
 };
 
 export default CustomHr;
