@@ -8,6 +8,11 @@ import { RegisterContext } from './context/RegisterContext';
 import { useNavigate } from 'react-router';
 
 const PillSearch: React.FC = () => {
+  const nevigate = useNavigate();
+  const handleRedirect = (path) => {
+    console.log('pill-search page redirect...');
+    nevigate(path);
+  };
   interface DrugData {
     drugName: string;
     drugCode: string;
@@ -15,7 +20,7 @@ const PillSearch: React.FC = () => {
     drugCompany: string;
     check: boolean;
   }
-  력
+
   const { savedDrug, setSavedDrug } = useContext(RegisterContext);
   const [searchedDrugData, setSearchedDrugData] = useState<DrugData[] | null>(
     null,

@@ -91,55 +91,11 @@ const ScanConfirm: React.FC = () => {
     setDisease(OCRData.disease);
     setShowDisease(true);
   }, [OCRData]);
-  const ExContainnerStyle = {
-    width: '100%',
-    height: '80vh',
-    overflow: 'auto',
-    textAlign: 'center',
-    margin: '0',
-    marginTop: '1vh',
-  }; // 처방전 사진, 처방약품, 복용기간, 질환이름등 모든 컨텐츠를 감싸는 컨테이너
+  useEffect(()=>{
 
-  const ListStyle = {
-    width: '46%',
-    height: '2.5vh',
-    display: 'flex',
-    marginTop: '10px',
-    marginLeft: '0.8rem',
-    border: '1px solid gray',
-    borderRadius: '15px',
-    justifyContent: 'center', // 수평 가운데 정렬
-    alignItems: 'center', // 수직 가운데 정렬
-    fontSize: '0.8rem',
-    color: 'gray',
-    position: 'relative',
-    paddingTop: '1rem',
-    paddingBottom: '1rem',
-    paddingRight: '1rem',
-  };
+  });
 
-  const deleteBtnStyle = {
-    width: '1rem',
-    height: '1rem',
-    border: '1px solid #F5F5F5',
-    borderRadius: '10px',
-    fontSize: '1rem',
-    color: '#F56132',
-    backgroundColor: 'rgba(217, 217, 217, 0.58)',
-    position: 'absolute',
-    right: '1%',
-    top: '18%',
-    fontWeight: 'bold',
-  };
-
-  const MediNameStyle = {
-    flex: 1, // p 태그가 가능한 너비를 차지하도록 설정합니다.
-    margin: '0', // p 태그의 기본 마진을 제거합니다.
-    overflow: 'hidden', // 넘치는 텍스트를 숨깁니다.
-    whiteSpace: 'nowrap', // 텍스트가 한 줄로 유지되도록 합니다.
-    textOverflow: 'ellipsis', // 넘치는 텍스트를 말줄임표(...)로 표시합니다.
-  };
-  //--------------------------- 스타일 ---------------------------------------
+  const [showedDrugCount, setShowedDrugCount] = useState(0);
   const [inputValue, setInputValue] = useState<string>(''); // 모달창 input박스 안 데이터를 읽어오는 배열.
 
   interface DrugData {
@@ -285,7 +241,7 @@ const ScanConfirm: React.FC = () => {
   useEffect(() => {
     console.log('동작 중....', startDate);
     console.log('동작 중....', endDate);
-
+    setShowedDrugCount(saveMediData.length);
     if (dataSubmit) {
       const drugCode = saveMediData.map((item) => item.drugCode);
       axios
@@ -329,7 +285,7 @@ const ScanConfirm: React.FC = () => {
     <>
       <BackBtn text="처방전 확인"></BackBtn>
 
-      <div style={ExContainnerStyle}>
+      <div className="w-[100%] h-[80vh] text-center margin-0 mt-0 overflow-y-scroll">
         <img
           src={Prescription}
           className="h-[30%] w-[80%] m-[auto] mt-[10px] mb-[0] pt-[2vh]"
@@ -344,13 +300,15 @@ const ScanConfirm: React.FC = () => {
         <div className="w-[100%] h-[15vh] relative mb-[0] mt-[0.8rem]">
           {/* //추가, 수정 소 버튼의 위치를 상대적으로 지정하기 위해 div로 한번 감싸주었음. */}
           <PillNextText className="absolute" headText="처방약품"></PillNextText>
-          <ul className="flex m-auto w-[90%] h-[10vh] flex-wrap overflow-y-scroll">
+          <ul className="flex m-auto w-[90%] h-[10vh] flex-wrap overflow-y-scroll bg-blue-50 rounded-[15px]">
             {saveMediData.map((medicine) => (
-              <li style={ListStyle}>
-                <p style={MediNameStyle}>{medicine.drugName}</p>
+              <li className="w-[46%] h-[2.5vh] flex mt-[23px] ml-[0.8rem] border border-gray-500 rounded-[15px] justify-center items-center text-[0.8rem] text-gray-500 relative pt-4 pb-4 pr-4">
+                <p className="flex-1 m-0 overflow-hidden whitespace-nowrap text-ellipsis">
+                  {medicine.drugName}
+                </p>
 
                 <button
-                  style={deleteBtnStyle}
+                  className="w-4 h-4 border border-[#F5F5F5] rounded-[10px] text-[1rem] text-[#F56132] bg-[rgba(217,217,217,0.58)] absolute right-[1%] top-[18%] font-bold"
                   onClick={() => handleDeleteList(medicine.drugName)}
                 >
                   -
@@ -433,6 +391,9 @@ const ScanConfirm: React.FC = () => {
           >
             추가
           </button>
+          <p className="absolute text-[12px] left-[28%] top-[10%] text-[orange]">
+            {showedDrugCount}개
+          </p>
         </div>
 
         <div className="h-[15vh] w-[100%] mt-[2vh]">
@@ -474,7 +435,7 @@ const ScanConfirm: React.FC = () => {
           </div>
         </div>
 
-        <div className="h-[15vh] w-[100%] mt-[3vh]">
+        <div className="h-[20vh] w-[100%] mt-[3vh]">
           <PillNextText
             headText="복약횟수"
             contentText="하루에 몇번 복약 하시나요"
@@ -482,26 +443,26 @@ const ScanConfirm: React.FC = () => {
           <div>
             {showIntakeCycle ? (
               <div className="flex justify-center items-center h-[6vh] mt-[1vh]">
-                <div className="w-[30%] h-[30px] flex justify-center items-center rounded-2xl border-blue-200 border-[1px] text-gray-500 text-[8px] inline-block m-auto ml-auto mr-[1vh]">
+                <div className="w-[30%] h-[30px] flex justify-center items-center bg-blue-50 border-blue-200 border-[1px] text-gray-500 text-[8px] inline-block m-auto ml-auto mr-[1vh]">
                   <input
                     type="number"
                     min="1"
                     max="100"
                     placeholder="ex)1"
-                    className="text-[14px] text-right"
+                    className="text-[14px] text-right bg-blue-50"
                     onChange={handleIntakeDaily}
                   />
                   <button className="w-[30%] text-blue-400 text-left font-bold">
                     회 섭취
                   </button>
                 </div>
-                <div className="w-[30%] h-[30px] flex justify-center items-center rounded-2xl border-blue-200 border-[1px] text-gray-500 text-[8px] inline-block mr-auto ml-[1vh]">
+                <div className="w-[30%] h-[30px] flex justify-center items-center bg-blue-50 border-blue-200 border-[1px] text-gray-500 text-[8px] inline-block mr-auto ml-[1vh]">
                   <input
                     type="number"
                     min="1"
                     max="100"
                     placeholder="ex)0"
-                    className="text-[14px] text-right"
+                    className="text-[14px] text-right bg-blue-50"
                     onChange={handleIntakeCycle}
                   />
                   <button className="w-[30%] text-blue-400 text-left font-bold">
@@ -520,16 +481,16 @@ const ScanConfirm: React.FC = () => {
           </InputBtn>
         </div>
 
-        <div className="h-[15vh] w-[100%] mt-[3vh]">
+        <div className="h-[20vh] w-[100%] mt-[3vh]">
           <PillNextText
             headText="처방병원"
             contentText="어느 병원에서 처방받으셨나요"
           ></PillNextText>
           {showHospital ? (
-            <div className="flex flex-col justify-center aligin-center h-[30px] w-[80%] mt-[1rem] rounded-2xl border-blue-200 border-[1px] text-gray-500 m-auto">
+            <div className="flex flex-col bg-blue-50 justify-center aligin-center h-[30px] w-[70%] mt-[1rem] border-blue-200 border-[1px] text-gray-500 m-auto">
               <input
                 type="text"
-                className="w-[70%] h-[80%] m-auto text-center"
+                className="w-[70%] h-[80%] bg-blue-50 m-auto text-center"
                 placeholder="병원을 입력 해 주세요"
                 value={hospital}
                 onChange={handleHospital}
@@ -545,16 +506,16 @@ const ScanConfirm: React.FC = () => {
           </InputBtn>
         </div>
 
-        <div className="w-[100%] h-[15vh] mt-[5vh] relative">
+        <div className="w-[100%] h-[20vh] mt-[5vh] relative">
           <PillNextText
             headText="질환이름"
             contentText="어떤 질환으로 약을 복용하시나요"
           ></PillNextText>
           {showDisease ? (
-            <div className="flex flex-col justify-center aligin-center h-[30px] w-[80%] mt-[1rem] rounded-2xl border-blue-200 border-[1px] text-gray-500 m-auto">
+            <div className="bg-blue-50 flex flex-col justify-center aligin-center h-[30px] w-[70%] mt-[1rem] border-blue-200 border-[1px] text-gray-500 m-auto">
               <input
                 type="text"
-                className="w-[70%] h-[80%] m-auto text-center"
+                className="bg-blue-50 w-[70%] h-[80%] m-auto text-center"
                 placeholder="질병을 입력 해 주세요."
                 value={disease}
                 onChange={handleDisease}
@@ -568,9 +529,8 @@ const ScanConfirm: React.FC = () => {
             질병입력
           </InputBtn>
         </div>
-
         <SaveBtn
-          className="w-[80%] h-[30px] text-[16px] p-[1vh] flex items-center justify-center text-center]"
+          className="w-[80%] h-[30px] text-[16px] p-[1vh] flex items-center justify-center text-center] mb-[20px]"
           onClick={handleDataSubmit}
         >
           저장하기

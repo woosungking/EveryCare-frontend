@@ -27,10 +27,10 @@ interface DrugData {
   check: boolean;
 }
 
-export const RegisterContext = createContext(initData);
+export const RegisterContext = createContext(null);
 
 export const RegisterContextProvider: React.FC = ({ children }) => {
-  const [OCRData, setOCRData] = useState(initData);
+  const [OCRData, setOCRData] = useState<OCRDataType|null>();
   const [savedDrug, setSavedDrug] = useState<(DrugData | null)[]>([]);
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
