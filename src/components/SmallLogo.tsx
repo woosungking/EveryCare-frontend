@@ -6,10 +6,9 @@ const SmallLogo: React.FC = () => {
     width: '30%',
     marginTop: '3%',
     marginLeft: '3%',
-    height:"4.5vh"
+    height: '4.5vh',
   };
   return <img src={Logo} alt="" style={LogoStyle} />;
 };
 
 export default SmallLogo;
- 

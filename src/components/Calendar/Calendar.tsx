@@ -1,10 +1,10 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Modal from './Modal';
 import CalendarTable from './CalendarTable';
 import CalendarInfo from './CalendarInfo';
 import { useCalendar } from '../../hooks/useCalendar';
-
 import CalendarLogo from '../../assets/Calendar/Calendar.svg';
+import { dosageData as initialDosageData } from './CalMockData';
 
 const CalendarStyle: React.CSSProperties = {
   borderRadius: '15px',
@@ -25,13 +25,19 @@ const Calendar: React.FC = () => {
     handleDayClick,
     dates,
     handleScroll,
-    dosageData,
   } = useCalendar();
 
+  const [dosageData, setDosageData] = useState(initialDosageData);
   const calendarRef = useRef<HTMLDivElement>(null);
 
   const handleWheel = (event: React.WheelEvent<HTMLDivElement>) => {
     handleScroll(event);
+  };
+  const handleDelete = (recordID: string) => {
+    setDosageData((prevDosageData) =>
+      prevDosageData.filter((dosage) => dosage.recordID !== recordID),
+    );
+    console.log(`항목 ${recordID} 삭제됨`);
   };
 
   return (
@@ -74,6 +80,8 @@ const Calendar: React.FC = () => {
         selectedYear={year}
         month={month}
         selectedDay={selectedDay}
+        dosageData={dosageData}
+        handleDelete={handleDelete}
       />
     </div>
   );
