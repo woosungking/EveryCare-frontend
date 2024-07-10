@@ -4,10 +4,11 @@ import Info from '../assets/navicon/Info.png';
 import Intake from '../assets/navicon/Intake.png';
 import Register from '../assets/navicon/Register.png';
 import Search from '../assets/navicon/Search.png';
+import { Link } from 'react-router-dom';
 
 const NavBar: React.FC = () => {
   const NavStyle = {
-    bottom: '0', // 화면 하단에 고정
+    bottom: '0',
     width: '100%',
     height: '4.25rem',
     borderTop: '1px solid #D9D9D9',
@@ -26,30 +27,31 @@ const NavBar: React.FC = () => {
 
   return (
     <nav className="fixed flex bottom-0 w-full" style={NavStyle}>
-      <div
-        style={{
-          ...NavContentStyle,
-          backgroundImage: `url(${Home})`,
-        }}
-      ></div>
-      <div
+      <Link
+        to="/"
+        style={{ ...NavContentStyle, backgroundImage: `url(${Home})` }}
+      />
+      <Link
+        to="/calendar"
         style={{
           ...NavContentStyle,
           backgroundImage: `url(${Intake})`,
         }}
-      ></div>
-      <div
+      ></Link>
+      <Link
+        to="/scan-or-direct"
         style={{
           ...NavContentStyle,
           backgroundImage: `url(${Register})`,
         }}
-      ></div>
-      <div
+      ></Link>
+      <Link
+        to="/pill-search"
         style={{
           ...NavContentStyle,
           backgroundImage: `url(${Search})`,
         }}
-      ></div>
+      ></Link>
       <div
         style={{
           ...NavContentStyle,

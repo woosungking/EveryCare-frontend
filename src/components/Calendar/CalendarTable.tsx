@@ -2,42 +2,20 @@ import React from 'react';
 import { chunkArray } from '../../utils/helpers';
 import pillImage from '../../assets/Calendar/CalendarPill.svg'; // 알약 이미지
 
+interface DosageData {
+  recordID: string;
+  drugName: string;
+  IntakeStart: string;
+  IntakeEnd: string;
+}
+
 interface CalendarTableProps {
   month: number;
   selectedDay: number;
   dates: Array<{ day: number; month: number; year: number }>;
   handleDayClick: (day: number) => void;
-  dosageData: Array<{
-    drugName: string;
-    IntakeStart: string;
-    IntakeEnd: string;
-  }>;
+  dosageData: DosageData[];
 }
-
-const IntakePeriod = (
-  date: { day: number; month: number; year: number },
-  dosageData: Array<{
-    drugName: string;
-    IntakeStart: string;
-    IntakeEnd: string;
-  }>,
-) => {
-  const pills = dosageData.filter((dosage) => {
-    const startDate = new Date(dosage.IntakeStart);
-    const endDate = new Date(dosage.IntakeEnd);
-    const currentDate = new Date(date.year, date.month, date.day);
-    return currentDate >= startDate && currentDate <= endDate;
-  });
-
-  if (pills.length > 0) {
-    return (
-      <div className="flex items-center">
-        <img src={pillImage} alt="Pill" className="w-[60%] h-[1.5vh] mt-1" />
-        <span className="ml-1 mt-1.5">{pills.length}</span>
-      </div>
-    );
-  } else return null;
-};
 
 const CalendarTable: React.FC<CalendarTableProps> = ({
   month,
@@ -46,6 +24,27 @@ const CalendarTable: React.FC<CalendarTableProps> = ({
   handleDayClick,
   dosageData,
 }) => {
+  const IntakePeriod = (
+    date: { day: number; month: number; year: number },
+    dosageData: DosageData[],
+  ) => {
+    const pills = dosageData.filter((dosage) => {
+      const startDate = new Date(dosage.IntakeStart);
+      const endDate = new Date(dosage.IntakeEnd);
+      const currentDate = new Date(date.year, date.month, date.day);
+      return currentDate >= startDate && currentDate <= endDate;
+    });
+
+    if (pills.length > 0) {
+      return (
+        <div className="flex items-center">
+          <img src={pillImage} alt="Pill" className="w-[60%] h-[1.5vh] mt-1" />
+          <span className="ml-1 mt-1.5">{pills.length}</span>
+        </div>
+      );
+    } else return null;
+  };
+
   return (
     <table className="calendar-table w-full mt-2">
       <thead>

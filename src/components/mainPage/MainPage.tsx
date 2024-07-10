@@ -88,7 +88,7 @@ const MainPage: React.FC = () => {
           alt="Calendar Group"
           className="w-[60%] h-[25vh] max-w-xs sm:max-w-sm md:max-w-md"
         />
-        <h1 className="text-[2vh] font-extrabold mt-[1vh] mb-[1vh] text-center">
+        <h1 className="text-[2vh] font-extrabold mt-[1vh] mb-[1.5vh] text-center">
           어떤 약을 기록하시나요?
         </h1>
 
