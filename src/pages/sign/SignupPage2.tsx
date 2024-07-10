@@ -9,11 +9,11 @@ import Signup22 from '../../assets/signup/Signup22.svg';
 const SiginupPage2: React.FC = () => {
   return (
     <BackLayout>
-      <div className="flex flex-col items-center ml-auto">
+      <div className="flex flex-col items-center ml-auto w-[403px] h-[403px]">
         <img src={Signup2} className="w-[23vw]" />
         <img src={Signup22} className="w-[33vw]" />
       </div>
-      <CenterLayout>
+      <CenterLayout margin="m-auto">
         <img
           src={MainLog}
           alt="MainLogo"

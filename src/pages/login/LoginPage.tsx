@@ -16,7 +16,7 @@ const LoginPage: React.FC = () => {
         <img src={Bg12} className="w-[28vw]" />
       </div>
 
-      <CenterLayout>
+      <CenterLayout margin="m-auto">
         <img
           src={MainLog}
           alt="MainLogo"
