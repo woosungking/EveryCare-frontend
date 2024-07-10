@@ -15,7 +15,7 @@ const PillSearch: React.FC = () => {
     drugCompany: string;
     check: boolean;
   }
-  력
+
   const { savedDrug, setSavedDrug } = useContext(RegisterContext);
   const [searchedDrugData, setSearchedDrugData] = useState<DrugData[] | null>(
     null,
