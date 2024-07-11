@@ -14,7 +14,7 @@ const PillRegisterPage: React.FC = () => {
   };
   return (
     <BackLayout>
-      <CenterLayout>
+      <CenterLayout margin="m-auto">
         <img src={SmallLogo} alt="Small Logo" className="w-1/3 mt-3 ml-3" />
         <BackBtn text="약 입력" />
         <PillRegister />

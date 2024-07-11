@@ -13,7 +13,7 @@ const MainPg: React.FC = () => {
   };
   return (
     <BackLayout>
-      <CenterLayout>
+      <CenterLayout margin="m-auto">
         <img src={SmallLogo} alt="" style={LogoStyle} />
         <MainPage />
         <NavBar></NavBar>

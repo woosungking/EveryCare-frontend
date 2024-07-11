@@ -1,0 +1,44 @@
+[
+    {
+        "drugID": "4",
+        "drugName": "아스피린 300mg",
+        "drugCode": "321",
+        "drugPcode": "CDEFGHIJKL",
+        "drugCompany": "동아제약"
+    },
+    {
+        "drugID": "10",
+        "drugName": "아스피린 400mg",
+        "drugCode": "456",
+        "drugPcode": "MNOPQRSTUV",
+        "drugCompany": "제약사A"
+    },
+    {
+        "drugID": "11",
+        "drugName": "아스피린 500mg",
+        "drugCode": "789",
+        "drugPcode": "STUVWXYZAB",
+        "drugCompany": "제약사B"
+    },
+    {
+        "drugID": "12",
+        "drugName": "아스피린 600mg",
+        "drugCode": "987",
+        "drugPcode": "WXYZABCDEFG",
+        "drugCompany": "제약사C"
+    },
+    {
+        "drugID": "13",
+        "drugName": "아스피린 700mg",
+        "drugCode": "654",
+        "drugPcode": "HIJKLMNOPQ",
+        "drugCompany": "제약사D"
+    },
+    {
+        "drugID": "14",
+        "drugName": "아스피린 800mg",
+        "drugCode": "321",
+        "drugPcode": "RSTUVWXYZA",
+        "drugCompany": "제약사E"
+    }
+]

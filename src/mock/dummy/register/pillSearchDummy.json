@@ -1,0 +1,23 @@
+[
+    {
+        "drugID": "1",
+        "drugName": "타이레놀 5002",
+        "drugCode": "123",
+        "drugPcode": "ABCDEFGHIJ",
+        "drugCompany": "우성제약"
+    },
+    {
+        "drugID": "3",
+        "drugName": "타이레놀 200mg",
+        "drugCode": "789",
+        "drugPcode": "STUVWXYZAB",
+        "drugCompany": "삼성제약"
+    },
+    {
+        "drugID": "5",
+        "drugName": "타이레놀 300mg",
+        "drugCode": "654",
+        "drugPcode": "MNOPQRSTUV",
+        "drugCompany": "유한양행"
+    }
+]
