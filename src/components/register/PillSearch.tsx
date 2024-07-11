@@ -1,11 +1,9 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import SearchIcon from '../../assets/SearchIc.png';
 import PillNextText from './PillNextText';
-// import CustomHr from '../CustomHr';
 import axios from 'axios';
 import SaveBtn from './button/SaveBtn';
 import { RegisterContext } from './context/RegisterContext';
-import { useNavigate } from 'react-router';
 
 const PillSearch: React.FC = () => {
   interface DrugData {
@@ -20,9 +18,6 @@ const PillSearch: React.FC = () => {
   const [searchedDrugData, setSearchedDrugData] = useState<DrugData[] | null>(
     null,
   );
-  // const [selectedDrugData, setSelectedDrugData] = useState<DrugData | null>(
-  //   null,
-  // );
   const [searchInputValue, setSearchInputValue] = useState<string>('');
   const [countDrug, setCountDrug] = useState<number>(0); // countDrug 타입 추가
   const checkboxRefs = useRef<(HTMLInputElement | null)[]>([]); // checkboxRefs 수정
@@ -129,18 +124,22 @@ const PillSearch: React.FC = () => {
           type="text"
           placeholder="약 이름으로 입력해주세요."
           onChange={handleSearchInputChange}
-          className="w-[97%] h-[30px] border-2 rounded-2xl px-2"
+          className="w-[97%] h-[35px] border-blue-500 border rounded-2xl px-2"
         />
         <button className="absolute right-[3%]" onClick={searchDrug}>
-          <img src={SearchIcon} alt="검색" className="w-[90%] h-[3vh] mt-1" />
+          <img
+            src={SearchIcon}
+            alt="검색"
+            className="w-[100%] h-[2.5vh] mt-0.5"
+          />
         </button>
       </div>
 
-      <div className="w-[100%] mt-[10px] ml-5 mb-2">
+      <div className="w-[100%] mt-[20px] ml-5 mb-2">
         <span>검색 결과</span>
-        <span className="text-red-600">{countDrug}</span>
+        <span className="text-red-600 ml-2">{countDrug}</span>
       </div>
-      <hr className="border-none h-px w-[95%] bg-gray-500 m-auto mb-[3px]" />
+      {/* <hr className="border-none h-px w-[95%] bg-gray-500 m-auto mb-[3px]" /> */}
       <ul className="w-[100%] h-[50vh] overflow-y-scroll">
         {searchedDrugData &&
           searchedDrugData.map((medicine, index) => (
@@ -165,7 +164,7 @@ const PillSearch: React.FC = () => {
       </ul>
 
       <SaveBtn
-        className="mt-[30px] h-[30px] w-[80%] mb-[10px] border-blue-200 border-2 text-blue-500 bg-white text-sm font-bold"
+        className="mt-[30px] h-[3vh] w-[40%] mb-[10px] border-blue-200 border-2 text-blue-500 bg-white hover:border-none hover:text-white hover:bg-blue-300 text-sm font-bold"
         onClick={saveDrug}
       >
         저장하기

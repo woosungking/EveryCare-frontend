@@ -24,7 +24,7 @@ const MainPage: React.FC = () => {
   return (
     <div className="grid grid-rows-[auto,0.5fr,auto,auto,auto] items-center bg-white h-[83vh]">
       <div className="top-bar flex items-center justify-center w-full mt-[1vh]">
-        <div className="relative w-full">
+        <div className="relative w-[95%] mx-auto">
           <img src={SearchBar} alt="Search Bar" className="w-full" />
           <input
             type="text"
