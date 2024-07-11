@@ -121,8 +121,9 @@ const ScanConfirm: React.FC = () => {
       return;
     }
     console.log('전송중,,');
+    console.log(inputValue);
     axios
-      .get('http://127.0.0.1:8000/test/?query=11')
+      .get(`http://127.0.0.1:8000/test/?drugName=${inputValue}`)
       .then((response) => {
         console.log('서버 응답:', response.data);
         setMediData(response.data);

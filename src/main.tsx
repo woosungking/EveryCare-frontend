@@ -15,6 +15,10 @@ import PillRegisterPage from './pages/register/PillRegisterPage';
 import CalendarPage from './pages/calendar/CalendarPage';
 import MainPg from './pages/mainPage/MainPg';
 import { RegisterContextProvider } from './components/register/context/RegisterContext';
+import { worker } from './mock/browsers';
+if (process.env.NODE_ENV === 'development') {
+  worker.start();
+}
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
