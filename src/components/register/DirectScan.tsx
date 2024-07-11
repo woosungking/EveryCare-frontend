@@ -28,7 +28,7 @@ const DirectScan: React.FC = () => {
 
         try {
           const response = await axios.post(
-            'http://127.0.0.1:8000/test/',
+            'api/v1/medicines/photo/',
             formData,
             {
               headers: {
@@ -37,16 +37,19 @@ const DirectScan: React.FC = () => {
             },
           );
           setOCRData({
-            drugName: response.data.drugName,
-            intakeStart: response.data.intakeStart,
-            intakeEnd: response.data.intakeEnd,
-            intakeCycle: response.data.intakeCycle,
-            hospital: response.data.hospital,
-            disease: response.data.disease,
+            drugName: response.data.ocrReturnDummyData.drugName,
+            intakeStart: response.data.ocrReturnDummyData.intakeStart,
+            intakeEnd: response.data.ocrReturnDummyData.intakeEnd,
+            intakeCycle: response.data.ocrReturnDummyData.intakeCycle,
+            hospital: response.data.ocrReturnDummyData.hospital,
+            disease: response.data.ocrReturnDummyData.disease,
           });
-          console.log(response.data);
+          console.log(
+            '서버로 부터 응답... data : ',
+            response.data.ocrReturnDummyData.intakeStart,
+          );
           console.log('Data response OK, redirecting...');
-          nevigate('/scan-confirm');
+          // nevigate('/scan-confirm');
         } catch (error) {
           console.error('Error:', error);
         }

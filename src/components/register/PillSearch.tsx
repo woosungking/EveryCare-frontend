@@ -4,6 +4,8 @@ import PillNextText from './PillNextText';
 import axios from 'axios';
 import SaveBtn from './button/SaveBtn';
 import { RegisterContext } from './context/RegisterContext';
+import { useNavigate } from 'react-router';
+import { parseJSON } from 'date-fns';
 
 const PillSearch: React.FC = () => {
   const nevigate = useNavigate();
@@ -107,11 +109,16 @@ const PillSearch: React.FC = () => {
     }
 
     setSavedDrug(updatedDrugs); // 한 번에 상태 업데이트
-
+    // http:127.0.0.1:8000/test/?query=${searchInputValue}
     axios
-      .get(`http://127.0.0.1:8000/test/?query=${searchInputValue}`)
+      // .get(`http://127.0.0.1:8000/test/?drugName`)
+      .get(`http://127.0.0.1:8000/test/${searchInputValue}`)
+      // .get(`http://127.0.0.1:8000/test/?drugName=${searchInputValue}`)
       .then((response) => {
-        setSearchedDrugData(response.data);
+        const data = response.data;
+        console.log('서버로 부터 응답 data : ', data);
+        console.log(typeof data);
+        setSearchedDrugData(response.data.drugData);
       })
       .catch((error) =>
         console.error('서버로 데이터를 보내는데 실패했습니다:', error),

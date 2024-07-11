@@ -123,10 +123,13 @@ const ScanConfirm: React.FC = () => {
     console.log('전송중,,');
     console.log(inputValue);
     axios
-      .get(`http://127.0.0.1:8000/test/?drugName=${inputValue}`)
+      .get(`http://127.0.0.1:8000/test/${inputValue}`)
       .then((response) => {
+        const data = response.data;
+        console.log('서버로 부터 응답 data : ', data);
+        console.log(typeof data);
         console.log('서버 응답:', response.data);
-        setMediData(response.data);
+        setMediData(response.data.drugName);
       })
       .catch((error) =>
         console.error('서버로 데이터를 보내는데 실패했습니다:', error),

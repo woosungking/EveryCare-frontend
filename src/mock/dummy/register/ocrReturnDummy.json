@@ -1,0 +1,9 @@
+[{
+    "drugName": ["코카인", "엑스터시"],
+    "intakeStart": "2024-12-01",
+    "intakeEnd": "2024-12-31",
+    "intakeCycle": "1",
+    "intakeInterval": "2",
+    "hospital": "인천 중앙병원",
+    "disease": "고혈압"
+}]
