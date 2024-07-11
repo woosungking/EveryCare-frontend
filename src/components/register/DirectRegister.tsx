@@ -113,21 +113,21 @@ const DirectRegister: React.FC = () => {
   };
   return (
     <div className="h-[83vh] w-100% items-center overflow-scroll">
-      <div className="flex h-[30vh] w-[100%]">
-        <div className="flex flex-col w-full h-[30%] mt-[10%]">
+      <div className="flex h-[25vh] w-[100%]">
+        <div className="flex flex-col w-full h-[30%] mt-[12%]">
           {!selectedSick ? (
             <>
-              <p className="text-4xl w-[50%] font-black ml-[3%] mb-[2%]">
+              <p className="text-3xl w-[50%] font-black ml-[5%] mb-[2%]">
                 질병
               </p>
-              <p className="text-base w-[90%] text-gray-500 ml-[3%]">
+              <p className="text-base w-[90%] text-gray-500 ml-[5%]">
                 어떤 질병으로 약을 복용하시나요?
               </p>
-              <div className="flex justify-center m-auto w-full mt-[3vh]">
+              <div className="flex justify-center m-auto w-full mt-[5vh]">
                 <button
                   name="sick"
                   onClick={onClickSick}
-                  className="w-[80%] h-[40px] border-2 rounded-xl text-lg border-blue-200 text-blue-500 bg-white hover:bg-blue-200 hover:text-white"
+                  className="w-[50%] h-[37px] border-2 rounded-3xl text-lg border-blue-200 text-blue-500 bg-white hover:bg-blue-200 hover:text-white"
                 >
                   질병 입력
                 </button>
@@ -175,22 +175,22 @@ const DirectRegister: React.FC = () => {
           )}
         </div>
       </div>
-      <hr className="border-1 border-gray-300 m-auto w-[70%]" />
-      <div className="w-[100%] h-[30vh]">
-        <div className="flex flex-col h-[30%] mt-[10%]">
+      <hr className="border-1 border-gray-300 m-auto w-[85%]" />
+      <div className="w-[100%] h-[22vh]">
+        <div className="flex flex-col h-[30%] mt-[12%]">
           {!selectedHos ? (
             <>
-              <p className="text-4xl w-[50%] font-black mb-[2%] ml-[3%]">
+              <p className="text-3xl w-[50%] font-black mb-[2%] ml-[5%]">
                 병원
               </p>
-              <p className="text-base text-gray-500 ml-[3%]">
+              <p className="text-base text-gray-500 ml-[5%]">
                 처방 받으신 병원을 입력해주세요.
               </p>
-              <div className="flex justify-center w-full mt-[3vh]">
+              <div className="flex justify-center w-full mt-[5vh]">
                 <button
                   name="hospital"
                   onClick={onClickHos}
-                  className="w-[80%] h-[40px] border-2 rounded-xl text-lg border-blue-200 text-blue-500 bg-white hover:bg-blue-200 hover:text-white"
+                  className="w-[50%] h-[37px] border-2 rounded-3xl text-lg border-blue-200 text-blue-500 bg-white hover:bg-blue-200 hover:text-white"
                 >
                   병원 입력
                 </button>
@@ -238,54 +238,54 @@ const DirectRegister: React.FC = () => {
           )}
         </div>
       </div>
-      <hr className="border-1 border-gray-300 m-auto w-[70%]" />
-      <div className="h-[30vh] w-[100%]">
-        <div className="flex flex-col h-[30%] mt-[10%]">
-          <p className="text-4xl font-black mb-[2%] ml-[3%]">약</p>
-          <p className="text-base text-gray-500 ml-[3%]">
+      <hr className="border-1 border-gray-300 m-auto w-[85%]" />
+      <div className="h-[22vh] w-[100%]">
+        <div className="flex flex-col h-[30%] mt-[12%]">
+          <p className="text-3xl font-black mb-[2%] ml-[5%]">약</p>
+          <p className="text-base text-gray-500 ml-[5%]">
             복용하실 약을 입력해주세요.
           </p>
-          <div className="flex justify-center w-full mt-[3vh]">
+          <div className="flex justify-center space-x-7 mt-[5vh]">
             <button
               name="medicine"
               onClick={() => handleRedirect('/pill-search')}
-              className="w-[80%] h-[40px] border-2 rounded-xl text-lg border-blue-200 text-blue-500 bg-white hover:bg-blue-200 hover:text-white"
+              className="w-[38%] h-[37px] border-2 rounded-3xl text-lg border-blue-200 text-blue-500 bg-white hover:bg-blue-200 hover:text-white"
             >
               약 입력
             </button>
             <button
               name="medicine"
               onClick={() => handleRedirect('/pill-register')}
-              className="w-[80%] h-[40px] border-2 rounded-xl text-lg border-blue-200 text-blue-500 bg-white hover:bg-blue-200 hover:text-white"
+              className="w-[38%] h-[37px] border-2 rounded-3xl text-lg border-blue-200 text-blue-500 bg-white hover:bg-blue-200 hover:text-white"
             >
               입력 확인
             </button>
           </div>
         </div>
       </div>
-      <hr className="border-1 border-gray-300 m-auto w-[70%]" />
-      <div className="w-[100%] h-[30vh]">
-        <div className="flex flex-col h-[30%] mt-[10%]">
+      <hr className="border-1 border-gray-300 m-auto w-[85%]" />
+      <div className="w-[100%] h-[22vh]">
+        <div className="flex flex-col h-[30%] mt-[12%]">
           {!selectedHos ? (
             <>
-              <p className="text-4xl w-[50%] font-black mb-[2%] ml-[3%]">
+              <p className="text-3xl w-[50%] font-black mb-[2%] ml-[5%]">
                 복용일
               </p>
-              <p className="text-base text-gray-500 ml-[3%]">
+              <p className="text-base text-gray-500 ml-[5%]">
                 복용 시작일과 종료일을 입력해주세요.
               </p>
-              <div className="flex justify-center w-full mt-[3vh]">
+              <div className="flex justify-center w-full mt-[5vh]">
                 <button
                   name="hospital"
                   onClick={onClickHos}
-                  className="w-[80%] h-[40px] border-2 rounded-xl text-lg border-blue-200 text-blue-500 bg-white hover:bg-blue-200 hover:text-white"
+                  className="w-[50%] h-[37px] border-2 rounded-3xl text-lg border-blue-200 text-blue-500 bg-white hover:bg-blue-200 hover:text-white"
                 >
                   복용일 입력
                 </button>
               </div>
             </>
           ) : (
-            <div className="flex w-[100%] h-[6.4%] justify-center">
+            <div className="flex justify-center space-x-6 mt-10 mr-7">
               <DatePicker
                 selected={startDate}
                 className="date-picker-input2"
@@ -318,22 +318,22 @@ const DirectRegister: React.FC = () => {
           )}
         </div>
       </div>
-      <hr className="border-1 border-gray-300 m-auto w-[70%]" />
-      <div className="flex h-[30vh] w-[100%]">
-        <div className="flex flex-col w-full h-[30%] mt-[10%]">
+      <hr className="border-1 border-gray-300 m-auto w-[85%]" />
+      <div className="flex h-[27vh] w-[100%]">
+        <div className="flex flex-col w-full h-[30%] mt-[12%]">
           {!selectedSick ? (
             <>
-              <p className="text-4xl w-[50%] font-black ml-[3%] mb-[2%]">
+              <p className="text-3xl w-[50%] font-black ml-[5%] mb-[2%]">
                 복용주기
               </p>
-              <p className="text-base w-[90%] text-gray-500 ml-[3%]">
+              <p className="text-base w-[90%] text-gray-500 ml-[5%]">
                 하루에 몇번, 몇일 간격으로 드시나요 ?
               </p>
-              <div className="flex justify-center m-auto w-full mt-[3vh]">
+              <div className="flex justify-center m-auto w-full mt-[5vh]">
                 <button
                   name="sick"
                   onClick={onClickSick}
-                  className="w-[80%] h-[40px] border-2 rounded-xl text-lg border-blue-200 text-blue-500 bg-white hover:bg-blue-200 hover:text-white"
+                  className="w-[50%] h-[37px] border-2 rounded-3xl text-lg border-blue-200 text-blue-500 bg-white hover:bg-blue-200 hover:text-white"
                 >
                   주기 입력
                 </button>
@@ -343,7 +343,7 @@ const DirectRegister: React.FC = () => {
             <div>
               {selectedSick ? (
                 <div className="flex justify-center items-center h-[6vh] mt-[1vh]">
-                  <div className="w-[35%] h-[35px] flex justify-center items-center rounded-2xl border-blue-200 border-[1px] text-gray-500 text-[8px] inline-block m-auto ml-auto mr-[2vh]">
+                  <div className="w-[40%] h-[35px] flex justify-center rounded-2xl border-blue-200 border-[1px] text-gray-500 text-[8px] inline-block m-auto ml-auto">
                     <input
                       type="number"
                       min="1"
@@ -353,11 +353,11 @@ const DirectRegister: React.FC = () => {
                       onChange={handleIntakeDaily}
                       value={intakeDaily}
                     />
-                    <button className="w-[30%] text-blue-400 text-left font-bold">
+                    <button className="w-[30%] text-blue-400 text-xs text-left font-bold">
                       회 섭취
                     </button>
                   </div>
-                  <div className="w-[35%] h-[35px] flex justify-center items-center rounded-2xl border-blue-200 border-[1px] text-gray-500 text-[8px] inline-block mr-auto ml-[2vh]">
+                  <div className="w-[40%] h-[35px] flex justify-center rounded-2xl border-blue-200 border-[1px] text-gray-500 text-[8px] inline-block mr-auto">
                     <input
                       type="number"
                       min="1"
@@ -367,7 +367,7 @@ const DirectRegister: React.FC = () => {
                       onChange={handleIntakeCycle}
                       value={intakeCycle}
                     />
-                    <button className="w-[30%] text-blue-400 text-left font-bold">
+                    <button className="w-[30%] text-blue-400 text-xs text-left font-bold">
                       일 간격
                     </button>
                   </div>
@@ -377,10 +377,10 @@ const DirectRegister: React.FC = () => {
           )}
         </div>
       </div>
-      <hr className="border-1 border-gray-300 m-auto w-[70%]" />
+
       <SaveBtn
         onClick={handleSubmitData}
-        className="h-[30px] w-[90%] mb-[10px] border-blue-200 border-2 text-blue-500 bg-white text-sm font-bold"
+        className="h-[3.5vh] w-[40%] text-white bg-blue-600 text-sm font-bold"
       >
         저장하기
       </SaveBtn>

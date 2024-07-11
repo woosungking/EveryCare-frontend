@@ -141,13 +141,15 @@ const PillRegister: React.FC = () => {
     nevigate(path);
   };
   return (
-    <div className="h-[78vh] overflow-y-scroll">
-      <div className="w-[100%] h-[28vh] mt-[3vh]">
-        <PillNextText
-          headText="복용 약"
-          contentText="복용하시는 약이 맞으신가요?"
-        ></PillNextText>
-        <ul className="flex m-auto w-[90%] h-[10vh] flex-wrap overflow-y-scroll">
+    <div className="h-[78vh] overflow-auto">
+      <div className="w-[100%] h-[22vh]">
+        <div className="mt-[3vh] ml-[5%] mb-[2%]">
+          <PillNextText
+            headText="복용 약"
+            contentText="복용하시는 약이 맞으신가요?"
+          ></PillNextText>
+        </div>
+        <ul className="flex m-auto h-[5vh] flex-wrap overflow-y-scroll">
           {savedDrug.map((showedDrug) => (
             <li style={ListStyle}>
               <p style={MediNameStyle}>{showedDrug.drugName}</p>
@@ -162,17 +164,19 @@ const PillRegister: React.FC = () => {
           ))}
         </ul>
         <SaveBtn
-          className="h-[30px] w-[80%] mb-[10px] border-blue-200 border-2 text-blue-500 bg-white text-sm font-bold"
+          className="h-[35px] w-[80%] mb-[10px] border-blue-200 border-2 text-blue-500 bg-white text-sm font-bold"
           onClick={() => handleRedirect('/pill-search')}
         >
           추가하기
         </SaveBtn>
       </div>
-      <div className="w-[100%] h-[25vh]">
-        <PillNextText
-          headText="복약 횟수"
-          contentText="하루에 몇 번, 몇 일 간격으로 복용하시나요?"
-        />
+      <div className="w-[100%] h-[22vh]">
+        <div className="mt-[3vh] ml-[5%] mb-[2%]">
+          <PillNextText
+            headText="복약 횟수"
+            contentText="하루에 몇 번, 몇 일 간격으로 복용하시나요?"
+          />
+        </div>
         <form
           onSubmit={handleSubmit}
           className="w-100% flex flex-col justify-center items-center space-y-6"
@@ -181,7 +185,7 @@ const PillRegister: React.FC = () => {
             <button
               name="everyday"
               onClick={onClick}
-              className={`w-[50%] h-[35px] mt-[30px] rounded-xl border-2 ${
+              className={`w-[40%] h-[35px] mt-[30px] rounded-xl border-2 ${
                 selectedBtn === 'everyday'
                   ? 'border-blue-200 text-white bg-blue-200'
                   : 'border-blue-200 text-blue-500 bg-white'
@@ -193,7 +197,7 @@ const PillRegister: React.FC = () => {
             <button
               name="interval"
               onClick={onClick}
-              className={`w-[50%] h-[35px] mt-[30px] rounded-xl border-2 ${
+              className={`w-[40%] h-[35px] mt-[30px] rounded-xl border-2 ${
                 selectedBtn === 'interval'
                   ? 'border-blue-200 text-white bg-blue-200'
                   : 'border-blue-200 text-blue-500 bg-white'
@@ -229,11 +233,13 @@ const PillRegister: React.FC = () => {
           )}
         </form>
       </div>
-      <div className="w-[100%] h-[25vh] mt-[3vh]">
-        <PillNextText
-          headText="복약일"
-          contentText="언제부터 언제까지 복약을 하시나요?"
-        />
+      <div className="w-[100%] h-[22vh]">
+        <div className="mt-[3vh] ml-[5%] mb-[2%]">
+          <PillNextText
+            headText="복약일"
+            contentText="언제부터 언제까지 복약을 하시나요?"
+          />
+        </div>
         <div className="w-[100%] h-[10vh] mt-[30px] flex justify-center">
           <ReactDatePicker
             className="pillRegister-date-picker-input-start"
@@ -267,94 +273,7 @@ const PillRegister: React.FC = () => {
           ></ReactDatePicker>
         </div>
       </div>
-      {/* <div className="bg-yellow-100 w-[100%] h-[25vh] mt-[3vh]">
-        <PillNextText
-          headText="복약일"
-          contentText="언제부터 언제까지 복약을 하시나요?"
-        />
-        <form
-          onSubmit={handleSubmit}
-          className="w-[100%] flex flex-col justify-center items-center space-y-4"
-        >
-          <div className="flex justify-center space-x-8 w-[100%] max-w-[600px] px-4">
-            <button
-              name="today"
-              onClick={onClickStartDate}
-              className={`w-[40%] h-[3.5vh] rounded-xl border-2 ${
-                selectedStartDateBtn === 'today'
-                  ? 'border-blue-200 text-white bg-blue-200'
-                  : 'border-blue-200 text-blue-500 bg-white'
-              } text-sm font-bold`}
-            >
-              오늘
-            </button>
-            <button
-              name="selctedDate"
-              onClick={onClickStartDate}
-              className={`w-[40%] h-[3.5vh] rounded-xl border-2 ${
-                selectedStartDateBtn === 'selctedDate'
-                  ? 'border-blue-200 text-white bg-blue-200'
-                  : 'border-blue-200 text-blue-500 bg-white'
-              } text-sm font-bold`}
-            >
-              날짜 선택
-            </button>
-          </div>
-          {selectedStartDateBtn === 'selctedDate' && (
-            <div className="mt-2 flex items-center space-x-2">
-              <p className="text-gray-400">시작일</p>
-              <input
-                type="text"
-                className="w-[75%] h-[2.5vh] rounded-xl border border-gray-700 text-black bg-white text-sm font-bold"
-                placeholder="'YYYYMMDD' 8글자로 입력해주세요."
-              />
-            </div>
-          )}
-        </form>
-      </div> */}
-      {/* <div className="bg-green-100 w-[100%] h-[25vh] mt-[3vh]">
-        <PillNextText headText="종료일" contentText="언제 복약을 종료하나요?" />
-        <form
-          onSubmit={handleSubmit}
-          className="w-[100%] flex flex-col justify-center items-center space-y-4"
-        >
-          <div className="flex justify-center space-x-8 w-[100%] max-w-[600px] px-4">
-            <button
-              name="infinite"
-              onClick={onClickEndDate}
-              className={`w-[40%] h-[3.5vh] rounded-xl border-2 ${
-                selectedEndDateBtn === 'infinite'
-                  ? 'border-blue-200 text-white bg-blue-200'
-                  : 'border-blue-200 text-blue-500 bg-white'
-              } text-sm font-bold`}
-            >
-              종료일 없음
-            </button>
-            <button
-              name="selctedDate2"
-              onClick={onClickEndDate}
-              className={`w-[40%] h-[3.5vh] rounded-xl border-2 ${
-                selectedEndDateBtn === 'selctedDate2'
-                  ? 'border-blue-200 text-white bg-blue-200'
-                  : 'border-blue-200 text-blue-500 bg-white'
-              } text-sm font-bold`}
-            >
-              날짜 선택
-            </button>
-          </div>
-          {selectedEndDateBtn === 'selctedDate2' && (
-            <div className="mt-2 flex items-center space-x-2">
-              <p className="text-gray-400">종료일</p>
-              <input
-                type="text"
-                className="w-[80%] h-[2.5vh] rounded-xl border border-gray-700 text-black bg-white text-sm font-bold"
-                placeholder="'YYYYMMDD' 8글자로 입력해주세요."
-              />
-            </div>
-          )}
-        </form>
-      </div> */}
-      <div className="flex justify-center mt-16">
+      <div className="flex justify-center">
         <button
           className="justify-center h-[35px] w-[40%] rounded-xl border-2 border-blue-300 text-white bg-blue-300 text-base font-bold"
           onClick={() => handleRedirect('/direct-register')}
