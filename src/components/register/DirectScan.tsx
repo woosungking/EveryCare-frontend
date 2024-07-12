@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import CustomHr from '../CustomHr';
 import RegisterIcon from '../../assets/register/Register3.png';
 import QR from '../../assets/register/QRImg.png';
@@ -11,10 +11,16 @@ import {
 } from './context/RegisterContext';
 
 const DirectScan: React.FC = () => {
-  const { OCRData, setOCRData } = useContext(RegisterContext);
+  const { OCRData, setOCRData, imgURL, setImgURL } =
+    useContext(RegisterContext);
   const nevigate = useNavigate();
   const fileInputRef = useRef<HTMLInputElement>(null);
-
+  useEffect(() => {
+    if (imgURL) {
+      console.log('Data response OK, redirecting...');
+      nevigate('/scan-confirm');
+    }
+  }, [imgURL, nevigate]);
   const dropFile = async (e: React.DragEvent) => {
     // 파일을 드레그 후 드랍할때 발생하는 함수.
     e.preventDefault();
@@ -29,6 +35,7 @@ const DirectScan: React.FC = () => {
         try {
           const response = await axios.post(
             'api/v1/medicines/photo/',
+            // 'http://localhost:8000/test/',
             formData,
             {
               headers: {
@@ -37,19 +44,21 @@ const DirectScan: React.FC = () => {
             },
           );
           setOCRData({
-            drugName: response.data.ocrReturnDummyData.drugName,
-            intakeStart: response.data.ocrReturnDummyData.intakeStart,
-            intakeEnd: response.data.ocrReturnDummyData.intakeEnd,
-            intakeCycle: response.data.ocrReturnDummyData.intakeCycle,
-            hospital: response.data.ocrReturnDummyData.hospital,
-            disease: response.data.ocrReturnDummyData.disease,
+            drugName: response.data.data[0].drugName,
+            intakeStart: response.data.data[0].intakeStart,
+            intakeEnd: response.data.data[0].intakeEnd,
+            intakeCycle: response.data.data[0].intakeCycle,
+            hospital: response.data.data[0].hospital,
+            disease: response.data.data[0].disease,
           });
-          console.log(
-            '서버로 부터 응답... data : ',
-            response.data.ocrReturnDummyData.intakeStart,
-          );
-          console.log('Data response OK, redirecting...');
-          // nevigate('/scan-confirm');
+          const reader = new FileReader();
+          reader.onload = async function (event) {
+            const imageUrl = event.target.result;
+            console.log('이미지 데이터 URL:', imageUrl);
+            await setImgURL(imageUrl);
+          };
+          reader.readAsDataURL(fileInputRef.current.files[0]);
+          console.log('서버로 부터 응답... data : ', response.data);
         } catch (error) {
           console.error('Error:', error);
         }
@@ -64,7 +73,7 @@ const DirectScan: React.FC = () => {
   };
 
   const handleTest = () => {
-    console.log(OCRData);
+    console.log(OCRData.OCRData);
   };
   return (
     <>
