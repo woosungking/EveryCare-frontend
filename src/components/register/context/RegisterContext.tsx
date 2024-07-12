@@ -38,6 +38,7 @@ export const RegisterContextProvider: React.FC = ({ children }) => {
   const [disease, setDisease] = useState<string>('');
   const [intakeDaily, setIntakeDaily] = useState<string>('');
   const [intakeCycle, setIntakeCycle] = useState<string>('');
+  const [imgURL, setImgURL] = useState<string>('');
 
   return (
     <RegisterContext.Provider
@@ -58,6 +59,8 @@ export const RegisterContextProvider: React.FC = ({ children }) => {
         setIntakeDaily,
         intakeCycle,
         setIntakeCycle,
+        imgURL,
+        setImgURL,
       }}
     >
       {children}

@@ -71,7 +71,8 @@ const ScanConfirm: React.FC = () => {
     setEndDate(date);
   };
 
-  const { OCRData, setOCRData } = useContext(RegisterContext); // 처방전 인식 결과를 받아오는 전역변수 역할
+  const { OCRData, setOCRData, imgURL, setImgURL } =
+    useContext(RegisterContext); // 처방전 인식 결과를 받아오는 전역변수 역할
   useEffect(() => {
     const drugName = OCRData.drugName; // ocr로 받을때 약 정보는 한번에 배열로 받아서 직접입력하기 형식과 맞추려면 drugName배열을 다 풀어서 pcode,code,company가 있는 형식으로 맞춰줘야함. 안그러면 리스트에서 랜더링을 못함
     //OCRData는 객체이므로 바로 map으로 돌리기가 불가능.
@@ -91,9 +92,6 @@ const ScanConfirm: React.FC = () => {
     setDisease(OCRData.disease);
     setShowDisease(true);
   }, [OCRData]);
-  useEffect(()=>{
-
-  });
 
   const [showedDrugCount, setShowedDrugCount] = useState(0);
   const [inputValue, setInputValue] = useState<string>(''); // 모달창 input박스 안 데이터를 읽어오는 배열.
@@ -245,6 +243,7 @@ const ScanConfirm: React.FC = () => {
   useEffect(() => {
     console.log('동작 중....', startDate);
     console.log('동작 중....', endDate);
+    console.log('admlamsdlkmaklsdmklasm', imgURL);
     setShowedDrugCount(saveMediData.length);
     if (dataSubmit) {
       const drugCode = saveMediData.map((item) => item.drugCode);
@@ -291,7 +290,7 @@ const ScanConfirm: React.FC = () => {
 
       <div className="w-[100%] h-[80vh] text-center margin-0 mt-0 overflow-y-scroll">
         <img
-          src={Prescription}
+          src={imgURL}
           className="h-[30%] w-[80%] m-[auto] mt-[10px] mb-[0] pt-[2vh]"
         />
         <p
