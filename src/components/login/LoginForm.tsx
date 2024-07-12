@@ -29,7 +29,7 @@ function LoginForm() {
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="mb-6">
         <label
-          className="block text-black text-sm font-bold pl-[2vh] mb-2"
+          className="block text-black text-sm font-bold pl-[3vh] mb-2"
           htmlFor="id"
         >
           아이디
@@ -47,7 +47,7 @@ function LoginForm() {
 
       <div className="mb-6">
         <label
-          className="block text-black text-sm font-bold pl-[2vh] mb-2"
+          className="block text-black text-sm font-bold pl-[3vh] mb-2"
           htmlFor="password"
         >
           비밀번호

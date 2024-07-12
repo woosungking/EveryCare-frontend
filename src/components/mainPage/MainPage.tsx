@@ -22,7 +22,7 @@ const MainPage: React.FC = () => {
   };
 
   return (
-    <div className="grid grid-rows-[auto,0.5fr,auto,auto,auto] items-center bg-white h-[83vh]">
+    <div className="grid grid-rows-[auto,0.5fr,auto,auto,auto] items-center bg-white h-[83vh] overflow-auto">
       <div className="top-bar flex items-center justify-center w-full mt-[1vh]">
         <div className="relative w-[95%] mx-auto">
           <img src={SearchBar} alt="Search Bar" className="w-full" />
@@ -47,34 +47,34 @@ const MainPage: React.FC = () => {
           clickable: true,
         }}
         modules={[Autoplay, Pagination]}
-        className="w-full h-[30vh] max-w-screen-md my-[2vh]"
+        className="w-full h-[28vh] max-w-screen-md my-[2vh]"
       >
         <SwiperSlide>
           <img
             src={main1}
             alt="Slide 1"
-            className="m-auto w-full h-[30vh] object-cotain"
+            className="m-auto w-full h-[28vh] object-cotain"
           />
         </SwiperSlide>
         <SwiperSlide>
           <img
             src={main2}
             alt="Slide 2"
-            className="m-auto w-full h-[30vh] object-cotain"
+            className="m-auto w-full h-[28vh] object-cotain"
           />
         </SwiperSlide>
         <SwiperSlide>
           <img
             src={main3}
             alt="Slide 3"
-            className="m-auto w-full h-[30vh] object-cotain"
+            className="m-auto w-full h-[28vh] object-cotain"
           />
         </SwiperSlide>
         <SwiperSlide>
           <img
             src={main4}
             alt="Slide 4"
-            className="m-auto w-full h-[30vh] object-cotain"
+            className="m-auto w-full h-[28vh] object-cotain"
           />
         </SwiperSlide>
       </Swiper>
@@ -92,7 +92,7 @@ const MainPage: React.FC = () => {
           어떤 약을 기록하시나요?
         </h1>
 
-        <div className="flex items-center justify-center bg-white w-full max-w-screen-md mb-[1vh]">
+        <div className="flex items-center justify-center bg-white w-full max-w-screen-md mt-[1.5vh] mb-[1vh]">
           <img
             src={SmallPill}
             alt="Small Pill"
@@ -102,7 +102,7 @@ const MainPage: React.FC = () => {
             오늘 복용한 약
           </p>
         </div>
-        <div className="flex items-center justify-center bg-white w-full max-w-screen-md mb-[1vh]">
+        <div className="flex items-center justify-center bg-white w-full max-w-screen-md mb-[1.5vh]">
           <img
             src={SmallPill}
             alt="Small Pill"
@@ -112,7 +112,7 @@ const MainPage: React.FC = () => {
             병원에서 처방받은 약
           </p>
         </div>
-        <div className="flex items-center justify-center bg-white w-full max-w-screen-md mb-[1vh]">
+        <div className="flex items-center justify-center bg-white w-full max-w-screen-md mb-[1.5vh]">
           <img
             src={SmallPill}
             alt="Small Pill"
