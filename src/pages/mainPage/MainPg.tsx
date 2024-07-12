@@ -40,7 +40,6 @@ const MainPg: React.FC = () => {
             </button>
           </div>
         </div>
-
         <MainPage />
         <NavBar></NavBar>
       </CenterLayout>

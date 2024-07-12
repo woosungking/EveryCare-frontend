@@ -12,7 +12,7 @@ const ScanOrDirectPage: React.FC = () => {
   };
   return (
     <BackLayout>
-      <CenterLayout>
+      <CenterLayout margin="m-auto">
         <img src={SmallLogo} alt="" style={LogoStyle} />
 
         <NavBar></NavBar>
