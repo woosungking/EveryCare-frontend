@@ -141,7 +141,7 @@ const PillRegister: React.FC = () => {
     nevigate(path);
   };
   return (
-    <div className="h-[78vh] overflow-auto">
+    <div className="h-[79vh] overflow-auto">
       <div className="w-[100%] h-[22vh]">
         <div className="mt-[3vh] ml-[5%] mb-[2%]">
           <PillNextText
@@ -211,7 +211,7 @@ const PillRegister: React.FC = () => {
               <p className="text-gray-400">하루에 몇 번 복약 하시나요?</p>
               <input
                 type="text"
-                className="w-[55%] h-[2.5vh] rounded-xl border border-gray-700 text-gray-700 bg-white text-sm font-bold"
+                className="w-[55%] h-[2.5vh] rounded-xl border border-gray-700 text-gray-700 bg-white text-sm font-bold p-2"
                 onChange={handleIntakeDaily}
                 placeholder="복약 횟수"
                 value={intakeDaily}
@@ -224,7 +224,7 @@ const PillRegister: React.FC = () => {
               <p className="text-gray-400">며칠마다 복약 하시나요?</p>
               <input
                 type="text"
-                className="w-[55%] h-[2.5vh] rounded-xl border border-gray-700 text-gray-700 bg-white text-sm font-bold"
+                className="w-[55%] h-[2.5vh] rounded-xl border border-gray-700 text-gray-700 bg-white text-sm font-bold p-2"
                 onChange={handleIntakeCycle}
                 placeholder="간격 일수"
                 value={intakeCycle}
@@ -275,10 +275,10 @@ const PillRegister: React.FC = () => {
       </div>
       <div className="flex justify-center">
         <button
-          className="justify-center h-[35px] w-[40%] rounded-xl border-2 border-blue-300 text-white bg-blue-300 text-base font-bold"
+          className="justify-center h-[35px] w-[40%] rounded-xl text-white bg-blue-300 text-base font-bold"
           onClick={() => handleRedirect('/direct-register')}
         >
-          등록
+          저장하기
         </button>
       </div>
     </div>

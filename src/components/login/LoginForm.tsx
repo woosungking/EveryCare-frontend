@@ -40,7 +40,7 @@ function LoginForm() {
             id="id"
             type="text"
             {...register('id')}
-            className="w-[85%] h-[3vh] shadow appearance-none border border-black rounded py-2"
+            className="w-[85%] h-[3vh] shadow appearance-none border border-black rounded py-2 p-1"
           />
         </div>
       </div>
@@ -57,7 +57,7 @@ function LoginForm() {
             id="password"
             type="password"
             {...register('password')}
-            className="w-[85%] h-[3vh] shadow appearance-none border border-black rounded py-2 mb-6"
+            className="w-[85%] h-[3vh] shadow appearance-none border border-black rounded py-2 mb-6 p-1"
           />
         </div>
       </div>

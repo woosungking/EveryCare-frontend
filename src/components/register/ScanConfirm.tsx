@@ -288,7 +288,7 @@ const ScanConfirm: React.FC = () => {
     <>
       <BackBtn text="처방전 확인"></BackBtn>
 
-      <div className="w-[100%] h-[80vh] text-center margin-0 mt-0 overflow-y-scroll">
+      <div className="w-[453px] h-[88vh] text-center margin-0 mt-0 overflow-y-scroll">
         <img
           src={imgURL}
           className="h-[30%] w-[80%] m-[auto] mt-[10px] mb-[0] pt-[2vh]"
@@ -300,7 +300,7 @@ const ScanConfirm: React.FC = () => {
           등록한 처방전에서 개인정보는 저장되지 않습니다.
         </p>
 
-        <div className="w-[100%] h-[15vh] relative mb-[0] mt-[0.8rem]">
+        <div className="w-[100%] h-[15vh] relative mb-[0] ml-[1vh] mt-[0.8rem]">
           {/* //추가, 수정 소 버튼의 위치를 상대적으로 지정하기 위해 div로 한번 감싸주었음. */}
           <PillNextText className="absolute" headText="처방약품"></PillNextText>
           <ul className="flex m-auto w-[90%] h-[10vh] flex-wrap overflow-y-scroll bg-blue-50 rounded-[15px]">
@@ -399,7 +399,7 @@ const ScanConfirm: React.FC = () => {
           </p>
         </div>
 
-        <div className="h-[15vh] w-[100%] mt-[2vh]">
+        <div className="h-[15vh] w-[100%] ml-[1vh] mt-[2vh]">
           <PillNextText headText="복용기간"></PillNextText>
 
           <div className="flex w-[100%] h-[6.4%] justify-center">
@@ -438,7 +438,7 @@ const ScanConfirm: React.FC = () => {
           </div>
         </div>
 
-        <div className="h-[20vh] w-[100%] mt-[3vh]">
+        <div className="h-[20vh] w-[100%] ml-[1vh] mt-[3vh]">
           <PillNextText
             headText="복약횟수"
             contentText="하루에 몇번 복약 하시나요"
@@ -484,7 +484,7 @@ const ScanConfirm: React.FC = () => {
           </InputBtn>
         </div>
 
-        <div className="h-[20vh] w-[100%] mt-[3vh]">
+        <div className="h-[20vh] w-[100%] ml-[1vh] mt-[3vh]">
           <PillNextText
             headText="처방병원"
             contentText="어느 병원에서 처방받으셨나요"
@@ -509,7 +509,7 @@ const ScanConfirm: React.FC = () => {
           </InputBtn>
         </div>
 
-        <div className="w-[100%] h-[20vh] mt-[5vh] relative">
+        <div className="w-[100%] h-[20vh] ml-[1vh] mt-[5vh] relative">
           <PillNextText
             headText="질환이름"
             contentText="어떤 질환으로 약을 복용하시나요"

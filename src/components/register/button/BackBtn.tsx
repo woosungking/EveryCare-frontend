@@ -10,8 +10,8 @@ const BackBtn: React.FC = ({ text }) => {
         marginTop: '3%',
       }}
     >
-      <button> &lt; </button>
-      <span>{text}</span>
+      <button className="p-2"> &lt; </button>
+      <span className="p-1">{text}</span>
     </div>
   );
 };
