@@ -1,44 +1,444 @@
 [
     {
-        "drugID": "4",
+        "drugID": "1",
         "drugName": "아스피린 300mg",
-        "drugCode": "321",
-        "drugPcode": "CDEFGHIJKL",
+        "drugCode": "100",
+        "drugPcode": "PQWRX098",
         "drugCompany": "동아제약"
     },
     {
-        "drugID": "10",
+        "drugID": "2",
         "drugName": "아스피린 400mg",
-        "drugCode": "456",
-        "drugPcode": "MNOPQRSTUV",
+        "drugCode": "200",
+        "drugPcode": "MNOPQRST",
         "drugCompany": "제약사A"
     },
     {
-        "drugID": "11",
+        "drugID": "3",
         "drugName": "아스피린 500mg",
-        "drugCode": "789",
-        "drugPcode": "STUVWXYZAB",
+        "drugCode": "300",
+        "drugPcode": "UVWXYZAB",
         "drugCompany": "제약사B"
     },
     {
-        "drugID": "12",
+        "drugID": "4",
         "drugName": "아스피린 600mg",
-        "drugCode": "987",
-        "drugPcode": "WXYZABCDEFG",
+        "drugCode": "400",
+        "drugPcode": "CDEFGHIJ",
         "drugCompany": "제약사C"
     },
     {
-        "drugID": "13",
+        "drugID": "5",
         "drugName": "아스피린 700mg",
-        "drugCode": "654",
-        "drugPcode": "HIJKLMNOPQ",
+        "drugCode": "500",
+        "drugPcode": "KLMNOPQR",
         "drugCompany": "제약사D"
     },
     {
-        "drugID": "14",
+        "drugID": "6",
         "drugName": "아스피린 800mg",
-        "drugCode": "321",
-        "drugPcode": "RSTUVWXYZA",
+        "drugCode": "600",
+        "drugPcode": "STUVWXYZ",
         "drugCompany": "제약사E"
-    }
-]
+    },
+    {
+        "drugID": "7",
+        "drugName": "아스피린 900mg",
+        "drugCode": "700",
+        "drugPcode": "ABCDEFGHI",
+        "drugCompany": "동아제약"
+    },
+    {
+        "drugID": "8",
+        "drugName": "아스피린 1000mg",
+        "drugCode": "800",
+        "drugPcode": "JKLMNOPQ",
+        "drugCompany": "제약사F"
+    },
+    {
+        "drugID": "9",
+        "drugName": "아스피린 1100mg",
+        "drugCode": "900",
+        "drugPcode": "RSTUVWXY",
+        "drugCompany": "제약사G"
+    },
+    {
+        "drugID": "10",
+        "drugName": "아스피린 1200mg",
+        "drugCode": "1000",
+        "drugPcode": "Z0123456",
+        "drugCompany": "제약사H"
+    },
+    {
+        "drugID": "11",
+        "drugName": "아스피린 1300mg",
+        "drugCode": "1100",
+        "drugPcode": "789ABCDEF",
+        "drugCompany": "제약사I"
+    },
+    {
+        "drugID": "12",
+        "drugName": "아스피린 1400mg",
+        "drugCode": "1200",
+        "drugPcode": "GHIJKLMNOP",
+        "drugCompany": "제약사J"
+    },
+    {
+        "drugID": "13",
+        "drugName": "아스피린 1500mg",
+        "drugCode": "1300",
+        "drugPcode": "QRSTUVWXYZ",
+        "drugCompany": "제약사K"
+    },
+    {
+        "drugID": "14",
+        "drugName": "아스피린 1600mg",
+        "drugCode": "1400",
+        "drugPcode": "123456789",
+        "drugCompany": "제약사L"
+    },
+    {
+        "drugID": "15",
+        "drugName": "아스피린 1700mg",
+        "drugCode": "1500",
+        "drugPcode": "ABCDEFGHIJ",
+        "drugCompany": "제약사M"
+    },
+    {
+        "drugID": "16",
+        "drugName": "아스피린 1800mg",
+        "drugCode": "1600",
+        "drugPcode": "KLMNOPQRST",
+        "drugCompany": "제약사N"
+    },
+    {
+        "drugID": "17",
+        "drugName": "아스피린 1900mg",
+        "drugCode": "1700",
+        "drugPcode": "UVWXYZ0123",
+        "drugCompany": "동아제약"
+    },
+    {
+        "drugID": "18",
+        "drugName": "아스피린 2000mg",
+        "drugCode": "1800",
+        "drugPcode": "456789ABCDE",
+        "drugCompany": "제약사O"
+    },
+    {
+        "drugID": "19",
+        "drugName": "아스피린 2100mg",
+        "drugCode": "1900",
+        "drugPcode": "FGHIJKLMNOPQ",
+        "drugCompany": "제약사P"
+    },
+    {
+        "drugID": "20",
+        "drugName": "아스피린 2200mg",
+        "drugCode": "2000",
+        "drugPcode": "RSTUVWXYZAB",
+        "drugCompany": "제약사Q"
+    },
+    {
+        "drugID": "21",
+        "drugName": "아스피린 2300mg",
+        "drugCode": "2100",
+        "drugPcode": "CDEFGHIJKLMN",
+        "drugCompany": "제약사R"
+    },
+    {
+        "drugID": "22",
+        "drugName": "아스피린 2400mg",
+        "drugCode": "2200",
+        "drugPcode": "OPQRSTUVWXYZ",
+        "drugCompany": "제약사S"
+    },
+    {
+        "drugID": "23",
+        "drugName": "아스피린 2500mg",
+        "drugCode": "2300",
+        "drugPcode": "1234567890",
+        "drugCompany": "제약사T"
+    },
+    {
+        "drugID": "24",
+        "drugName": "아스피린 2600mg",
+        "drugCode": "2400",
+        "drugPcode": "ABCDEFGHIJKL",
+        "drugCompany": "제약사U"
+    },
+    {
+        "drugID": "25",
+        "drugName": "아스피린 2700mg",
+        "drugCode": "2500",
+        "drugPcode": "MNOPQRSTUVWXYZ",
+        "drugCompany": "제약사V"
+    },
+    {
+        "drugID": "26",
+        "drugName": "아스피린 2800mg",
+        "drugCode": "2600",
+        "drugPcode": "123456789A",
+        "drugCompany": "제약사W"
+    },
+    {
+        "drugID": "27",
+        "drugName": "아스피린 2900mg",
+        "drugCode": "2700",
+        "drugPcode": "BCDEFGHIJKLM",
+        "drugCompany": "제약사X"
+    },
+    {
+        "drugID": "28",
+        "drugName": "아스피린 3000mg",
+        "drugCode": "2800",
+        "drugPcode": "NOPQRSTUVWXYZ",
+        "drugCompany": "제약사Y"
+    },
+    {
+        "drugID": "29",
+        "drugName": "아스피린 3100mg",
+        "drugCode": "2900",
+        "drugPcode": "0123456789",
+        "drugCompany": "제약사Z"
+    },
+    {
+        "drugID": "30",
+        "drugName": "아스피린 3200mg",
+        "drugCode": "3000",
+        "drugPcode": "ABCDEFGHIJKLMNOP",
+        "drugCompany": "동아제약"
+    },
+    {
+        "drugID": "31",
+        "drugName": "아스피린 3300mg",
+        "drugCode": "3100",
+        "drugPcode": "QRSTUVWXYZABCD",
+        "drugCompany": "제약사AA"
+    },
+    {
+        "drugID": "33",
+        "drugName": "아스피린 3500mg",
+        "drugCode": "3300",
+        "drugPcode": "STUVWXYZABCDE",
+        "drugCompany": "제약사AC"
+    },
+{
+"drugID": "34",
+"drugName": "아스피린 3600mg",
+"drugCode": "3400",
+"drugPcode": "FGHIJKLMNOPQRS",
+"drugCompany": "제약사AD"
+},
+{
+"drugID": "35",
+"drugName": "아스피린 3700mg",
+"drugCode": "3500",
+"drugPcode": "TUVWXYZABCDEF",
+"drugCompany": "제약사AE"
+},
+{
+"drugID": "36",
+"drugName": "아스피린 3800mg",
+"drugCode": "3600",
+"drugPcode": "GHIJKLMNOPQRST",
+"drugCompany": "제약사AF"
+},
+{
+"drugID": "37",
+"drugName": "아스피린 3900mg",
+"drugCode": "3700",
+"drugPcode": "UVWXYZABCDEFG",
+"drugCompany": "제약사AG"
+},
+{
+"drugID": "38",
+"drugName": "아스피린 4000mg",
+"drugCode": "3800",
+"drugPcode": "HIJKLMNOPQRSTU",
+"drugCompany": "제약사AH"
+},
+{
+"drugID": "39",
+"drugName": "아스피린 4100mg",
+"drugCode": "3900",
+"drugPcode": "VWXYZABCDEFGHI",
+"drugCompany": "제약사AI"
+},
+{
+"drugID": "40",
+"drugName": "아스피린 4200mg",
+"drugCode": "4000",
+"drugPcode": "JKLMNOPQRSTUVW",
+"drugCompany": "제약사AJ"
+},
+{
+"drugID": "41",
+"drugName": "아스피린 4300mg",
+"drugCode": "4100",
+"drugPcode": "XYZABCDEFGHIJ",
+"drugCompany": "제약사AK"
+},
+{
+"drugID": "42",
+"drugName": "아스피린 4400mg",
+"drugCode": "4200",
+"drugPcode": "BCDEFGHIJKLMN",
+"drugCompany": "제약사AL"
+},
+{
+"drugID": "43",
+"drugName": "아스피린 4500mg",
+"drugCode": "4300",
+"drugPcode": "OPQRSTUVWXYZA",
+"drugCompany": "제약사AM"
+},
+{
+"drugID": "44",
+"drugName": "아스피린 4600mg",
+"drugCode": "4400",
+"drugPcode": "BCDEFGHIJKLMNO",
+"drugCompany": "제약사AN"
+},
+{
+"drugID": "45",
+"drugName": "아스피린 4700mg",
+"drugCode": "4500",
+"drugPcode": "PQRSTUVWXYZAB",
+"drugCompany": "제약사AO"
+},
+{
+"drugID": "46",
+"drugName": "아스피린 4800mg",
+"drugCode": "4600",
+"drugPcode": "CDEFGHIJKLMNOP",
+"drugCompany": "제약사AP"
+},
+{
+"drugID": "47",
+"drugName": "아스피린 4900mg",
+"drugCode": "4700",
+"drugPcode": "QRSTUVWXYZABC",
+"drugCompany": "제약사AQ"
+},
+{
+"drugID": "48",
+"drugName": "아스피린 5000mg",
+"drugCode": "4800",
+"drugPcode": "DEFGHIJKLMNOPQ",
+"drugCompany": "제약사AR"
+},
+{
+"drugID": "49",
+"drugName": "아스피린 5100mg",
+"drugCode": "4900",
+"drugPcode": "RSTUVWXYZABCD",
+"drugCompany": "제약사AS"
+},
+{
+"drugID": "50",
+"drugName": "아스피린 5200mg",
+"drugCode": "5000",
+"drugPcode": "EFGHIJKLMNOPQR",
+"drugCompany": "제약사AT"
+},
+{
+"drugID": "51",
+"drugName": "아스피린 5300mg",
+"drugCode": "5100",
+"drugPcode": "STUVWXYZABCDE",
+"drugCompany": "제약사AU"
+},
+{
+"drugID": "52",
+"drugName": "아스피린 5400mg",
+"drugCode": "5200",
+"drugPcode": "FGHIJKLMNOPQRS",
+"drugCompany": "제약사AV"
+},
+{
+"drugID": "53",
+"drugName": "아스피린 5500mg",
+"drugCode": "5300",
+"drugPcode": "TUVWXYZABCDEF",
+"drugCompany": "제약사AW"
+},
+{
+"drugID": "54",
+"drugName": "아스피린 5600mg",
+"drugCode": "5400",
+"drugPcode": "GHIJKLMNOPQRST",
+"drugCompany": "제약사AX"
+},
+{
+"drugID": "55",
+"drugName": "아스피린 5700mg",
+"drugCode": "5500",
+"drugPcode": "UVWXYZABCDEFG",
+"drugCompany": "제약사AY"
+},
+{
+"drugID": "56",
+"drugName": "아스피린 5800mg",
+"drugCode": "5600",
+"drugPcode": "HIJKLMNOPQRSTU",
+"drugCompany": "제약사AZ"
+},
+{
+"drugID": "57",
+"drugName": "아스피린 5900mg",
+"drugCode": "5700",
+"drugPcode": "VWXYZABCDEFGHI",
+"drugCompany": "동아제약"
+},
+{
+"drugID": "58",
+"drugName": "아스피린 6000mg",
+"drugCode": "5800",
+"drugPcode": "JKLMNOPQRSTUVW",
+"drugCompany": "제약사BA"
+},
+{
+"drugID": "59",
+"drugName": "아스피린 6100mg",
+"drugCode": "5900",
+"drugPcode": "XYZABCDEFGHIJ",
+"drugCompany": "제약사BB"
+},
+{
+"drugID": "60",
+"drugName": "아스피린 6200mg",
+"drugCode": "6000",
+"drugPcode": "BCDEFGHIJKLMN",
+"drugCompany": "제약사BC"
+},
+{
+"drugID": "61",
+"drugName": "아스피린 6300mg",
+"drugCode": "6100",
+"drugPcode": "OPQRSTUVWXYZA",
+"drugCompany": "제약사BD"
+},
+{
+"drugID": "62",
+"drugName": "아스피린 6400mg",
+"drugCode": "6200",
+"drugPcode": "BCDEFGHIJKLMNO",
+"drugCompany": "제약사BE"
+},
+{
+"drugID": "63",
+"drugName": "아스피린 6500mg",
+"drugCode": "6300",
+"drugPcode": "PQRSTUVWXYZAB",
+"drugCompany": "제약사BF"
+},
+{
+"drugID": "64",
+"drugName": "아스피린 6600mg",
+"drugCode": "6400",
+"drugPcode": "CDEFGHIJKLMNOP",
+"drugCompany": "제약사BG"
+}
+    ]   
+ 
