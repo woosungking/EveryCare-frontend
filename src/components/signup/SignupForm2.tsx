@@ -86,7 +86,7 @@ function SignupForm2({ category }: ISignup) {
             id="name"
             type="text"
             {...register('name')}
-            className="w-[85%] h-[3vh] shadow appearance-none  border border-black rounded py-2"
+            className="w-[85%] h-[3vh] shadow appearance-none  border border-black rounded py-2 p-1"
           />
         </div>
       </div>
@@ -136,7 +136,7 @@ function SignupForm2({ category }: ISignup) {
             {...register('birth')}
             placeholder="'YYYYMMDD' 8자리로 입력해주세요"
             onChange={inputBrith}
-            className="w-[85%] h-[3vh] shadow appearance-none  border border-black rounded py-2 mb-6"
+            className="w-[85%] h-[3vh] shadow appearance-none  border border-black rounded py-2 mb-6 p-1"
           />
         </div>
       </div>

@@ -12,13 +12,12 @@ const PillNextText: React.FC<{ headText: string; contentText: string }> = ({
 }) => {
   return (
     <div className={`${exStyle} flex font-extrabold`}>
-      <img
-        src={PillImg}
-        className={`${imgStyle}ml-3 mt-[5px] w-[35px] h-[35px]`}
-      />
-      <div className={`${inStyle} flex flex-col ml-3 mt-1 text-left`}>
-        <p className="h-[20px] w-[100%] text-[20px] text-aligin item-center">{headText}</p>
-        <p className="h-[10px] w-[100%] text-gray-500 font-abel text-sm font-normal">
+      <img src={PillImg} className={`${imgStyle} w-[42px] h-[42px]`} />
+      <div className={`${inStyle} flex flex-col ml-3 text-left`}>
+        <p className="h-[20px] w-[100%] text-[20px] text-xl item-center mb-2">
+          {headText}
+        </p>
+        <p className="h-[10px] w-[100%] text-gray-500 font-abel text-base font-normal">
           {contentText}
         </p>
       </div>

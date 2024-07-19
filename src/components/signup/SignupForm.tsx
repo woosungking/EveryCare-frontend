@@ -32,6 +32,7 @@ function SignupForm() {
       const options = [
         `${id}@naver.com`,
         `${id}@gmail.com`,
+        `${id}@daum.net`,
         `${id}@hanmail.net`,
       ];
       setEmailOptions(options);
@@ -94,7 +95,7 @@ function SignupForm() {
             {...register('id', { required: '아이디를 입력해주세요.' })}
             placeholder="이메일 형식으로 작성해주세요."
             onChange={handleIdChange}
-            className="w-[85%] h-[3vh] shadow appearance-none border border-black rounded py-2"
+            className="w-[85%] h-[3vh] shadow appearance-none border border-black rounded py-2 p-1"
           />
 
           {emailOptions.length > 0 && (
@@ -120,7 +121,7 @@ function SignupForm() {
         >
           비밀번호
         </label>
-        <div className="relative flex justify-center w-[85%] h-[3vh] shadow appearance-none border border-black rounded mx-auto">
+        <div className="relative flex justify-center w-[85%] h-[3vh] shadow appearance-none border border-black rounded mx-auto p-1">
           <input
             id="password"
             type={showPassword ? 'text' : 'password'}
@@ -144,7 +145,7 @@ function SignupForm() {
         >
           비밀번호 확인
         </label>
-        <div className="relative flex justify-center w-[85%] h-[3vh] shadow appearance-none border border-black rounded mx-auto">
+        <div className="relative flex justify-center w-[85%] h-[3vh] shadow appearance-none border border-black rounded mx-auto p-1">
           <input
             id="password_confirm"
             type={showPassword ? 'text' : 'password'}

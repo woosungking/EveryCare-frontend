@@ -112,7 +112,7 @@ const DirectRegister: React.FC = () => {
     console.log('주기, 총 합 : ', intakeCycle, intakeDaily);
   };
   return (
-    <div className="h-[83vh] w-100% items-center overflow-scroll">
+    <div className="h-[86vh] w-100% items-center overflow-auto">
       <div className="flex h-[25vh] w-[100%]">
         <div className="flex flex-col w-full h-[30%] mt-[12%]">
           {!selectedSick ? (
@@ -142,7 +142,7 @@ const DirectRegister: React.FC = () => {
               />
               {sickConfirm ? (
                 <div className="relative w-[90%]">
-                  <p className="inline-block overflow-x-scroll w-[70%] h-[40px] text-2xl text-gray-700 font-bold">
+                  <p className="inline-block w-[70%] h-[40px] text-2xl text-gray-700 font-bold">
                     {disease}
                   </p>
                   <button
@@ -159,7 +159,7 @@ const DirectRegister: React.FC = () => {
                     type="text"
                     value={disease}
                     onChange={handleSickInputChange}
-                    className="h-[40px] w-[70%] rounded-xl border border-black text-gray-700 bg-white text-lg "
+                    className="h-[40px] w-[70%] rounded-xl border border-black text-gray-700 bg-white text-lg p-2"
                     placeholder="질병명을 입력해주세요."
                   />
                   <button
@@ -205,7 +205,7 @@ const DirectRegister: React.FC = () => {
               />
               {hosConfirm ? (
                 <div className="relative w-[90%]">
-                  <p className="inline-block overflow-x-scroll w-[70%] h-[40px] text-2xl text-gray-700 font-bold">
+                  <p className="inline-block w-[70%] h-[40px] text-2xl text-gray-700 font-bold">
                     {hospital}
                   </p>
                   <button
@@ -222,7 +222,7 @@ const DirectRegister: React.FC = () => {
                     type="text"
                     value={hospital}
                     onChange={handleHosInputChange}
-                    className="inline-block h-[40px] w-[70%] rounded-xl border border-black text-gray-700 bg-white text-lg"
+                    className="inline-block h-[40px] w-[70%] rounded-xl border border-black text-gray-700 bg-white text-lg p-2"
                     placeholder="병원명을 입력해주세요."
                   />
                   <button
@@ -343,7 +343,7 @@ const DirectRegister: React.FC = () => {
             <div>
               {selectedSick ? (
                 <div className="flex justify-center items-center h-[6vh] mt-[1vh]">
-                  <div className="w-[40%] h-[35px] flex justify-center rounded-2xl border-blue-200 border-[1px] text-gray-500 text-[8px] inline-block m-auto ml-auto">
+                  <div className="w-[40%] h-[35px] flex justify-center rounded-2xl border-blue-200 border-[1px] text-gray-500 text-[8px] m-auto ml-auto">
                     <input
                       type="number"
                       min="1"
@@ -357,7 +357,7 @@ const DirectRegister: React.FC = () => {
                       회 섭취
                     </button>
                   </div>
-                  <div className="w-[40%] h-[35px] flex justify-center rounded-2xl border-blue-200 border-[1px] text-gray-500 text-[8px] inline-block mr-auto">
+                  <div className="w-[40%] h-[35px] flex justify-center rounded-2xl border-blue-200 border-[1px] text-gray-500 text-[8px] mr-auto">
                     <input
                       type="number"
                       min="1"
@@ -378,12 +378,14 @@ const DirectRegister: React.FC = () => {
         </div>
       </div>
 
-      <SaveBtn
-        onClick={handleSubmitData}
-        className="h-[3.5vh] w-[40%] text-white bg-blue-600 text-sm font-bold"
-      >
-        저장하기
-      </SaveBtn>
+      <div className="flex justify-center">
+        <button
+          className="justify-center h-[35px] w-[50%] rounded-2xl text-white bg-blue-300 text-base font-bold"
+          onClick={() => handleRedirect('/direct-register')}
+        >
+          저장하기
+        </button>
+      </div>
     </div>
   );
 };

@@ -130,7 +130,7 @@ const PillSearch: React.FC = () => {
     handleRedirect('/pill-register');
   };
   return (
-    <div className="overflow-y-scroll h-[83vh] mb-20">
+    <div className="overflow-auto h-[83vh] mb-20">
       <div className="w-[100%] relative flex justify-center mt-4">
         <input
           type="text"
@@ -152,7 +152,7 @@ const PillSearch: React.FC = () => {
         <span className="text-red-600 ml-2">{countDrug}</span>
       </div>
       {/* <hr className="border-none h-px w-[95%] bg-gray-500 m-auto mb-[3px]" /> */}
-      <ul className="w-[100%] h-[50vh] overflow-y-scroll">
+      <ul className="w-[100%] h-[50vh]">
         {searchedDrugData &&
           searchedDrugData.map((medicine, index) => (
             <li
