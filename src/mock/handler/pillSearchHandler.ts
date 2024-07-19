@@ -13,16 +13,16 @@ export const pillSearchHandler = [
       console.log('msw... drugData : ', drugData);
       console.log('msw... dataType : ', typeof drugData);
       console.log('pillSearchHandler End. ..');
-      return HttpResponse.json({ drugData });
+      return HttpResponse.json({ data: drugData });
     } else if (drugName === '아스피린') {
       const drugData = await pillSearchDummy2;
       console.log('pillSearchHandler...');
       console.log('msw... drugData : ', drugData);
       console.log('msw... dataType : ', typeof drugData);
       console.log('pillSearchHandler End. ..');
-      return HttpResponse.json({ drugData });
+      return HttpResponse.json({ data: drugData });
     } else {
-      console.log("Unknown drugName:", drugName);
+      console.log('Unknown drugName:', drugName);
       return HttpResponse.json({ error: 'Invalid drug name' }, { status: 400 });
     }
   }),

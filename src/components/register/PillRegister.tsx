@@ -64,17 +64,22 @@ const PillRegister: React.FC = () => {
     setIntakeCycle,
   } = useContext(RegisterContext);
 
-  useEffect(() => {
-    console.log('context값 변경');
-    console.log(
-      disease,
-      hospital,
-      startDate,
-      endDate,
-      intakeCycle,
-      intakeDaily,
-    );
-  }, [disease, hospital, startDate, endDate, intakeCycle, intakeDaily]);
+  // useEffect(() => {
+  //   console.log('context값 변경');
+  //   console.log(
+  //     disease,
+  //     hospital,
+  //     startDate,
+  //     endDate,
+  //     intakeCycle,
+  //     intakeDaily,
+  //   );
+  // }, [disease, hospital, startDate, endDate, intakeCycle, intakeDaily]);
+
+  // useEffect(() => {
+  //   console.log('업데이트된 savedDrug(렌더링):', savedDrug);
+  // }, [savedDrug]); //다음 랜더링 주기에 반영이 되므로 useEffect로 확인
+
   const [selectedBtn, setSelectedBtn] = useState<string | null>(null);
   const [selectedStartDateBtn, setSelectedStartDateBtn] = useState<
     string | null
@@ -132,9 +137,6 @@ const PillRegister: React.FC = () => {
     console.log('기존:', temp);
     setSavedDrug(temp);
   };
-  useEffect(() => {
-    console.log('업데이트된 savedDrug:', savedDrug);
-  }, [savedDrug]); //다음 랜더링 주기에 반영이 되므로 useEffect로 확인
   const nevigate = useNavigate();
   const handleRedirect = (path) => {
     console.log('pill-search page redirect...');
