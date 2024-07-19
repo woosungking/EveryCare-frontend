@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import Prescription from '../../assets/register/Prescription.png';
 import PillNextText from './PillNextText';
 import BackBtn from './button/BackBtn';
-
+import { useSearchDrug } from '../../service/queries';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -12,52 +12,10 @@ import './CustomDatePicker.css';
 import InputBtn from '../../components/register/button/InputBtn';
 import SaveBtn from '../../components/register/button/SaveBtn';
 import AddPillModal from './AddPillModal';
-
+import { formatDate } from '../../utils/date';
 import axios from 'axios';
 import { RegisterContext } from './context/RegisterContext';
-
-const formatDate = (date: string[]) => {
-  switch (date[1]) {
-    case 'Jan':
-      date[1] = '01';
-      break;
-    case 'Feb':
-      date[1] = '02';
-      break;
-    case 'Mar':
-      date[1] = '03';
-      break;
-    case 'Apr':
-      date[1] = '04';
-      break;
-    case 'May':
-      date[1] = '05';
-      break;
-    case 'Jun':
-      date[1] = '06';
-      break;
-    case 'Jul':
-      date[1] = '07';
-      break;
-    case 'Aug':
-      date[1] = '08';
-      break;
-    case 'Sep':
-      date[1] = '09';
-      break;
-    case 'Oct':
-      date[1] = '10';
-      break;
-    case 'Nov':
-      date[1] = '11';
-      break;
-    case 'Dec':
-      date[1] = '12';
-      break;
-  }
-  const formatedDate = date[3] + '-' + date[1] + '-' + date[2];
-  return formatedDate;
-};
+import { searchDrug } from '../../service/searchDrug';
 
 const ScanConfirm: React.FC = () => {
   const formatStartDate = (formatedDate) => {
@@ -83,7 +41,7 @@ const ScanConfirm: React.FC = () => {
       drugCompany: '',
     }));
 
-    setSaveMediData(parsedDrugData);
+    setSaveDrugData(parsedDrugData);
     setIntakeCycle(OCRData.intakeCycle);
     formatStartDate(OCRData.intakeStart);
     formatEndDate(OCRData.intakeEnd);
@@ -103,7 +61,7 @@ const ScanConfirm: React.FC = () => {
     drugCompany: string;
     check: boolean;
   }
-  const [mediData, setMediData] = useState<DrugData>([]);
+  const [drugData, setDrugData] = useState<DrugData>([]);
 
   const changeInputBox = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -111,56 +69,63 @@ const ScanConfirm: React.FC = () => {
     console.log('입력중...');
   };
 
-  const searchMedi = () => {
-    //서버로 inputValue값 넘길 로직 작성
-    if (inputValue.trim() == '') {
-      alert('감색어를 입력하세요!!');
-      // 스페이스 같은 짓 못하도록 trim() 을 사용해서 공백문자 줄바꿈 제거 후 검증
-      return;
-    }
-    console.log('전송중,,');
-    console.log(inputValue);
-    axios
-      .get(`http://127.0.0.1:8000/test/${inputValue}`)
-      .then((response) => {
-        const data = response.data;
-        console.log('서버로 부터 응답 data : ', data);
-        console.log(typeof data);
-        console.log('서버 응답:', response.data);
-        setMediData(response.data.drugName);
-      })
-      .catch((error) =>
-        console.error('서버로 데이터를 보내는데 실패했습니다:', error),
-      );
+  // const searchMedi = () => {
+  //   //서버로 inputValue값 넘길 로직 작성
+  //   if (inputValue.trim() == '') {
+  //     alert('감색어를 입력하세요!!');
+  //     // 스페이스 같은 짓 못하도록 trim() 을 사용해서 공백문자 줄바꿈 제거 후 검증
+  //     return;
+  //   }
+  //   console.log('전송중,,');
+  //   console.log(inputValue);
+  //   axios
+  //     .get(`http://127.0.0.1:8000/test/${inputValue}`)
+  //     .then((response) => {
+  //       const data = response.data;
+  //       console.log('서버로 부터 응답 data : ', data);
+  //       console.log(typeof data);
+  //       console.log('서버 응답:', response.data.data);
+  //       console.log('서버 응답:', response.data.data[0].drugName);
+  //       const temp = response.data.data.map((drugList) => drugList);
+  //       setDrugData(temp);
+  //     })
+  //     .catch((error) =>
+  //       console.error('서버로 데이터를 보내는데 실패했습니다:', error),
+  //     );
+  // };
+  const { drugData: searchData } = useSearchDrug(inputValue); // useSearchDrug 훅 사용
+
+  const searchMedi = () => { // 모달창에서 약 추가.
+    console.log('응답해라 ', searchData);
   };
 
-  const [saveMediData, setSaveMediData] = useState<DrugData[]>([]);
+  const [saveDrugData, setSaveDrugData] = useState<DrugData[]>([]);
   const handleCheckboxChange = (index: number) => {
-    const updatedMediData = [...mediData];
-    updatedMediData[index].check = !updatedMediData[index].check;
+    const updatedDrugData = [...drugData];
+    updatedDrugData[index].check = !updatedDrugData[index].check;
     console.log(index);
-    if (updatedMediData[index].check) {
+    if (updatedDrugData[index].check) {
       console.log('체크박스 체크');
-      setSaveMediData([...saveMediData, updatedMediData[index]]);
-      console.log(saveMediData);
+      setSaveDrugData([...saveDrugData, updatedDrugData[index]]);
+      console.log(saveDrugData);
     } else {
-      const updatedSaveMediData = saveMediData.filter(
-        (item) => item.drugID !== updatedMediData[index].drugID,
+      const updatedSaveDrugData = saveDrugData.filter(
+        (item) => item.drugID !== updatedDrugData[index].drugID,
       ); // 일치하지 않는것은 저장을 안하고 일치하는것만 남겨서 update배열에 새로 저장, 중괄호가 없으면 boolean으로
       console.log('체크박스 해제');
-      setSaveMediData(updatedSaveMediData);
+      setSaveDrugData(updatedSaveDrugData);
     }
 
-    setMediData(updatedMediData);
+    setDrugData(updatedDrugData);
   };
 
   const handleDeleteList = (drugName: string) => {
-    const updatedMediData = [...saveMediData]; // 기존 저장배열을 받아옴
-    const updatedSaveMediData = updatedMediData.filter((item) => {
+    const updatedDrugData = [...saveDrugData]; // 기존 저장배열을 받아옴
+    const updatedSaveDrugData = updatedDrugData.filter((item) => {
       return item.drugName !== drugName;
     });
-    setSaveMediData(updatedSaveMediData);
-    console.log(saveMediData);
+    setSaveDrugData(updatedSaveDrugData);
+    console.log(saveDrugData);
   };
 
   const [showModal, setShowModal] = useState(false);
@@ -171,7 +136,7 @@ const ScanConfirm: React.FC = () => {
 
   const handleCloseModal = () => {
     setShowModal(false);
-    setMediData([]);
+    setDrugData([]);
   };
 
   const [startDate, setStartDate] = useState<string | null>(null);
@@ -241,12 +206,12 @@ const ScanConfirm: React.FC = () => {
   const [dataSubmit, setDataSubmit] = useState<submitData | boolean>(false);
 
   useEffect(() => {
-    console.log('동작 중....', startDate);
-    console.log('동작 중....', endDate);
-    console.log('admlamsdlkmaklsdmklasm', imgURL);
-    setShowedDrugCount(saveMediData.length);
+    // console.log('동작 중....', startDate);
+    // console.log('동작 중....', endDate);
+    // console.log('admlamsdlkmaklsdmklasm', imgURL);
+    setShowedDrugCount(saveDrugData.length);
     if (dataSubmit) {
-      const drugCode = saveMediData.map((item) => item.drugCode);
+      const drugCode = saveDrugData.map((item) => item.drugCode);
       axios
         .put('http://127.0.0.1:8000/test/', {
           drugCode: drugCode,
@@ -268,7 +233,7 @@ const ScanConfirm: React.FC = () => {
     hospital,
     intakeCycle,
     intakeDaily,
-    saveMediData,
+    saveDrugData,
     startDate,
   ]);
 
@@ -304,7 +269,7 @@ const ScanConfirm: React.FC = () => {
           {/* //추가, 수정 소 버튼의 위치를 상대적으로 지정하기 위해 div로 한번 감싸주었음. */}
           <PillNextText className="absolute" headText="처방약품"></PillNextText>
           <ul className="flex m-auto w-[90%] h-[10vh] flex-wrap overflow-y-scroll bg-blue-50 rounded-[15px]">
-            {saveMediData.map((medicine) => (
+            {saveDrugData.map((medicine) => (
               <li className="w-[46%] h-[2.5vh] flex mt-[23px] ml-[0.8rem] border border-gray-500 rounded-[15px] justify-center items-center text-[0.8rem] text-gray-500 relative pt-4 pb-4 pr-4">
                 <p className="flex-1 m-0 overflow-hidden whitespace-nowrap text-ellipsis">
                   {medicine.drugName}
@@ -359,7 +324,7 @@ const ScanConfirm: React.FC = () => {
                   </tr>
                 </thead>
                 <tbody className="w-[100%] bg-white h-[80%] overflow-y-scroll">
-                  {mediData.map((medicine, index) => (
+                  {drugData.map((medicine, index) => (
                     <tr
                       className="border border-gray-200 relative"
                       key={medicine.drugID}
