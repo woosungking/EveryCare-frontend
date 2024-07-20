@@ -6,6 +6,7 @@ import './CustomDatePicker.css';
 import ReactDatePicker from 'react-datepicker';
 import CalendarImg from '../../assets/calendar.png';
 import { useNavigate } from 'react-router';
+import InputBtn from './button/InputBtn';
 const ListStyle = {
   width: '46%',
   height: '2.5vh',
@@ -165,12 +166,14 @@ const PillRegister: React.FC = () => {
             </li>
           ))}
         </ul>
-        <SaveBtn
-          className="h-[35px] w-[80%] mb-[10px] border-blue-200 border-2 text-blue-500 bg-white text-sm font-bold"
-          onClick={() => handleRedirect('/pill-search')}
-        >
-          추가하기
-        </SaveBtn>
+        <div className="w-[100%] flex">
+          <InputBtn
+            className="m-auto h-[35px] w-[80%]"
+            onClick={() => handleRedirect('/pill-search')}
+          >
+            추가하기
+          </InputBtn>
+        </div>
       </div>
       <div className="w-[100%] h-[22vh]">
         <div className="mt-[3vh] ml-[5%] mb-[2%]">
@@ -275,13 +278,13 @@ const PillRegister: React.FC = () => {
           ></ReactDatePicker>
         </div>
       </div>
-      <div className="flex justify-center">
-        <button
-          className="justify-center h-[35px] w-[40%] rounded-xl text-white bg-blue-300 text-base font-bold"
+      <div className="w-[100%] h-[15vh] flex flex-col justify-center">
+        <SaveBtn
+          className="m-auto h-[35px] w-[50%]"
           onClick={() => handleRedirect('/direct-register')}
         >
           저장하기
-        </button>
+        </SaveBtn>
       </div>
     </div>
   );
