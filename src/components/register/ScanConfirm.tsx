@@ -14,7 +14,7 @@ import SaveBtn from '../../components/register/button/SaveBtn';
 import AddPillModal from './AddPillModal';
 import { formatDate } from '../../utils/date';
 import axios from 'axios';
-import { RegisterContext } from './context/RegisterContext';
+import { RegisterContext } from '../../context/RegisterContext';
 import { searchDrug } from '../../service/searchDrug';
 
 const ScanConfirm: React.FC = () => {
@@ -69,35 +69,35 @@ const ScanConfirm: React.FC = () => {
     console.log('입력중...');
   };
 
-  // const searchMedi = () => {
-  //   //서버로 inputValue값 넘길 로직 작성
-  //   if (inputValue.trim() == '') {
-  //     alert('감색어를 입력하세요!!');
-  //     // 스페이스 같은 짓 못하도록 trim() 을 사용해서 공백문자 줄바꿈 제거 후 검증
-  //     return;
-  //   }
-  //   console.log('전송중,,');
-  //   console.log(inputValue);
-  //   axios
-  //     .get(`http://127.0.0.1:8000/test/${inputValue}`)
-  //     .then((response) => {
-  //       const data = response.data;
-  //       console.log('서버로 부터 응답 data : ', data);
-  //       console.log(typeof data);
-  //       console.log('서버 응답:', response.data.data);
-  //       console.log('서버 응답:', response.data.data[0].drugName);
-  //       const temp = response.data.data.map((drugList) => drugList);
-  //       setDrugData(temp);
-  //     })
-  //     .catch((error) =>
-  //       console.error('서버로 데이터를 보내는데 실패했습니다:', error),
-  //     );
-  // };
-  const { drugData: searchData } = useSearchDrug(inputValue); // useSearchDrug 훅 사용
-
-  const searchMedi = () => { // 모달창에서 약 추가.
-    console.log('응답해라 ', searchData);
+  const searchMedi = () => {
+    //서버로 inputValue값 넘길 로직 작성
+    if (inputValue.trim() == '') {
+      alert('감색어를 입력하세요!!');
+      // 스페이스 같은 짓 못하도록 trim() 을 사용해서 공백문자 줄바꿈 제거 후 검증
+      return;
+    }
+    console.log('전송중,,');
+    console.log(inputValue);
+    axios
+      .get(`http://127.0.0.1:8000/test/${inputValue}`)
+      .then((response) => {
+        const data = response.data;
+        console.log('서버로 부터 응답 data : ', data);
+        console.log(typeof data);
+        console.log('서버 응답:', response.data.data);
+        console.log('서버 응답:', response.data.data[0].drugName);
+        const temp = response.data.data.map((drugList) => drugList);
+        setDrugData(temp);
+      })
+      .catch((error) =>
+        console.error('서버로 데이터를 보내는데 실패했습니다:', error),
+      );
   };
+  // const { drugData: searchData } = useSearchDrug(inputValue); // useSearchDrug 훅 사용
+
+  // const searchMedi = () => { // 모달창에서 약 추가.
+  //   console.log('응답해라 ', searchData);
+  // };
 
   const [saveDrugData, setSaveDrugData] = useState<DrugData[]>([]);
   const handleCheckboxChange = (index: number) => {
@@ -253,7 +253,7 @@ const ScanConfirm: React.FC = () => {
     <>
       <BackBtn text="처방전 확인"></BackBtn>
 
-      <div className="w-[453px] h-[88vh] text-center margin-0 mt-0 overflow-y-scroll">
+      <div className="w-[100%] h-[80vh] text-center margin-0 mt-0 overflow-y-scroll">
         <img
           src={imgURL}
           className="h-[30%] w-[80%] m-[auto] mt-[10px] mb-[0] pt-[2vh]"
@@ -265,10 +265,14 @@ const ScanConfirm: React.FC = () => {
           등록한 처방전에서 개인정보는 저장되지 않습니다.
         </p>
 
-        <div className="w-[100%] h-[15vh] relative mb-[0] ml-[1vh] mt-[0.8rem]">
+        <div className="w-[100%] h-[15vh] relative mb-[0] mt-[0.8rem]">
           {/* //추가, 수정 소 버튼의 위치를 상대적으로 지정하기 위해 div로 한번 감싸주었음. */}
-          <PillNextText className="absolute" headText="처방약품"></PillNextText>
-          <ul className="flex m-auto w-[90%] h-[10vh] flex-wrap overflow-y-scroll bg-blue-50 rounded-[15px]">
+          <PillNextText
+            imgStyle="ml-[1vh]"
+            headText="처방약품"
+            contentText="처방 받으신 약이 맞으신가요 ?"
+          ></PillNextText>
+          <ul className="flex m-auto mt-[3vh] w-[90%] h-[10vh] flex-wrap overflow-y-scroll bg-blue-50 rounded-[15px]">
             {saveDrugData.map((medicine) => (
               <li className="w-[46%] h-[2.5vh] flex mt-[23px] ml-[0.8rem] border border-gray-500 rounded-[15px] justify-center items-center text-[0.8rem] text-gray-500 relative pt-4 pb-4 pr-4">
                 <p className="flex-1 m-0 overflow-hidden whitespace-nowrap text-ellipsis">
@@ -359,15 +363,16 @@ const ScanConfirm: React.FC = () => {
           >
             추가
           </button>
-          <p className="absolute text-[12px] left-[28%] top-[10%] text-[orange]">
-            {showedDrugCount}개
-          </p>
         </div>
 
-        <div className="h-[15vh] w-[100%] ml-[1vh] mt-[2vh]">
-          <PillNextText headText="복용기간"></PillNextText>
+        <div className="h-[15vh] w-[100%] mt-[8vh]">
+          <PillNextText
+            imgStyle="ml-[1vh]"
+            headText="복용기간"
+            contentText="복용 시작일과 종료일을 입력해주세요"
+          ></PillNextText>
 
-          <div className="flex w-[100%] h-[6.4%] justify-center">
+          <div className="flex w-[100%] h-[6.4%] mt-[4vh] justify-center">
             <DatePicker
               className="date-picker-input"
               showIcon
@@ -403,8 +408,9 @@ const ScanConfirm: React.FC = () => {
           </div>
         </div>
 
-        <div className="h-[20vh] w-[100%] ml-[1vh] mt-[3vh]">
+        <div className="h-[20vh] w-[100%] mt-[8vh]">
           <PillNextText
+            imgStyle="ml-[1vh]"
             headText="복약횟수"
             contentText="하루에 몇번 복약 하시나요"
           ></PillNextText>
@@ -440,69 +446,104 @@ const ScanConfirm: React.FC = () => {
               </div>
             ) : null}
           </div>
-
-          <InputBtn
-            onClick={handleShowIntakeCycle}
-            className="w-[80%] h-[30px] text-[16px] p-[1vh] flex items-center justify-center text-center]"
-          >
-            주기입력
-          </InputBtn>
+          <div className="w-[100%] h-[10vh] mt-[1vh]">
+            {showIntakeCycle ? (
+              <InputBtn
+                onClick={handleShowIntakeCycle}
+                className="w-[80%] h-[30px] mt-[3vh]"
+              >
+                확인
+              </InputBtn>
+            ) : (
+              <InputBtn
+                onClick={handleShowIntakeCycle}
+                className="w-[80%] h-[30px] mt-[3vh]"
+              >
+                주기입력
+              </InputBtn>
+            )}
+          </div>
         </div>
 
-        <div className="h-[20vh] w-[100%] ml-[1vh] mt-[3vh]">
+        <div className="h-[20vh] w-[100%] mt-[3vh]">
           <PillNextText
+            imgStyle="ml-[1vh]"
             headText="처방병원"
             contentText="어느 병원에서 처방받으셨나요"
           ></PillNextText>
           {showHospital ? (
-            <div className="flex flex-col bg-blue-50 justify-center aligin-center h-[30px] w-[70%] mt-[1rem] border-blue-200 border-[1px] text-gray-500 m-auto">
+            <div className="flex flex-col justify-center aligin-center h-[30px] w-[80%] mt-[1rem] rounded-2xl border-blue-200 border-[1px] m-auto">
               <input
                 type="text"
-                className="w-[70%] h-[80%] bg-blue-50 m-auto text-center"
+                className="w-[70%] h-[80%] m-auto text-center"
                 placeholder="병원을 입력 해 주세요"
                 value={hospital}
                 onChange={handleHospital}
               />
             </div>
           ) : null}
-
-          <InputBtn
-            onClick={handleShowHospital}
-            className="w-[80%] h-[30px] text-[16px] p-[1vh] flex items-center justify-center text-center]"
-          >
-            병원입력
-          </InputBtn>
+          <div className="w-[100%] h-[10vh] mt-[3.5vh]">
+            {showHospital ? (
+              <InputBtn
+                onClick={handleShowHospital}
+                className="w-[80%] h-[30px]]"
+              >
+                확인
+              </InputBtn>
+            ) : (
+              <InputBtn
+                onClick={handleShowHospital}
+                className="w-[80%] h-[30px]]"
+              >
+                병원입력
+              </InputBtn>
+            )}
+          </div>
         </div>
 
-        <div className="w-[100%] h-[20vh] ml-[1vh] mt-[5vh] relative">
+        <div className="w-[100%] h-[20vh] mt-[5vh] relative">
           <PillNextText
+            imgStyle="ml-[1vh]"
             headText="질환이름"
             contentText="어떤 질환으로 약을 복용하시나요"
           ></PillNextText>
           {showDisease ? (
-            <div className="bg-blue-50 flex flex-col justify-center aligin-center h-[30px] w-[70%] mt-[1rem] border-blue-200 border-[1px] text-gray-500 m-auto">
+            <div className="flex flex-col justify-center aligin-center h-[30px] w-[80%] mt-[1rem] rounded-2xl border-blue-200 border-[1px] m-auto">
               <input
                 type="text"
-                className="bg-blue-50 w-[70%] h-[80%] m-auto text-center"
+                className="w-[70%] h-[80%] m-auto text-center"
                 placeholder="질병을 입력 해 주세요."
                 value={disease}
                 onChange={handleDisease}
               />
             </div>
           ) : null}
-          <InputBtn
-            onClick={handleShowDisease}
-            className="w-[80%] h-[30px] text-[16px] p-[1vh] flex items-center justify-center text-center]"
-          >
-            질병입력
-          </InputBtn>
+          <div className="w-[100%] h-[10vh] mt-[3vh]">
+            {showDisease ? (
+              <InputBtn
+                onClick={handleShowDisease}
+                className="w-[80%] h-[30px]]"
+              >
+                확인
+              </InputBtn>
+            ) : (
+              <InputBtn
+                onClick={handleShowDisease}
+                className="w-[80%] h-[30px]]"
+              >
+                질병입력
+              </InputBtn>
+            )}
+          </div>
         </div>
-        <SaveBtn
-          className="w-[80%] h-[30px] text-[16px] p-[1vh] flex items-center justify-center text-center] mb-[20px]"
-          onClick={handleDataSubmit}
-        >
-          저장하기
-        </SaveBtn>
+        <div className="w-[100%] h-[15vh] flex flex-col justify-center">
+          <SaveBtn
+            className="m-auto h-[35px] w-[50%]"
+            onClick={() => handleRedirect('/direct-register')}
+          >
+            저장하기
+          </SaveBtn>
+        </div>
       </div>
     </>
   );

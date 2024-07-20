@@ -46,7 +46,7 @@ const NavBar: React.FC = () => {
         }}
       ></Link>
       <Link
-        to="/pill-search"
+        to="/pill-info-search"
         style={{
           ...NavContentStyle,
           backgroundImage: `url(${Search})`,

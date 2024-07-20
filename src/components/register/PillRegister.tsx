@@ -1,42 +1,12 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import PillNextText from '../../components/register/PillNextText';
 import SaveBtn from './button/SaveBtn';
-import { RegisterContext } from './context/RegisterContext';
+import { RegisterContext } from '../../context/RegisterContext';
 import './CustomDatePicker.css';
 import ReactDatePicker from 'react-datepicker';
 import CalendarImg from '../../assets/calendar.png';
 import { useNavigate } from 'react-router';
-const ListStyle = {
-  width: '46%',
-  height: '2.5vh',
-  display: 'flex',
-  marginTop: '10px',
-  marginLeft: '0.8rem',
-  border: '1px solid gray',
-  borderRadius: '15px',
-  justifyContent: 'center', // 수평 가운데 정렬
-  alignItems: 'center', // 수직 가운데 정렬
-  fontSize: '0.8rem',
-  color: 'gray',
-  position: 'relative',
-  paddingTop: '1rem',
-  paddingBottom: '1rem',
-  paddingRight: '1rem',
-  textAligin: 'center',
-};
-const deleteBtnStyle = {
-  width: '1rem',
-  height: '1rem',
-  border: '1px solid #F5F5F5',
-  borderRadius: '10px',
-  fontSize: '1rem',
-  color: '#F56132',
-  backgroundColor: 'rgba(217, 217, 217, 0.58)',
-  position: 'absolute',
-  right: '1%',
-  top: '18%',
-  fontWeight: 'bold',
-};
+import InputBtn from './button/InputBtn';
 
 const MediNameStyle = {
   flex: 1, // p 태그가 가능한 너비를 차지하도록 설정합니다.
@@ -143,7 +113,7 @@ const PillRegister: React.FC = () => {
     nevigate(path);
   };
   return (
-    <div className="h-[79vh] overflow-auto">
+    <div className="h-[79vh] overflow-y-auto">
       <div className="w-[100%] h-[22vh]">
         <div className="mt-[3vh] ml-[5%] mb-[2%]">
           <PillNextText
@@ -151,26 +121,30 @@ const PillRegister: React.FC = () => {
             contentText="복용하시는 약이 맞으신가요?"
           ></PillNextText>
         </div>
-        <ul className="flex m-auto h-[5vh] flex-wrap overflow-y-scroll">
-          {savedDrug.map((showedDrug) => (
-            <li style={ListStyle}>
-              <p style={MediNameStyle}>{showedDrug.drugName}</p>
+        {savedDrug.length ? (
+          <ul className="flex m-auto h-[10vh] flex-wrap overflow-y-scroll">
+            {savedDrug.map((showedDrug) => (
+              <li className="w-[46%] h-[2.5vh] flex mt-2 ml-2 border border-gray-500 rounded-xl justify-center items-center text-sm text-gray-500 relative pt-4 pb-4 pr-4 text-center">
+                <p style={MediNameStyle}>{showedDrug.drugName}</p>
 
-              <button
-                style={deleteBtnStyle}
-                onClick={() => handleDeleteList(showedDrug.drugName)}
-              >
-                -
-              </button>
-            </li>
-          ))}
-        </ul>
-        <SaveBtn
-          className="h-[35px] w-[80%] mb-[10px] border-blue-200 border-2 text-blue-500 bg-white text-sm font-bold"
-          onClick={() => handleRedirect('/pill-search')}
-        >
-          추가하기
-        </SaveBtn>
+                <button
+                  className="w-4 h-4 border border-[#F5F5F5] rounded-[10px] text-[1rem] text-[#F56132] bg-[rgba(217, 217, 217, 0.58)] absolute right-[1%] top-[18%] font-bold"
+                  onClick={() => handleDeleteList(showedDrug.drugName)}
+                >
+                  -
+                </button>
+              </li>
+            ))}
+          </ul>
+        ) : null}
+        <div className="w-[100%] flex">
+          <InputBtn
+            className={`${savedDrug.length ? 'm-auto h-[35px] w-[80%]' : 'm-auto mt-[30px] h-[35px] w-[80%]'}`}
+            onClick={() => handleRedirect('/pill-search')}
+          >
+            추가하기
+          </InputBtn>
+        </div>
       </div>
       <div className="w-[100%] h-[22vh]">
         <div className="mt-[3vh] ml-[5%] mb-[2%]">
@@ -275,13 +249,13 @@ const PillRegister: React.FC = () => {
           ></ReactDatePicker>
         </div>
       </div>
-      <div className="flex justify-center">
-        <button
-          className="justify-center h-[35px] w-[40%] rounded-xl text-white bg-blue-300 text-base font-bold"
+      <div className="w-[100%] h-[15vh] flex flex-col justify-center">
+        <SaveBtn
+          className="m-auto h-[35px] w-[50%]"
           onClick={() => handleRedirect('/direct-register')}
         >
           저장하기
-        </button>
+        </SaveBtn>
       </div>
     </div>
   );

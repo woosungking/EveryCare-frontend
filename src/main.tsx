@@ -14,9 +14,10 @@ import PillSearchPage from './pages/register/PillSearchPage';
 import PillRegisterPage from './pages/register/PillRegisterPage';
 import CalendarPage from './pages/calendar/CalendarPage';
 import MainPg from './pages/mainPage/MainPg';
-import { RegisterContextProvider } from './components/register/context/RegisterContext';
+import { RegisterContextProvider } from './context/RegisterContext';
 import { server } from './mocks/server';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import PillInfoSearchPage from './pages/pillinfosearch/PillInfoSearchPage';
 const queryClient = new QueryClient();
 
 async function enableMocking() {
@@ -48,6 +49,10 @@ enableMocking().then(() => {
               <Route path="/pill-search" element={<PillSearchPage />} />
               <Route path="/pill-register" element={<PillRegisterPage />} />
               <Route path="/calendar" element={<CalendarPage />} />
+              <Route
+                path="/pill-info-search"
+                element={<PillInfoSearchPage />}
+              />
             </Routes>
           </Router>
         </RegisterContextProvider>

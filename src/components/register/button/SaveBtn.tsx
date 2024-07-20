@@ -10,7 +10,7 @@ interface SaveBtnProps {
 const SaveBtn: React.FC<SaveBtnProps> = ({ children, className, onClick }) => {
   return (
     <button
-      className={`rounded-2xl block mx-auto mt-4 ${className}`}
+      className={`justify-center rounded-2xl text-white bg-blue-300 text-base font-bold ${className}`}
       onClick={onClick}
     >
       {children}

@@ -1,13 +1,12 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import SearchIcon from '../../assets/SearchIc.png';
-import PillNextText from './PillNextText';
+import PillNextText from '../register/PillNextText';
 import axios from 'axios';
-import SaveBtn from './button/SaveBtn';
+import SaveBtn from '../register/button/SaveBtn';
 import { RegisterContext } from '../../context/RegisterContext';
 import { useNavigate } from 'react-router';
-import { parseJSON } from 'date-fns';
 
-const PillSearch: React.FC = () => {
+const PillInfoSearch: React.FC = () => {
   const nevigate = useNavigate();
   const handleRedirect = (path) => {
     console.log('pill-search page redirect...');
@@ -167,20 +166,17 @@ const PillSearch: React.FC = () => {
                 className="hidden"
                 value={JSON.stringify(medicine)} // 서버로 보내줄때 약 이름을 주기로 해서 이름을 저장했음.
                 ref={(element) => (checkboxRefs.current[index] = element)}
-                // element는 React 컴포넌트 내에서 해당 DOM 요소에 대한 참조를 나타내는 매개변수입니다. 이 매개변수는 일반적으로 DOM 요소 자체를 나타내며,
-                // ref={checkboxRefs}
-                // ref={checkboxRefs.current[index]}
               />
             </li>
           ))}
       </ul>
       <div className="w-[100%] h-[15vh] flex flex-col justify-center">
         <SaveBtn className="m-auto h-[35px] w-[50%]" onClick={saveDrug}>
-          저장하기
+          검색하기
         </SaveBtn>
       </div>
     </div>
   );
 };
 
-export default PillSearch;
+export default PillInfoSearch;
