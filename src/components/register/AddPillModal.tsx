@@ -1,5 +1,7 @@
 import React from 'react';
 import OkBtn from '../../components/button/Btn3';
+import SaveBtn from './button/SaveBtn';
+
 // import './AddPillModal.css';
 
 interface ModalProps {
@@ -30,7 +32,7 @@ const ModalContentStyle = {
 const AddPillModal: React.FC<ModalProps> = ({
   showModal, // 모달 랜더링을 현제 컴포넌트에서 하니까 메인 컴포넌트에 useState를 인자로 받아옴.
   onClose, // onClick이 일어났을때 함수를 실행해야 하므로 메인 컴포넌트에 onClose함수를 실행한다고 알려줘야 함으로 메인컴포넌트의 onClose함수를 인자로 받아옴.
-           // onClose={handleCloseModal 의 실행을 위해
+  // onClose={handleCloseModal 의 실행을 위해
   children,
 }) => {
   if (!showModal) {
@@ -41,12 +43,9 @@ const AddPillModal: React.FC<ModalProps> = ({
     <div style={ModalStyle} onClick={onClose} className="shadow-lg">
       <div style={ModalContentStyle} onClick={(e) => e.stopPropagation()}>
         {children}
-        <OkBtn
-          className="bg-white border-sky-200 border-[1px] text-[16px] text-gray-600 "
-          onClick={onClose}
-        >
+        <SaveBtn className="h-[35px] w-[50%]" onClick={onClose}>
           저장하기
-        </OkBtn>
+        </SaveBtn>
       </div>
     </div>
   );

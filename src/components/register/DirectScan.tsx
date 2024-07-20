@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router';
 import {
   RegisterContext,
   RegisterContextProvider,
-} from './context/RegisterContext';
+} from '../../context/RegisterContext';
 
 const DirectScan: React.FC = () => {
   const { OCRData, setOCRData, imgURL, setImgURL } =
@@ -40,6 +40,7 @@ const DirectScan: React.FC = () => {
             {
               headers: {
                 'Content-Type': 'multipart/form-data',
+                // "Authorization": "Bearer {apiToken}"  이부분은 무엇을 의미하는지 ?
               },
             },
           );
@@ -50,6 +51,7 @@ const DirectScan: React.FC = () => {
             intakeCycle: response.data.data[0].intakeCycle,
             hospital: response.data.data[0].hospital,
             disease: response.data.data[0].disease,
+            // drugID 이 부분은 상태관리에 추가 후 추후 반영
           });
           const reader = new FileReader();
           reader.onload = async function (event) {
