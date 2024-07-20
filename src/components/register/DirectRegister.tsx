@@ -9,6 +9,7 @@ import DatePicker from 'react-datepicker';
 import './CustomDatePicker.css';
 import CalendarImg from '../../assets/calendar.png';
 import SaveBtn from './button/SaveBtn';
+import InputBtn from './button/InputBtn';
 const DirectRegister: React.FC = () => {
   const { OCRData, setOCRData } = useContext(RegisterContext);
   useEffect(() => {
@@ -59,7 +60,17 @@ const DirectRegister: React.FC = () => {
     setDisease(event.target.value);
     console.log(event.target.value);
   };
-
+  const [clickedDateBtn, setClickedDateBtn] = useState<boolean>(false);
+  const onClickDate = () => {
+    if (clickedDateBtn) {
+      setClickedDateBtn(false);
+      return;
+    } else setClickedDateBtn(true);
+  };
+  const [clickedCycleBtn, setClickedCycleBtn] = useState<boolean>(false);
+  const onClickCycle = () => {
+    setClickedCycleBtn((pre) => !pre);
+  };
   const onClickHos = () => {
     setSelectedHos(true);
     setHosConfirm(false);
@@ -125,13 +136,9 @@ const DirectRegister: React.FC = () => {
                 어떤 질병으로 약을 복용하시나요?
               </p>
               <div className="flex justify-center m-auto w-full mt-[5vh]">
-                <button
-                  name="sick"
-                  onClick={onClickSick}
-                  className="w-[50%] h-[37px] border-2 rounded-3xl text-lg border-blue-200 text-blue-500 bg-white hover:bg-blue-200 hover:text-white"
-                >
+                <InputBtn className="w-[50%] h-[37px]" onClick={onClickSick}>
                   질병 입력
-                </button>
+                </InputBtn>
               </div>
             </>
           ) : (
@@ -188,13 +195,9 @@ const DirectRegister: React.FC = () => {
                 처방 받으신 병원을 입력해주세요.
               </p>
               <div className="flex justify-center w-full mt-[5vh]">
-                <button
-                  name="hospital"
-                  onClick={onClickHos}
-                  className="w-[50%] h-[37px] border-2 rounded-3xl text-lg border-blue-200 text-blue-500 bg-white hover:bg-blue-200 hover:text-white"
-                >
+                <InputBtn className="w-[50%] h-[37px]" onClick={onClickHos}>
                   병원 입력
-                </button>
+                </InputBtn>
               </div>
             </>
           ) : (
@@ -247,27 +250,25 @@ const DirectRegister: React.FC = () => {
             복용하실 약을 입력해주세요.
           </p>
           <div className="flex justify-center space-x-7 mt-[5vh]">
-            <button
-              name="medicine"
+            <InputBtn
+              className="w-[38%] h-[37px]"
               onClick={() => handleRedirect('/pill-search')}
-              className="w-[38%] h-[37px] border-2 rounded-3xl text-lg border-blue-200 text-blue-500 bg-white hover:bg-blue-200 hover:text-white"
             >
               약 입력
-            </button>
-            <button
-              name="medicine"
+            </InputBtn>
+            <InputBtn
+              className="w-[38%] h-[37px]"
               onClick={() => handleRedirect('/pill-register')}
-              className="w-[38%] h-[37px] border-2 rounded-3xl text-lg border-blue-200 text-blue-500 bg-white hover:bg-blue-200 hover:text-white"
             >
               입력 확인
-            </button>
+            </InputBtn>
           </div>
         </div>
       </div>
       <hr className="border-1 border-gray-300 m-auto w-[85%]" />
       <div className="w-[100%] h-[22vh]">
         <div className="flex flex-col h-[30%] mt-[12%]">
-          {!selectedHos ? (
+          {!clickedDateBtn ? (
             <>
               <p className="text-3xl w-[50%] font-black mb-[2%] ml-[5%]">
                 복용일
@@ -275,54 +276,61 @@ const DirectRegister: React.FC = () => {
               <p className="text-base text-gray-500 ml-[5%]">
                 복용 시작일과 종료일을 입력해주세요.
               </p>
-              <div className="flex justify-center w-full mt-[5vh]">
-                <button
-                  name="hospital"
-                  onClick={onClickHos}
-                  className="w-[50%] h-[37px] border-2 rounded-3xl text-lg border-blue-200 text-blue-500 bg-white hover:bg-blue-200 hover:text-white"
-                >
-                  복용일 입력
-                </button>
-              </div>
             </>
           ) : (
-            <div className="flex justify-center space-x-6 mt-10 mr-7">
-              <DatePicker
-                selected={startDate}
-                className="date-picker-input2"
-                showIcon
-                dateFormat="yyyy-MM-dd"
-                placeholderText="시작일"
-                onChange={handleStartDate}
-                icon={
-                  <img
-                    src={CalendarImg} // 외부 이미지의 URL을 지정합니다.
-                    className="date-picker-img"
-                  />
-                }
-              ></DatePicker>
-              <DatePicker
-                selected={endDate}
-                className="date-picker-input2"
-                showIcon
-                dateFormat="yyyy-MM-dd"
-                placeholderText="죵료일"
-                onChange={handleEndDate}
-                icon={
-                  <img
-                    src={CalendarImg} // 외부 이미지의 URL을 지정합니다.
-                    className="date-picker-img"
-                  />
-                }
-              ></DatePicker>
-            </div>
+            <>
+              <div className="flex justify-center space-x-6 mt-2 mr-7">
+                <DatePicker
+                  selected={startDate}
+                  className="date-picker-input2"
+                  showIcon
+                  dateFormat="yyyy-MM-dd"
+                  placeholderText="시작일"
+                  onChange={handleStartDate}
+                  icon={
+                    <img
+                      src={CalendarImg} // 외부 이미지의 URL을 지정합니다.
+                      className="date-picker-img"
+                    />
+                  }
+                ></DatePicker>
+                <DatePicker
+                  selected={endDate}
+                  className="date-picker-input2"
+                  showIcon
+                  dateFormat="yyyy-MM-dd"
+                  placeholderText="죵료일"
+                  onChange={handleEndDate}
+                  icon={
+                    <img
+                      src={CalendarImg} // 외부 이미지의 URL을 지정합니다.
+                      className="date-picker-img"
+                    />
+                  }
+                ></DatePicker>
+              </div>
+            </>
           )}
+          <div className="flex justify-center h-[10vh] w-full mt-[5vh]">
+            {clickedDateBtn ? (
+              <InputBtn
+                className="w-[50%] h-[37px] mb-[105px]"
+                onClick={onClickDate}
+              >
+                확인
+              </InputBtn>
+            ) : (
+              <InputBtn className="w-[50%] h-[37px]" onClick={onClickDate}>
+                복용일 입력
+              </InputBtn>
+            )}
+          </div>
         </div>
       </div>
       <hr className="border-1 border-gray-300 m-auto w-[85%]" />
       <div className="flex h-[27vh] w-[100%]">
         <div className="flex flex-col w-full h-[30%] mt-[12%]">
-          {!selectedSick ? (
+          {!clickedCycleBtn ? (
             <>
               <p className="text-3xl w-[50%] font-black ml-[5%] mb-[2%]">
                 복용주기
@@ -330,52 +338,52 @@ const DirectRegister: React.FC = () => {
               <p className="text-base w-[90%] text-gray-500 ml-[5%]">
                 하루에 몇번, 몇일 간격으로 드시나요 ?
               </p>
-              <div className="flex justify-center m-auto w-full mt-[5vh]">
-                <button
-                  name="sick"
-                  onClick={onClickSick}
-                  className="w-[50%] h-[37px] border-2 rounded-3xl text-lg border-blue-200 text-blue-500 bg-white hover:bg-blue-200 hover:text-white"
-                >
-                  주기 입력
-                </button>
-              </div>
             </>
           ) : (
             <div>
-              {selectedSick ? (
-                <div className="flex justify-center items-center h-[6vh] mt-[1vh]">
-                  <div className="w-[40%] h-[35px] flex justify-center rounded-2xl border-blue-200 border-[1px] text-gray-500 text-[8px] m-auto ml-auto">
-                    <input
-                      type="number"
-                      min="1"
-                      max="100"
-                      placeholder="ex)1"
-                      className="text-[14px] text-right"
-                      onChange={handleIntakeDaily}
-                      value={intakeDaily}
-                    />
-                    <button className="w-[30%] text-blue-400 text-xs text-left font-bold">
-                      회 섭취
-                    </button>
-                  </div>
-                  <div className="w-[40%] h-[35px] flex justify-center rounded-2xl border-blue-200 border-[1px] text-gray-500 text-[8px] mr-auto">
-                    <input
-                      type="number"
-                      min="1"
-                      max="100"
-                      placeholder="ex)0"
-                      className="text-[14px] text-right"
-                      onChange={handleIntakeCycle}
-                      value={intakeCycle}
-                    />
-                    <button className="w-[30%] text-blue-400 text-xs text-left font-bold">
-                      일 간격
-                    </button>
-                  </div>
+              <div className="flex justify-center items-center h-[6vh] mt-[1vh]">
+                <div className="w-[40%] h-[35px] flex justify-center rounded-2xl border-blue-200 border-[1px] text-gray-500 text-[8px] m-auto ml-auto">
+                  <input
+                    type="number"
+                    min="1"
+                    max="100"
+                    placeholder="ex)1"
+                    className="text-[14px] text-right"
+                    onChange={handleIntakeDaily}
+                    value={intakeDaily}
+                  />
+                  <button className="w-[30%] text-blue-400 text-xs text-left font-bold">
+                    회 섭취
+                  </button>
                 </div>
-              ) : null}
+                <div className="w-[40%] h-[35px] flex justify-center rounded-2xl border-blue-200 border-[1px] text-gray-500 text-[8px] mr-auto">
+                  <input
+                    type="number"
+                    min="1"
+                    max="100"
+                    placeholder="ex)0"
+                    className="text-[14px] text-right"
+                    onChange={handleIntakeCycle}
+                    value={intakeCycle}
+                  />
+                  <button className="w-[30%] text-blue-400 text-xs text-left font-bold">
+                    일 간격
+                  </button>
+                </div>
+              </div>
             </div>
           )}
+          <div className="flex justify-center m-auto w-full mt-[5vh]">
+            {!clickedCycleBtn ? (
+              <InputBtn className="w-[50%] h-[37px]" onClick={onClickCycle}>
+                주기입력
+              </InputBtn>
+            ) : (
+              <InputBtn className="w-[50%] h-[37px]" onClick={onClickCycle}>
+                확인
+              </InputBtn>
+            )}
+          </div>
         </div>
       </div>
       <hr className="border-1 border-gray-300 m-auto w-[85%] mt-[10px]" />
