@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router';
 import {
   RegisterContext,
   RegisterContextProvider,
-} from './context/RegisterContext';
+} from '../../context/RegisterContext';
 
 const DirectScan: React.FC = () => {
   const { OCRData, setOCRData, imgURL, setImgURL } =

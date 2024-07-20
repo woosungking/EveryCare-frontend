@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import PillNextText from '../../components/register/PillNextText';
 import SaveBtn from './button/SaveBtn';
-import { RegisterContext } from './context/RegisterContext';
+import { RegisterContext } from '../../context/RegisterContext';
 import './CustomDatePicker.css';
 import ReactDatePicker from 'react-datepicker';
 import CalendarImg from '../../assets/calendar.png';

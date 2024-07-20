@@ -14,7 +14,7 @@ import SaveBtn from '../../components/register/button/SaveBtn';
 import AddPillModal from './AddPillModal';
 import { formatDate } from '../../utils/date';
 import axios from 'axios';
-import { RegisterContext } from './context/RegisterContext';
+import { RegisterContext } from '../../context/RegisterContext';
 import { searchDrug } from '../../service/searchDrug';
 
 const ScanConfirm: React.FC = () => {

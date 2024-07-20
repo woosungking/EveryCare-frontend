@@ -4,7 +4,7 @@ import RegisterSick from '../../assets/register/RegisterSick.svg';
 import RegisterHos from '../../assets/register/RegisterHospital.svg';
 import { useNavigate } from 'react-router-dom';
 // import CustomHr from '../CustomHr';
-import { RegisterContext } from './context/RegisterContext';
+import { RegisterContext } from '../../context/RegisterContext';
 import DatePicker from 'react-datepicker';
 import './CustomDatePicker.css';
 import CalendarImg from '../../assets/calendar.png';

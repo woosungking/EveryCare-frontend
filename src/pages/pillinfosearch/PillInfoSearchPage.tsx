@@ -1,26 +1,21 @@
 import React from 'react';
-import DirectScan from '../../components/register/DirectScan';
 import BackLayout from '../../components/BackLayout';
 import CenterLayout from '../../components/CenterLayout';
-import SmallLogo from '../../assets/SmallLogo.png';
 import NavBar from '../../components/NavBar';
-import { RegisterContextProvider } from '../../context/RegisterContext';
+import PillInfoSearch from '../../components/pillinfosearch/PillInfoSearch';
+import SmallLogo from '../../assets/SmallLogo.png';
 
-const DirectScanPage: React.FC = () => {
-  const LogoStyle = {
-    width: '30%',
-    marginTop: '3%',
-    marginLeft: '3%',
-  };
+const PillInfoSearchPage: React.FC = () => {
+
   return (
     <BackLayout>
       <CenterLayout margin="m-auto">
         <img src={SmallLogo} alt="Small Logo" className="w-1/3 mt-3 ml-3" />
-        <DirectScan></DirectScan>
+        <PillInfoSearch></PillInfoSearch>
         <NavBar></NavBar>
       </CenterLayout>
     </BackLayout>
   );
 };
 
-export default DirectScanPage;
+export default PillInfoSearchPage;
