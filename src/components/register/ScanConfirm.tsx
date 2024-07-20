@@ -267,8 +267,12 @@ const ScanConfirm: React.FC = () => {
 
         <div className="w-[100%] h-[15vh] relative mb-[0] mt-[0.8rem]">
           {/* //추가, 수정 소 버튼의 위치를 상대적으로 지정하기 위해 div로 한번 감싸주었음. */}
-          <PillNextText exStyle="w-[100%]" headText="처방약품"></PillNextText>
-          <ul className="flex m-auto w-[90%] h-[10vh] flex-wrap overflow-y-scroll bg-blue-50 rounded-[15px]">
+          <PillNextText
+            imgStyle="ml-[1vh]"
+            headText="처방약품"
+            contentText="처방 받으신 약이 맞으신가요 ?"
+          ></PillNextText>
+          <ul className="flex m-auto mt-[3vh] w-[90%] h-[10vh] flex-wrap overflow-y-scroll bg-blue-50 rounded-[15px]">
             {saveDrugData.map((medicine) => (
               <li className="w-[46%] h-[2.5vh] flex mt-[23px] ml-[0.8rem] border border-gray-500 rounded-[15px] justify-center items-center text-[0.8rem] text-gray-500 relative pt-4 pb-4 pr-4">
                 <p className="flex-1 m-0 overflow-hidden whitespace-nowrap text-ellipsis">
@@ -359,15 +363,16 @@ const ScanConfirm: React.FC = () => {
           >
             추가
           </button>
-          <p className="absolute text-[12px] left-[28%] top-[10%] text-[orange]">
-            {showedDrugCount}개
-          </p>
         </div>
 
-        <div className="h-[15vh] w-[100%] mt-[2vh]">
-          <PillNextText exStyle="w-[100%]" headText="복용기간"></PillNextText>
+        <div className="h-[15vh] w-[100%] mt-[8vh]">
+          <PillNextText
+            imgStyle="ml-[1vh]"
+            headText="복용기간"
+            contentText="복용 시작일과 종료일을 입력해주세요"
+          ></PillNextText>
 
-          <div className="flex w-[100%] h-[6.4%] justify-center">
+          <div className="flex w-[100%] h-[6.4%] mt-[4vh] justify-center">
             <DatePicker
               className="date-picker-input"
               showIcon
@@ -403,9 +408,9 @@ const ScanConfirm: React.FC = () => {
           </div>
         </div>
 
-        <div className="h-[20vh] w-[100%] mt-[3vh]">
+        <div className="h-[20vh] w-[100%] mt-[8vh]">
           <PillNextText
-            exStyle="w-[100%]"
+            imgStyle="ml-[1vh]"
             headText="복약횟수"
             contentText="하루에 몇번 복약 하시나요"
           ></PillNextText>
@@ -441,18 +446,28 @@ const ScanConfirm: React.FC = () => {
               </div>
             ) : null}
           </div>
-
-          <InputBtn
-            onClick={handleShowIntakeCycle}
-            className="w-[80%] h-[30px] text-[16px] p-[1vh] flex items-center justify-center text-center]"
-          >
-            주기입력
-          </InputBtn>
+          <div className="w-[100%] h-[10vh] mt-[1vh]">
+            {showIntakeCycle ? (
+              <InputBtn
+                onClick={handleShowIntakeCycle}
+                className="w-[80%] h-[30px] mt-[3vh]"
+              >
+                확인
+              </InputBtn>
+            ) : (
+              <InputBtn
+                onClick={handleShowIntakeCycle}
+                className="w-[80%] h-[30px] mt-[3vh]"
+              >
+                주기입력
+              </InputBtn>
+            )}
+          </div>
         </div>
 
         <div className="h-[20vh] w-[100%] mt-[3vh]">
           <PillNextText
-            exStyle="w-[100%]"
+            imgStyle="ml-[1vh]"
             headText="처방병원"
             contentText="어느 병원에서 처방받으셨나요"
           ></PillNextText>
@@ -467,18 +482,28 @@ const ScanConfirm: React.FC = () => {
               />
             </div>
           ) : null}
-
-          <InputBtn
-            onClick={handleShowHospital}
-            className="w-[80%] h-[30px] text-[16px] p-[1vh] flex items-center justify-center text-center"
-          >
-            병원입력
-          </InputBtn>
+          <div className="w-[100%] h-[10vh] mt-[3.5vh]">
+            {showHospital ? (
+              <InputBtn
+                onClick={handleShowHospital}
+                className="w-[80%] h-[30px]]"
+              >
+                확인
+              </InputBtn>
+            ) : (
+              <InputBtn
+                onClick={handleShowHospital}
+                className="w-[80%] h-[30px]]"
+              >
+                병원입력
+              </InputBtn>
+            )}
+          </div>
         </div>
 
         <div className="w-[100%] h-[20vh] mt-[5vh] relative">
           <PillNextText
-            exStyle="w-[100%]"
+            imgStyle="ml-[1vh]"
             headText="질환이름"
             contentText="어떤 질환으로 약을 복용하시나요"
           ></PillNextText>
@@ -493,19 +518,32 @@ const ScanConfirm: React.FC = () => {
               />
             </div>
           ) : null}
-          <InputBtn
-            onClick={handleShowDisease}
-            className="w-[80%] h-[30px] text-[16px] p-[1vh] flex items-center justify-center text-center]"
-          >
-            질병입력
-          </InputBtn>
+          <div className="w-[100%] h-[10vh] mt-[3vh]">
+            {showDisease ? (
+              <InputBtn
+                onClick={handleShowDisease}
+                className="w-[80%] h-[30px]]"
+              >
+                확인
+              </InputBtn>
+            ) : (
+              <InputBtn
+                onClick={handleShowDisease}
+                className="w-[80%] h-[30px]]"
+              >
+                질병입력
+              </InputBtn>
+            )}
+          </div>
         </div>
-        <SaveBtn
-          className="w-[80%] h-[30px] text-[16px] p-[1vh] flex items-center justify-center text-center] mb-[20px]"
-          onClick={handleDataSubmit}
-        >
-          저장하기
-        </SaveBtn>
+        <div className="w-[100%] h-[15vh] flex flex-col justify-center">
+          <SaveBtn
+            className="m-auto h-[35px] w-[50%]"
+            onClick={() => handleRedirect('/direct-register')}
+          >
+            저장하기
+          </SaveBtn>
+        </div>
       </div>
     </>
   );

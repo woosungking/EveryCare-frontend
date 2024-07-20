@@ -82,6 +82,7 @@ const DirectRegister: React.FC = () => {
   const navigate = useNavigate();
 
   const handleRedirect = (path) => {
+    console.log(path, 'redirecting ...');
     navigate(path);
   };
 
@@ -377,14 +378,15 @@ const DirectRegister: React.FC = () => {
           )}
         </div>
       </div>
+      <hr className="border-1 border-gray-300 m-auto w-[85%] mt-[10px]" />
 
-      <div className="flex justify-center">
-        <button
-          className="justify-center h-[35px] w-[50%] rounded-2xl text-white bg-blue-300 text-base font-bold"
+      <div className="w-[100%] h-[15vh] flex flex-col justify-center">
+        <SaveBtn
+          className="m-auto h-[35px] w-[50%]"
           onClick={() => handleRedirect('/direct-register')}
         >
           저장하기
-        </button>
+        </SaveBtn>
       </div>
     </div>
   );
