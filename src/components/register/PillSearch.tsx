@@ -88,7 +88,7 @@ const PillSearch: React.FC = () => {
       alert('검색어를 입력해 주세요!');
       return;
     }
-
+    console.log('기존 약 내용', savedDrug);
     const updatedDrugs = [...savedDrug]; // 기존 저장된 약 데이터 복사
     for (let i = 0; i < checkboxRefs.current.length; i++) {
       const temp = checkboxRefs.current[i]?.checked;
@@ -118,7 +118,7 @@ const PillSearch: React.FC = () => {
         const data = response.data;
         console.log('서버로 부터 응답 data : ', data);
         console.log(typeof data);
-        setSearchedDrugData(response.data.drugData);
+        setSearchedDrugData(response.data.data);
       })
       .catch((error) =>
         console.error('서버로 데이터를 보내는데 실패했습니다:', error),
@@ -130,7 +130,7 @@ const PillSearch: React.FC = () => {
     handleRedirect('/pill-register');
   };
   return (
-    <div className="overflow-auto h-[83vh] mb-20">
+    <div className="overflow-auto h-[80vh] mb-20">
       <div className="w-[100%] relative flex justify-center mt-4">
         <input
           type="text"
@@ -152,7 +152,7 @@ const PillSearch: React.FC = () => {
         <span className="text-red-600 ml-2">{countDrug}</span>
       </div>
       {/* <hr className="border-none h-px w-[95%] bg-gray-500 m-auto mb-[3px]" /> */}
-      <ul className="w-[100%] h-[50vh]">
+      <ul className="w-[100%] h-[50vh] overflow-auto">
         {searchedDrugData &&
           searchedDrugData.map((medicine, index) => (
             <li
