@@ -10,6 +10,7 @@ import './CustomDatePicker.css';
 import CalendarImg from '../../assets/calendar.png';
 import SaveBtn from './button/SaveBtn';
 import InputBtn from './button/InputBtn';
+
 const DirectRegister: React.FC = () => {
   const { OCRData, setOCRData } = useContext(RegisterContext);
   useEffect(() => {
