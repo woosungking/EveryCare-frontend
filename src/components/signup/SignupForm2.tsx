@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 interface ISignup {
-  category: 'Man' | 'Women';
+  category: 'M' | 'F';
 }
 
 interface SignupData {
@@ -99,22 +99,22 @@ function SignupForm2({ category }: ISignup) {
           성별
         </label>
         <div className="flex justify-center space-x-10">
-          {category !== 'Man' && (
+          {category !== 'M' && (
             <button
-              name="Man"
+              name="M"
               type="button"
               onClick={onClick}
-              className={`w-[38%] h-[3vh] border border-black text-black py-2 px-4 rounded ${selectedGender === 'Man' ? 'bg-blue-400' : 'hover:bg-blue-200'}`}
+              className={`w-[38%] h-[3vh] border border-black text-black py-2 px-4 rounded ${selectedGender === 'M' ? 'bg-blue-400' : 'hover:bg-blue-200'}`}
             >
               남자
             </button>
           )}
-          {category !== 'Women' && (
+          {category !== 'F' && (
             <button
-              name="Women"
+              name="F"
               type="button"
               onClick={onClick}
-              className={`w-[38%] h-[3vh] border border-black text-black py-2 px-4 rounded ${selectedGender === 'Women' ? 'bg-pink-400' : 'hover:bg-pink-200'}`}
+              className={`w-[38%] h-[3vh] border border-black text-black py-2 px-4 rounded ${selectedGender === 'F' ? 'bg-pink-400' : 'hover:bg-pink-200'}`}
             >
               여자
             </button>

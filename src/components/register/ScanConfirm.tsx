@@ -94,8 +94,8 @@ const ScanConfirm: React.FC = () => {
       );
   };
   // const { drugData: searchData } = useSearchDrug(inputValue); // useSearchDrug 훅 사용
-
-  // const searchMedi = () => { // 모달창에서 약 추가.
+  // const searchMedi = () => {
+  //   // 모달창에서 약 추가.
   //   console.log('응답해라 ', searchData);
   // };
 
@@ -417,7 +417,7 @@ const ScanConfirm: React.FC = () => {
           <div>
             {showIntakeCycle ? (
               <div className="flex justify-center items-center h-[6vh] mt-[1vh]">
-                <div className="w-[30%] h-[30px] flex justify-center items-center bg-blue-50 border-blue-200 border-[1px] text-gray-500 text-[8px] inline-block m-auto ml-auto mr-[1vh]">
+                <div className="w-[30%] h-[30px] flex justify-center items-center bg-blue-50 border-blue-200 border-[1px] text-gray-500 text-[8px] inline-block m-auto ml-auto mr-[2vh]">
                   <input
                     type="number"
                     min="1"
@@ -430,7 +430,7 @@ const ScanConfirm: React.FC = () => {
                     회 섭취
                   </button>
                 </div>
-                <div className="w-[30%] h-[30px] flex justify-center items-center bg-blue-50 border-blue-200 border-[1px] text-gray-500 text-[8px] inline-block mr-auto ml-[1vh]">
+                <div className="w-[30%] h-[30px] flex justify-center items-center bg-blue-50 border-blue-200 border-[1px] text-gray-500 text-[8px] inline-block mr-auto ml-[2vh]">
                   <input
                     type="number"
                     min="1"
@@ -472,7 +472,7 @@ const ScanConfirm: React.FC = () => {
             contentText="어느 병원에서 처방받으셨나요"
           ></PillNextText>
           {showHospital ? (
-            <div className="flex flex-col justify-center aligin-center h-[30px] w-[80%] mt-[1rem] rounded-2xl border-blue-200 border-[1px] m-auto">
+            <div className="flex flex-col justify-center aligin-center h-[30px] w-[80%] mt-[2rem] rounded-2xl border-blue-200 border-[1px] m-auto">
               <input
                 type="text"
                 className="w-[70%] h-[80%] m-auto text-center"
@@ -508,7 +508,7 @@ const ScanConfirm: React.FC = () => {
             contentText="어떤 질환으로 약을 복용하시나요"
           ></PillNextText>
           {showDisease ? (
-            <div className="flex flex-col justify-center aligin-center h-[30px] w-[80%] mt-[1rem] rounded-2xl border-blue-200 border-[1px] m-auto">
+            <div className="flex flex-col justify-center aligin-center h-[30px] w-[80%] mt-[2rem] rounded-2xl border-blue-200 border-[1px] m-auto">
               <input
                 type="text"
                 className="w-[70%] h-[80%] m-auto text-center"
